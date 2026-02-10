@@ -38,12 +38,12 @@ Each phase produces a working increment that can be independently tested:
 **Goal**: Configure email service and set up project infrastructure
 
 **Tasks**:
-- [ ] T001 Choose and install email service dependency (Resend recommended) in physioai/package.json
-- [ ] T002 Create email sending utility in physioai/lib/email.ts with sendVerificationEmail and sendPasswordResetEmail functions
-- [ ] T003 Create token generation/validation utility in physioai/lib/tokens.ts with generateToken, hashToken, and verifyToken functions
-- [ ] T004 Create rate limiting utility in physioai/lib/rate-limiter.ts with checkRateLimit and resetRateLimit functions
-- [ ] T005 Add environment variables for email service to physioai/.env.local.example (EMAIL_SERVICE, EMAIL_FROM, EMAIL_API_KEY)
-- [ ] T006 Create email template directory at physioai/templates/emails/ with verification-email.html and reset-password-email.html
+- [X] T001 Choose and install email service dependency (Resend recommended) in physioai/package.json
+- [X] T002 Create email sending utility in physioai/lib/email.ts with sendVerificationEmail and sendPasswordResetEmail functions
+- [X] T003 Create token generation/validation utility in physioai/lib/tokens.ts with generateToken, hashToken, and verifyToken functions
+- [X] T004 Create rate limiting utility in physioai/lib/rate-limiter.ts with checkRateLimit and resetRateLimit functions
+- [X] T005 Add environment variables for email service to physioai/.env.local.example (EMAIL_SERVICE, EMAIL_FROM, EMAIL_API_KEY)
+- [X] T006 Create email template directory at physioai/templates/emails/ with verification-email.html and reset-password-email.html
 
 **Parallel opportunities**: T001, T005, T006 can be done in parallel
 
@@ -54,10 +54,10 @@ Each phase produces a working increment that can be independently tested:
 **Goal**: Update User model with authentication fields and methods
 
 **Tasks**:
-- [ ] T007 Update IUser interface in physioai/types/models.ts to add emailVerified, verificationToken, verificationTokenExpires, resetPasswordToken, resetPasswordTokenExpires, lastLoginAt, failedLoginAttempts, and lockUntil fields
-- [ ] T008 Update User schema in physioai/models/User.ts with new fields for email verification and password reset
-- [ ] T009 Add indexes to User schema for verificationToken and resetPasswordToken in physioai/models/User.ts
-- [ ] T010 Add methods to User schema: generateVerificationToken, generateResetToken, verifyEmail, isLocked, recordFailedLogin, resetFailedLoginAttempts in physioai/models/User.ts
+- [X] T007 Update IUser interface in physioai/types/models.ts to add emailVerified, verificationToken, verificationTokenExpires, resetPasswordToken, resetPasswordTokenExpires, lastLoginAt, failedLoginAttempts, and lockUntil fields
+- [X] T008 Update User schema in physioai/models/User.ts with new fields for email verification and password reset
+- [X] T009 Add indexes to User schema for verificationToken and resetPasswordToken in physioai/models/User.ts
+- [X] T010 Add methods to User schema: generateVerificationToken, generateResetToken, verifyEmail, isLocked, recordFailedLogin, resetFailedLoginAttempts in physioai/models/User.ts
 
 **No parallel execution**: Tasks must be done sequentially as each builds on the previous
 
@@ -76,14 +76,14 @@ Each phase produces a working increment that can be independently tested:
 - Users can request new verification email
 
 **Tasks**:
-- [ ] T011 [P] [US1] Update register endpoint in physioai/app/api/auth/register/route.ts to create unverified accounts and send verification emails
-- [ ] T012 [P] [US1] Create verify-email endpoint in physioai/app/api/auth/verify-email/route.ts to handle email verification via token
-- [ ] T013 [US1] Create resend-verification endpoint in physioai/app/api/auth/resend-verification/route.ts to send new verification emails
-- [ ] T014 [P] [US1] Create RegisterForm component in physioai/components/auth/RegisterForm.tsx with validation and error handling
-- [ ] T015 [US1] Create verify-email page in physioai/app/(auth)/verify-email/page.tsx to handle verification link clicks
-- [ ] T016 [US1] Create VerifyEmailAlert component in physioai/components/auth/VerifyEmailAlert.tsx for unverified users
-- [ ] T017 [US1] Update register page in physioai/app/(auth)/register/page.tsx to use RegisterForm component
-- [ ] T018 [US1] Add emailVerified validation to physioai/lib/validations.ts (verifyEmailSchema)
+- [X] T011 [P] [US1] Update register endpoint in physioai/app/api/auth/register/route.ts to create unverified accounts and send verification emails
+- [X] T012 [P] [US1] Create verify-email endpoint in physioai/app/api/auth/verify-email/route.ts to handle email verification via token
+- [X] T013 [US1] Create resend-verification endpoint in physioai/app/api/auth/resend-verification/route.ts to send new verification emails
+- [X] T014 [P] [US1] Create RegisterForm component in physioai/components/auth/RegisterForm.tsx with validation and error handling
+- [X] T015 [US1] Create verify-email page in physioai/app/(auth)/verify-email/page.tsx to handle verification link clicks
+- [X] T016 [US1] Create VerifyEmailAlert component in physioai/components/auth/VerifyEmailAlert.tsx for unverified users
+- [X] T017 [US1] Update register page in physioai/app/(auth)/register/page.tsx to use RegisterForm component
+- [X] T018 [US1] Add emailVerified validation to physioai/lib/validations.ts (verifyEmailSchema)
 
 **Parallel opportunities**: T011, T012, T014 can be done in parallel after Phase 2 is complete
 
@@ -101,13 +101,13 @@ Each phase produces a working increment that can be independently tested:
 - Session expires after 30 days of inactivity
 
 **Tasks**:
-- [ ] T019 [P] [US2] Update NextAuth config in physioai/lib/auth.ts to check emailVerified status before allowing login
-- [ ] T020 [P] [US2] Update NextAuth authorize function in physioai/lib/auth.ts to implement account lockout for failed attempts
-- [ ] T021 [US2] Update NextAuth authorize function in physioai/lib/auth.ts to record successful login timestamp
-- [ ] T022 [US2] Update NextAuth authorize function in physioai/lib/auth.ts to reset failed login attempts on success
-- [ ] T023 [P] [US2] Create LoginForm component in physioai/components/auth/LoginForm.tsx with validation and error handling
-- [ ] T024 [US2] Update login page in physioai/app/(auth)/login/page.tsx to use LoginForm and show verification prompt
-- [ ] T025 [US2] Add rate limiting to login endpoint in physioai/lib/auth.ts (5 attempts per 15 minutes)
+- [X] T019 [P] [US2] Update NextAuth config in physioai/lib/auth.ts to check emailVerified status before allowing login
+- [X] T020 [P] [US2] Update NextAuth authorize function in physioai/lib/auth.ts to implement account lockout for failed attempts
+- [X] T021 [US2] Update NextAuth authorize function in physioai/lib/auth.ts to record successful login timestamp
+- [X] T022 [US2] Update NextAuth authorize function in physioai/lib/auth.ts to reset failed login attempts on success
+- [X] T023 [P] [US2] Create LoginForm component in physioai/components/auth/LoginForm.tsx with validation and error handling
+- [X] T024 [US2] Update login page in physioai/app/(auth)/login/page.tsx to use LoginForm and show verification prompt
+- [X] T025 [US2] Add rate limiting to login endpoint in physioai/lib/auth.ts (5 attempts per 15 minutes)
 
 **Parallel opportunities**: T019, T023 can be done in parallel after Phase 3 is complete
 
@@ -126,14 +126,14 @@ Each phase produces a working increment that can be independently tested:
 - Sessions are invalidated after password reset
 
 **Tasks**:
-- [ ] T026 [P] [US3] Create forgot-password endpoint in physioai/app/api/auth/forgot-password/route.ts to handle reset requests
-- [ ] T027 [P] [US3] Create reset-password endpoint in physioai/app/api/auth/reset-password/route.ts to handle password updates
-- [ ] T028 [US3] Create ForgotPasswordForm component in physioai/components/auth/ForgotPasswordForm.tsx with validation
-- [ ] T029 [US3] Create ResetPasswordForm component in physioai/components/auth/ResetPasswordForm.tsx with validation
-- [ ] T030 [US3] Create forgot-password page in physioai/app/(auth)/forgot-password/page.tsx to use ForgotPasswordForm
-- [ ] T031 [US3] Create reset-password page in physioai/app/(auth)/reset-password/page.tsx to use ResetPasswordForm
-- [ ] T032 [US3] Update reset-password endpoint to invalidate all user sessions after password reset in physioai/app/api/auth/reset-password/route.ts
-- [ ] T033 [US3] Add resetPasswordSchema validation to physioai/lib/validations.ts
+- [X] T026 [P] [US3] Create forgot-password endpoint in physioai/app/api/auth/forgot-password/route.ts to handle reset requests
+- [X] T027 [P] [US3] Create reset-password endpoint in physioai/app/api/auth/reset-password/route.ts to handle password updates
+- [X] T028 [US3] Create ForgotPasswordForm component in physioai/components/auth/ForgotPasswordForm.tsx with validation
+- [X] T029 [US3] Create ResetPasswordForm component in physioai/components/auth/ResetPasswordForm.tsx with validation
+- [X] T030 [US3] Create forgot-password page in physioai/app/(auth)/forgot-password/page.tsx to use ForgotPasswordForm
+- [X] T031 [US3] Create reset-password page in physioai/app/(auth)/reset-password/page.tsx to use ResetPasswordForm
+- [X] T032 [US3] Update reset-password endpoint to invalidate all user sessions after password reset in physioai/app/api/auth/reset-password/route.ts
+- [X] T033 [US3] Add resetPasswordSchema validation to physioai/lib/validations.ts
 
 **Parallel opportunities**: T026, T027, T028, T029 can be done in parallel after Phase 2 is complete
 
@@ -144,15 +144,15 @@ Each phase produces a working increment that can be independently tested:
 **Goal**: Security hardening, error handling, and user experience improvements
 
 **Tasks**:
-- [ ] T034 Add comprehensive error handling and logging to all auth endpoints in physioai/app/api/auth/
-- [ ] T035 Add success/error toast notifications to all auth forms using shadcn/ui toast in physioai/components/auth/
-- [ ] T036 Add loading states to all auth forms during API calls in physioai/components/auth/
-- [ ] T037 Implement rate limiting on registration endpoint (5 attempts per IP per hour) in physioai/app/api/auth/register/route.ts
-- [ ] T038 Implement rate limiting on password reset endpoint (3 attempts per email per hour) in physioai/app/api/auth/forgot-password/route.ts
-- [ ] T039 Implement rate limiting on resend verification endpoint (3 attempts per email per hour) in physioai/app/api/auth/resend-verification/route.ts
-- [ ] T040 Add security headers to NextAuth config in physioai/lib/auth.ts
-- [ ] T041 Add database migration script to set emailVerified=true for existing users in physioai/lib/migration.ts
-- [ ] T042 Update middleware (when enabled) to protect dashboard routes and redirect unverified users in physioai/middleware.ts.disabled
+- [X] T034 Add comprehensive error handling and logging to all auth endpoints in physioai/app/api/auth/
+- [X] T035 Add success/error toast notifications to all auth forms using shadcn/ui toast in physioai/components/auth/
+- [X] T036 Add loading states to all auth forms during API calls in physioai/components/auth/
+- [X] T037 Implement rate limiting on registration endpoint (5 attempts per IP per hour) in physioai/app/api/auth/register/route.ts
+- [X] T038 Implement rate limiting on password reset endpoint (3 attempts per email per hour) in physioai/app/api/auth/forgot-password/route.ts
+- [X] T039 Implement rate limiting on resend verification endpoint (3 attempts per email per hour) in physioai/app/api/auth/resend-verification/route.ts
+- [X] T040 Add security headers to NextAuth config in physioai/lib/auth.ts
+- [X] T041 Add database migration script to set emailVerified=true for existing users in physioai/lib/migration.ts
+- [X] T042 Update middleware (when enabled) to protect dashboard routes and redirect unverified users in physioai/middleware.ts.disabled
 
 **Parallel opportunities**: T034-T042 can mostly be done in parallel after previous phases are complete
 
