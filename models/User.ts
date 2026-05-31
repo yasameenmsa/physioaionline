@@ -77,13 +77,24 @@ const userSchema = new Schema<IUser>(
       type: Date,
       select: false,
     },
+    subscriptionExpiresAt: {
+      type: Date,
+      default: null,
+    },
+    bio: {
+      type: String,
+      trim: true,
+      maxlength: 500,
+    },
+    image: {
+      type: String,
+    },
   },
   {
     timestamps: true,
     toJSON: {
       transform: function (_doc, ret) {
-        delete ret.password;
-        delete ret.verificationToken;
+          delete ret.verificationToken;
         delete ret.verificationTokenExpires;
         delete ret.resetPasswordToken;
         delete ret.resetPasswordTokenExpires;
@@ -94,7 +105,6 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-userSchema.index({ email: 1 }, { unique: true });
 userSchema.index({ role: 1 });
 userSchema.index({ tier: 1 });
 // Sparse indexes for tokens (only index documents that have these fields)
@@ -127,7 +137,11 @@ userSchema.methods.resetDailyCount = function (): void {
 };
 
 userSchema.methods.canAnswerMore = function (): boolean {
-  if (this.tier !== 'free') {
+  if (this.tier !== 'free' && !this.subscriptionExpiresAt) {
+    return true;
+  }
+
+  if (this.subscriptionExpiresAt && this.subscriptionExpiresAt > new Date()) {
     return true;
   }
 

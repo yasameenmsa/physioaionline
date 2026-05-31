@@ -1,5 +1,5 @@
 import { connectDB } from './db';
-import { User } from '@/models/User';
+import User from '@/models/User';
 
 /**
  * Migration script to set emailVerified=true for existing users

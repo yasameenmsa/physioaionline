@@ -1,16 +1,16 @@
 import { connectDB } from '@/lib/db';
-import { User } from '@/models/User';
-import { emailSchema } from '@/lib/validations';
+import User from '@/models/User';
+import { resendVerificationSchema } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
-import { sendVerificationEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { headers } from 'next/headers';
+import { sendResendVerificationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const { data, error } = await parseRequestBody(request, emailSchema);
+    const { data, error } = await parseRequestBody(request, resendVerificationSchema);
 
     if (error) {
       return errorResponse(error, 400);
@@ -48,16 +48,7 @@ export async function POST(request: Request) {
 
     // Generate new verification token and send email
     const verificationToken = await user.generateVerificationToken();
-    const emailResult = await sendVerificationEmail(
-      user.email,
-      user.name,
-      verificationToken
-    );
-
-    if (!emailResult.success) {
-      console.error('Failed to send verification email:', emailResult.error);
-      return errorResponse('Failed to send verification email', 500);
-    }
+    await sendResendVerificationEmail(user.email, user.name || 'User', verificationToken);
 
     return successResponse(
       {},

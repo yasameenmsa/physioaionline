@@ -1,15 +1,15 @@
 import { connectDB } from '@/lib/db';
-import { User } from '@/models/User';
-import { emailSchema } from '@/lib/validations';
+import User from '@/models/User';
+import { forgotPasswordSchema } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
-import { sendPasswordResetEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limiter';
+import { sendPasswordResetEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const { data, error } = await parseRequestBody(request, emailSchema);
+    const { data, error } = await parseRequestBody(request, forgotPasswordSchema);
 
     if (error) {
       return errorResponse(error, 400);
@@ -39,16 +39,7 @@ export async function POST(request: Request) {
 
     // Generate reset token and send email
     const resetToken = await user.generateResetToken();
-    const emailResult = await sendPasswordResetEmail(
-      user.email,
-      user.name,
-      resetToken
-    );
-
-    if (!emailResult.success) {
-      console.error('Failed to send password reset email:', emailResult.error);
-      return errorResponse('Failed to send password reset email', 500);
-    }
+    await sendPasswordResetEmail(user.email, user.name || 'User', resetToken);
 
     return successResponse(
       {},

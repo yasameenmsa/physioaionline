@@ -6,8 +6,10 @@ declare module 'next-auth' {
       id: string;
       role: string;
       tier: string;
-      emailVerified: boolean;
-    } & DefaultSession['user'];
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
   }
 
   interface User {
@@ -23,6 +25,5 @@ declare module 'next-auth/jwt' {
     id: string;
     role: string;
     tier: string;
-    emailVerified: boolean;
   }
 }

@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/db';
-import { User } from '@/models/User';
+import User from '@/models/User';
 import { resetPasswordSchema } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
 import { hashToken, isTokenExpired } from '@/lib/tokens';

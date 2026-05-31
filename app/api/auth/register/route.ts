@@ -1,11 +1,11 @@
 import { connectDB } from '@/lib/db';
-import { User } from '@/models/User';
+import User from '@/models/User';
 import { hashPassword, isPasswordStrong } from '@/lib/auth';
 import { registerSchema } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
-import { sendVerificationEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { headers } from 'next/headers';
+import { sendVerificationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
@@ -32,9 +32,21 @@ export async function POST(request: Request) {
     }
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    const existingUser = await User.findOne({ email: email.toLowerCase() }).select('+password');
     if (existingUser) {
-      return errorResponse('A user with this email already exists', 409);
+      if (existingUser.emailVerified) {
+        return errorResponse('A user with this email already exists', 409);
+      }
+      // Unverified user — resend verification with updated info
+      if (name) existingUser.name = name;
+      const hashedPassword = await hashPassword(password);
+      existingUser.password = hashedPassword;
+      const verificationToken = await existingUser.generateVerificationToken();
+      await sendVerificationEmail(existingUser.email, existingUser.name || 'User', verificationToken);
+      return successResponse(
+        { user: { id: existingUser._id.toString(), email: existingUser.email } },
+        'A verification email has been sent to your email address.'
+      );
     }
 
     // Validate password strength
@@ -62,16 +74,7 @@ export async function POST(request: Request) {
 
     // Generate verification token and send email
     const verificationToken = await user.generateVerificationToken();
-    const emailResult = await sendVerificationEmail(
-      user.email,
-      user.name,
-      verificationToken
-    );
-
-    if (!emailResult.success) {
-      console.error('Failed to send verification email:', emailResult.error);
-      // Don't fail registration if email fails, but log it
-    }
+    await sendVerificationEmail(user.email, user.name || 'User', verificationToken);
 
     return successResponse(
       {

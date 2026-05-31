@@ -78,6 +78,11 @@ const DEFAULT_CONFIGS: Record<string, RateLimitConfig> = {
     windowMs: 60 * 60 * 1000, // 1 hour
     blockDurationMs: 60 * 60 * 1000, // 1 hour
   },
+  waitlist: {
+    maxAttempts: 5,
+    windowMs: 60 * 60 * 1000, // 1 hour
+    blockDurationMs: 60 * 60 * 1000, // 1 hour
+  },
 };
 
 /**

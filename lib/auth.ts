@@ -20,7 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         try {
           await connectDB();
 
-          const { User } = await import('@/models/User');
+          const User = (await import('@/models/User')).default;
 
           // Rate limiting by email
           const rateLimitResult = checkRateLimit(credentials.email as string, 'login');
@@ -112,7 +112,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = token.id as string;
         session.user.role = token.role as string;
         session.user.tier = token.tier as string;
-        session.user.emailVerified = token.emailVerified as boolean;
+        (session.user as unknown as Record<string, unknown>).emailVerified = !!token.emailVerified;
       }
       return session;
     },

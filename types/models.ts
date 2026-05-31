@@ -24,6 +24,13 @@ export interface IUser extends Document {
   failedLoginAttempts: number;
   lockUntil?: Date;
 
+  // Subscription fields
+  subscriptionExpiresAt?: Date;
+
+  // Profile fields
+  bio?: string;
+  image?: string;
+
   createdAt: Date;
   updatedAt: Date;
 
@@ -50,6 +57,7 @@ export interface IQuestion extends Document {
   difficulty?: 'easy' | 'medium' | 'hard';
   source: string;
   sourceQuestionId?: number;
+  imageUrl?: string;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -107,9 +115,60 @@ export interface ICategory extends Document {
   updatedAt: Date;
 }
 
+export interface IArticle extends Document {
+  title: string;
+  slug: string;
+  body: string;
+  excerpt: string;
+  category: Types.ObjectId;
+  author: Types.ObjectId;
+  reviewer?: Types.ObjectId;
+  status: 'draft' | 'review' | 'published' | 'archived';
+  references: string[];
+  tags: string[];
+  viewCount: number;
+  publishedAt?: Date;
+  version: number;
+  imageUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ISavedArticle extends Document {
+  userId: Types.ObjectId;
+  articleId: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IReadingHistory extends Document {
+  userId: Types.ObjectId;
+  articleId: Types.ObjectId;
+  readAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IVoucher extends Document {
+  code: string;
+  type: 'trial' | 'premium';
+  durationDays: number | null;
+  maxUses: number;
+  usedCount: number;
+  active: boolean;
+  createdBy?: Types.ObjectId;
+  expiresAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export type UserModel = Model<IUser>;
 export type QuestionModel = Model<IQuestion>;
+export type VoucherModel = Model<IVoucher>;
 export type UserProgressModel = Model<IUserProgress>;
 export type PaymentVerificationModel = Model<IPaymentVerification>;
 export type WaitlistEntryModel = Model<IWaitlistEntry>;
 export type CategoryModel = Model<ICategory>;
+export type ArticleModel = Model<IArticle>;
+export type SavedArticleModel = Model<ISavedArticle>;
+export type ReadingHistoryModel = Model<IReadingHistory>;

@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/db';
-import { User } from '@/models/User';
+import User from '@/models/User';
 import { successResponse, errorResponse } from '@/lib/utils';
 import { hashToken, isTokenExpired } from '@/lib/tokens';
 import { checkRateLimit } from '@/lib/rate-limiter';
