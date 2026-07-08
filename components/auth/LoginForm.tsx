@@ -82,8 +82,8 @@ export function LoginForm() {
       }
 
       if (result?.ok) {
-        router.push('/dashboard');
-        router.refresh();
+        const url = searchParams.get('callbackUrl') || '/dashboard';
+        window.location.href = url.startsWith('/') ? url : '/dashboard';
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
