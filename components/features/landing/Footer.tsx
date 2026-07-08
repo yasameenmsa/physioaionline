@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { Mail, Facebook, Twitter, Linkedin } from 'lucide-react';
 
@@ -9,16 +7,8 @@ const footerLinks = {
     { label: 'Pricing', href: '#pricing' },
     { label: 'Features', href: '#features' },
   ],
-  company: [
-    { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
-  ],
-  legal: [
-    { label: 'Privacy', href: '/privacy' },
-    { label: 'Terms', href: '/terms' },
-    { label: 'Cookie Policy', href: '/cookies' },
-  ],
+  company: [],
+  legal: [],
 };
 
 const socialLinks = [
@@ -40,53 +30,59 @@ export function Footer() {
             </p>
           </div>
 
-          <div>
-            <h4 className="mb-4 font-semibold">Product</h4>
-            <ul className="space-y-2 text-sm">
-              {footerLinks.product.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerLinks.product.length > 0 && (
+            <div>
+              <h4 className="mb-4 font-semibold">Product</h4>
+              <ul className="space-y-2 text-sm">
+                {footerLinks.product.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div>
-            <h4 className="mb-4 font-semibold">Company</h4>
-            <ul className="space-y-2 text-sm">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerLinks.company.length > 0 && (
+            <div>
+              <h4 className="mb-4 font-semibold">Company</h4>
+              <ul className="space-y-2 text-sm">
+                {footerLinks.company.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div>
-            <h4 className="mb-4 font-semibold">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              {footerLinks.legal.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {footerLinks.legal.length > 0 && (
+            <div>
+              <h4 className="mb-4 font-semibold">Legal</h4>
+              <ul className="space-y-2 text-sm">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between border-t pt-8 sm:flex-row">

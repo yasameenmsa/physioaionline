@@ -14,7 +14,10 @@ export async function GET(
   const filepath = path.join(uploadDir, sanitized);
 
   if (!existsSync(filepath)) {
-    return new NextResponse('Not Found', { status: 404 });
+    const placeholder = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f4f6"/><text x="200" y="150" font-family="sans-serif" font-size="14" fill="#9ca3af" text-anchor="middle">Image not available</text></svg>`;
+    return new NextResponse(placeholder, {
+      headers: { 'Content-Type': 'image/svg+xml' },
+    });
   }
 
   const ext = path.extname(sanitized).toLowerCase();
