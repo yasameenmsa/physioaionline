@@ -96,13 +96,15 @@ export async function POST(req: NextRequest) {
     }
 
     const isAdmin = session.user.role === 'admin';
+    const blocks = parsed.data.blocks;
     const article = await Article.create({
       ...parsed.data,
+      blocks: blocks ? JSON.stringify(blocks) : undefined,
       slug,
       author: session.user.id,
       status: isAdmin ? 'published' : 'review',
       publishedAt: isAdmin ? new Date() : undefined,
-      excerpt: parsed.data.excerpt || parsed.data.body.slice(0, 200).replace(/[#*`\n]/g, ' ').trim(),
+      excerpt: parsed.data.excerpt || parsed.data.body.replace(/[#*`\n]/g, ' ').trim().slice(0, 200),
     });
 
     const populated = await Article.findById(article._id)

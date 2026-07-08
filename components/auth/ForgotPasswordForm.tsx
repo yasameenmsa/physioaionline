@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,10 +20,10 @@ const forgotPasswordSchema = z.object({
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export function ForgotPasswordForm() {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations('auth.forgotPassword');
 
   const {
     register,
@@ -52,13 +52,13 @@ export function ForgotPasswordForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || 'Failed to send reset email');
+        setError(result.error || t('errors.failed'));
         return;
       }
 
       setSuccess(true);
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError(t('errors.unexpected'));
     } finally {
       setIsLoading(false);
     }
@@ -71,24 +71,24 @@ export function ForgotPasswordForm() {
           <div className="mx-auto mb-4">
             <CheckCircle2 className="h-16 w-16 text-green-500" />
           </div>
-          <CardTitle className="text-2xl">Check your email</CardTitle>
+          <CardTitle className="text-2xl">{t('successTitle')}</CardTitle>
           <CardDescription>
-            We've sent a password reset link to your email address if an account exists.
+            {t('successDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert>
             <AlertDescription className="text-sm">
-              Please check your inbox and follow the instructions in the email. The link will expire in 1 hour.
+              {t('checkInbox')}
             </AlertDescription>
           </Alert>
           <p className="text-sm text-muted-foreground">
-            Don't see the email? Check your spam folder or{' '}
+            {t('dontSeeEmail')}{' '}
             <button
               onClick={() => setSuccess(false)}
               className="text-primary hover:underline"
             >
-              try again
+              {t('tryAgain')}
             </button>
             .
           </p>
@@ -96,8 +96,8 @@ export function ForgotPasswordForm() {
         <CardFooter className="flex justify-center">
           <Button asChild variant="outline">
             <Link href="/login">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to login
+              <ArrowLeft className="me-2 h-4 w-4" />
+              {t('backToLogin')}
             </Link>
           </Button>
         </CardFooter>
@@ -108,9 +108,9 @@ export function ForgotPasswordForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl">Forgot your password?</CardTitle>
+        <CardTitle className="text-2xl">{t('title')}</CardTitle>
         <CardDescription>
-          Enter your email address and we'll send you a link to reset your password.
+          {t('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -122,11 +122,11 @@ export function ForgotPasswordForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="john@example.com"
+              placeholder={t('emailPlaceholder')}
               disabled={isLoading}
               {...register('email')}
               aria-invalid={!!errors.email}
@@ -139,11 +139,11 @@ export function ForgotPasswordForm() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending reset link...
+                <Loader2 className="me-2 h-4 w-4 animate-spin" />
+                {t('sending')}
               </>
             ) : (
-              'Send reset link'
+              t('submit')
             )}
           </Button>
         </form>
@@ -151,8 +151,8 @@ export function ForgotPasswordForm() {
       <CardFooter className="flex justify-center">
         <Button asChild variant="link" className="text-muted-foreground">
           <Link href="/login">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to login
+            <ArrowLeft className="me-2 h-4 w-4" />
+            {t('backToLogin')}
           </Link>
         </Button>
       </CardFooter>

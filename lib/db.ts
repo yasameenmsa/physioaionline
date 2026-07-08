@@ -9,6 +9,10 @@ import '../models/WaitlistEntry';
 import '../models/ReadingHistory';
 import '../models/SavedArticle';
 import '../models/PaymentVerification';
+import '../models/Course';
+import '../models/Progress';
+import '../models/Purchase';
+import '../models/News';
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 

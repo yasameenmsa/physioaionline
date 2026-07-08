@@ -63,3 +63,10 @@
     text-wrap: balance;
   }
 }
+
+[dir="rtl"] .lucide-arrow-right,
+[dir="rtl"] .lucide-arrow-left,
+[dir="rtl"] .lucide-chevron-right,
+[dir="rtl"] .lucide-chevron-left {
+  transform: scaleX(-1);
+}

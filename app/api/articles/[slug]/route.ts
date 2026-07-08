@@ -78,7 +78,15 @@ export async function PUT(
       return apiError('Cannot edit a published article');
     }
 
-    const updateData: Record<string, unknown> = { ...parsed.data };
+    const updateData: Record<string, unknown> = {};
+    if (parsed.data.blocks) {
+      updateData.blocks = JSON.stringify(parsed.data.blocks);
+    }
+    for (const [key, val] of Object.entries(parsed.data)) {
+      if (key !== 'blocks') {
+        updateData[key] = val;
+      }
+    }
 
     if (updateData.title) {
       let newSlug = generateSlug(updateData.title as string);

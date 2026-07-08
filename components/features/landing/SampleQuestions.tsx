@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle2, XCircle, ChevronRight, ChevronLeft } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface Question {
   _id: string;
@@ -17,61 +18,27 @@ interface Question {
   };
 }
 
-interface SampleQuestionsProps {
-  questions?: Question[];
-}
-
-export function SampleQuestions({ questions: initialQuestions }: SampleQuestionsProps) {
+export function SampleQuestions() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [loading, setLoading] = useState(true);
+  const t = useTranslations('landing.sampleQuestions');
 
   useEffect(() => {
-    if (initialQuestions) {
-      setQuestions(initialQuestions);
-      setLoading(false);
-    } else {
-      fetch('/api/questions/sample?limit=5')
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.success && Array.isArray(json.data)) {
-            setQuestions(json.data);
-          }
-        })
-        .catch(() => {
-          // Use fallback questions if API fails
-          setQuestions(getFallbackQuestions());
-        })
-        .finally(() => setLoading(false));
-    }
-  }, [initialQuestions]);
-
-  const handleAnswerSelect = (index: number) => {
-    if (showExplanation) return;
-    setSelectedAnswer(index);
-    setShowExplanation(true);
-  };
-
-  const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(null);
-      setShowExplanation(false);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-      setSelectedAnswer(null);
-      setShowExplanation(false);
-    }
-  };
-
-  const currentQuestion = questions[currentIndex];
-  const isCorrect = selectedAnswer === currentQuestion?.correctAnswer;
+    fetch('/api/questions/sample?limit=5')
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.data)) {
+          setQuestions(json.data);
+        }
+      })
+      .catch(() => {
+        setQuestions(getFallbackQuestions());
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   if (loading) {
     return (
@@ -100,14 +67,41 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
     return null;
   }
 
+  const items = questions;
+
+  const handleAnswerSelect = (index: number) => {
+    if (showExplanation) return;
+    setSelectedAnswer(index);
+    setShowExplanation(true);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < items.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      setSelectedAnswer(null);
+      setShowExplanation(false);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      setSelectedAnswer(null);
+      setShowExplanation(false);
+    }
+  };
+
+  const currentQuestion = items[currentIndex];
+  const isCorrect = selectedAnswer === currentQuestion?.correctAnswer;
+
   return (
     <section id="sample-questions" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold">Try Sample Questions</h2>
+            <h2 className="mb-4 text-3xl font-bold">{t('title')}</h2>
             <p className="text-lg text-muted-foreground">
-              Get a feel for our question bank with these sample questions from the exam
+              {t('description')}
             </p>
           </div>
 
@@ -115,10 +109,10 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardDescription>
-                  Category: {currentQuestion.category.name}
+                  {t('category')}: {currentQuestion.category.name}
                 </CardDescription>
                 <CardDescription>
-                  Question {currentIndex + 1} of {questions.length}
+                  {t('question')} {currentIndex + 1} {t('of')} {questions.length}
                 </CardDescription>
               </div>
               <CardTitle className="text-xl">{currentQuestion.questionText}</CardTitle>
@@ -150,7 +144,7 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
                     >
                       <div className="flex items-center justify-between">
                         <span className="flex-1">
-                          <span className="font-semibold mr-2">{String.fromCharCode(65 + index)}.</span>
+                          <span className="font-semibold me-2">{String.fromCharCode(65 + index)}.</span>
                           {option}
                         </span>
                         {showExplanation && isCorrectAnswer && (
@@ -169,7 +163,7 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
                 <Alert className={`${isCorrect ? 'border-green-500' : 'border-red-500'} mt-6`}>
                   <AlertDescription>
                     <p className="font-semibold mb-2">
-                      {isCorrect ? 'Correct!' : 'Incorrect'}
+                      {isCorrect ? t('correct') : t('incorrect')}
                     </p>
                     <p className="text-sm">{currentQuestion.explanation}</p>
                   </AlertDescription>
@@ -182,12 +176,12 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}
                 >
-                  <ChevronLeft className="mr-2 h-4 w-4" />
-                  Previous
+                  <ChevronLeft className="me-2 h-4 w-4" />
+                  {t('previous', { default: 'Previous' })}
                 </Button>
                 <Button onClick={handleNext} disabled={currentIndex === questions.length - 1}>
-                  Next
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  {t('next', { default: 'Next' })}
+                  <ChevronRight className="ms-2 h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
@@ -195,10 +189,10 @@ export function SampleQuestions({ questions: initialQuestions }: SampleQuestions
 
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground mb-4">
-              Want access to 77+ practice questions?
+              {t('prompt')}
             </p>
             <Button asChild>
-              <Link href="/register">Start Free Practice</Link>
+              <Link href="/register">{t('cta')}</Link>
             </Button>
           </div>
         </div>

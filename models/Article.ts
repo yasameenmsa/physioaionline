@@ -19,6 +19,10 @@ const articleSchema = new Schema<IArticle>(
       type: String,
       required: true,
     },
+    blocks: {
+      type: String,
+      default: null,
+    },
     excerpt: {
       type: String,
       required: true,

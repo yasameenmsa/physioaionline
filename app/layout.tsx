@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
 import './globals.css';
-import { Providers } from '@/components/providers';
-import { Header } from '@/components/features/landing/Header';
-import { auth } from '@/lib/auth';
-
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'PhysioAI.online - Physiotherapy Knowledge Base & Exam Prep',
@@ -28,15 +23,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  const cookieStore = await cookies();
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en';
+  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers session={session}>
-          <Header />
-          {children}
-        </Providers>
-      </body>
+    <html lang={locale} dir={dir} suppressHydrationWarning>
+      <body>{children}</body>
     </html>
   );
 }

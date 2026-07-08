@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2, CheckCircle2, XCircle, ArrowLeft, AlertCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,13 +37,14 @@ export function ResetPasswordForm() {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isTokenValid, setIsTokenValid] = useState(!!token);
+  const t = useTranslations('auth.resetPassword');
 
   useEffect(() => {
     if (!token) {
       setIsTokenValid(false);
-      setError('Invalid reset link. Please request a new password reset.');
+      setError(t('errors.invalidLink'));
     }
-  }, [token]);
+  }, [token, t]);
 
   const {
     register,
@@ -59,7 +61,7 @@ export function ResetPasswordForm() {
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
     if (!token) {
-      setError('Invalid reset link. Please request a new password reset.');
+      setError(t('errors.invalidLink'));
       return;
     }
 
@@ -81,19 +83,18 @@ export function ResetPasswordForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || 'Failed to reset password');
+        setError(result.error || t('errors.failed'));
         return;
       }
 
       setSuccess(true);
       reset();
 
-      // Redirect to login after 3 seconds
       setTimeout(() => {
         router.push('/login?reset=true');
       }, 3000);
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError(t('errors.unexpected'));
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +107,7 @@ export function ResetPasswordForm() {
           <div className="mx-auto mb-4">
             <XCircle className="h-16 w-16 text-destructive" />
           </div>
-          <CardTitle className="text-2xl">Invalid Reset Link</CardTitle>
+          <CardTitle className="text-2xl">{t('invalidTitle')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert variant="destructive">
@@ -114,14 +115,14 @@ export function ResetPasswordForm() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
           <Button asChild className="w-full">
-            <Link href="/forgot-password">Request New Reset Link</Link>
+            <Link href="/forgot-password">{t('requestNew')}</Link>
           </Button>
         </CardContent>
         <CardFooter className="flex justify-center">
           <Button asChild variant="link" className="text-muted-foreground">
             <Link href="/login">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to login
+              <ArrowLeft className="me-2 h-4 w-4" />
+              {t('backToLogin')}
             </Link>
           </Button>
         </CardFooter>
@@ -136,19 +137,19 @@ export function ResetPasswordForm() {
           <div className="mx-auto mb-4">
             <CheckCircle2 className="h-16 w-16 text-green-500" />
           </div>
-          <CardTitle className="text-2xl">Password Reset Successful</CardTitle>
+          <CardTitle className="text-2xl">{t('successTitle')}</CardTitle>
           <CardDescription>
-            Your password has been reset successfully.
+            {t('successDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert>
             <AlertDescription className="text-sm">
-              You can now log in with your new password. Redirecting to login page...
+              {t('redirectMessage')}
             </AlertDescription>
           </Alert>
           <Button asChild className="w-full">
-            <Link href="/login">Go to Login</Link>
+            <Link href="/login">{t('goToLogin')}</Link>
           </Button>
         </CardContent>
       </Card>
@@ -158,9 +159,9 @@ export function ResetPasswordForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl">Reset Your Password</CardTitle>
+        <CardTitle className="text-2xl">{t('title')}</CardTitle>
         <CardDescription>
-          Enter your new password below.
+          {t('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -172,7 +173,7 @@ export function ResetPasswordForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="password">New Password</Label>
+            <Label htmlFor="password">{t('newPassword')}</Label>
             <Input
               id="password"
               type="password"
@@ -187,7 +188,7 @@ export function ResetPasswordForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm New Password</Label>
+            <Label htmlFor="confirmPassword">{t('confirmNewPassword')}</Label>
             <Input
               id="confirmPassword"
               type="password"
@@ -203,18 +204,18 @@ export function ResetPasswordForm() {
 
           <Alert>
             <AlertDescription className="text-sm">
-              Password must be at least 8 characters with letters and numbers.
+              {t('passwordRequirements')}
             </AlertDescription>
           </Alert>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Resetting password...
+                <Loader2 className="me-2 h-4 w-4 animate-spin" />
+                {t('resetting')}
               </>
             ) : (
-              'Reset password'
+              t('submit')
             )}
           </Button>
         </form>
@@ -222,8 +223,8 @@ export function ResetPasswordForm() {
       <CardFooter className="flex justify-center">
         <Button asChild variant="link" className="text-muted-foreground">
           <Link href="/login">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to login
+            <ArrowLeft className="me-2 h-4 w-4" />
+            {t('backToLogin')}
           </Link>
         </Button>
       </CardFooter>

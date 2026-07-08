@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2, AlertCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -29,6 +30,7 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showVerifyAlert, setShowVerifyAlert] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState('');
+  const t = useTranslations('auth.login');
 
   const verified = searchParams.get('verified');
   const resend = searchParams.get('resend');
@@ -70,7 +72,6 @@ export function LoginForm() {
       });
 
       if (result?.error) {
-        // Check if error is about email verification
         if (result.error.includes('verify')) {
           setError(null);
           setShowVerifyAlert(true);
@@ -86,7 +87,7 @@ export function LoginForm() {
         window.location.href = url.startsWith('/') ? url : '/dashboard';
       }
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError(t('errors.unexpected'));
     } finally {
       setIsLoading(false);
     }
@@ -99,9 +100,9 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl">Welcome back</CardTitle>
+        <CardTitle className="text-2xl">{t('title')}</CardTitle>
         <CardDescription>
-          Sign in to your PhysioAI.online account
+          {t('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -121,11 +122,11 @@ export function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="john@example.com"
+              placeholder={t('emailPlaceholder')}
               disabled={isLoading}
               {...register('email')}
               aria-invalid={!!errors.email}
@@ -137,12 +138,12 @@ export function LoginForm() {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <Link
                 href="/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
-                Forgot password?
+                {t('forgotPassword')}
               </Link>
             </div>
             <Input
@@ -161,20 +162,20 @@ export function LoginForm() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing in...
+                <Loader2 className="me-2 h-4 w-4 animate-spin" />
+                {t('signingIn')}
               </>
             ) : (
-              'Sign in'
+              t('submit')
             )}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
-          Don't have an account?{' '}
+          {t('noAccount')}{' '}
           <Link href="/register" className="text-primary hover:underline">
-            Sign up
+            {t('signUp')}
           </Link>
         </p>
       </CardFooter>

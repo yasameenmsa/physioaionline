@@ -1,24 +1,32 @@
+'use client';
+
 import Link from 'next/link';
 import { Mail, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
-const footerLinks = {
+const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
   product: [
-    { label: 'Questions', href: '/questions' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Features', href: '#features' },
+    { labelKey: 'footer.questions', href: '/questions' },
+    { labelKey: 'footer.pricing', href: '#pricing' },
+    { labelKey: 'footer.features', href: '#features' },
   ],
   company: [],
   legal: [],
 };
 
 const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:info@physioai.online', label: 'Email' },
+  { icon: Facebook, href: '#', labelKey: 'social.facebook' },
+  { icon: Twitter, href: '#', labelKey: 'social.twitter' },
+  { icon: Linkedin, href: '#', labelKey: 'social.linkedin' },
+  { icon: Mail, href: 'mailto:info@physioai.online', labelKey: 'social.email' },
 ];
 
 export function Footer() {
+  const t = useTranslations('landing.footer');
+  const tl = useTranslations('landing.footer.links');
+  const locale = useLocale();
+  const year = new Date().getFullYear();
+
   return (
     <footer className="border-t bg-muted/30">
       <div className="container mx-auto px-4 py-12">
@@ -26,13 +34,13 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-primary-500">PhysioAI</h3>
             <p className="text-sm text-muted-foreground">
-              AI-powered physiotherapy exam preparation for Palestinian licensing exams.
+              {t('description')}
             </p>
           </div>
 
           {footerLinks.product.length > 0 && (
             <div>
-              <h4 className="mb-4 font-semibold">Product</h4>
+              <h4 className="mb-4 font-semibold">{t('product')}</h4>
               <ul className="space-y-2 text-sm">
                 {footerLinks.product.map((link) => (
                   <li key={link.href}>
@@ -40,7 +48,7 @@ export function Footer() {
                       href={link.href}
                       className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link.label}
+                      {tl(link.labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -50,7 +58,7 @@ export function Footer() {
 
           {footerLinks.company.length > 0 && (
             <div>
-              <h4 className="mb-4 font-semibold">Company</h4>
+              <h4 className="mb-4 font-semibold">{t('company')}</h4>
               <ul className="space-y-2 text-sm">
                 {footerLinks.company.map((link) => (
                   <li key={link.href}>
@@ -58,7 +66,7 @@ export function Footer() {
                       href={link.href}
                       className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link.label}
+                      {tl(link.labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -68,7 +76,7 @@ export function Footer() {
 
           {footerLinks.legal.length > 0 && (
             <div>
-              <h4 className="mb-4 font-semibold">Legal</h4>
+              <h4 className="mb-4 font-semibold">{t('legal')}</h4>
               <ul className="space-y-2 text-sm">
                 {footerLinks.legal.map((link) => (
                   <li key={link.href}>
@@ -76,7 +84,7 @@ export function Footer() {
                       href={link.href}
                       className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link.label}
+                      {tl(link.labelKey)}
                     </Link>
                   </li>
                 ))}
@@ -87,8 +95,8 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between border-t pt-8 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} PhysioAI.online. Made with{' '}
-            <span className="text-red-500">&hearts;</span> by{' '}
+            &copy; {year} PhysioAI.online. {t('madeWith')}{' '}
+            <span className="text-red-500">&hearts;</span> {t('by')}{' '}
             <a
               href="https://tar-tech.my.canva.site/yasmin-msa"
               target="_blank"
@@ -97,7 +105,7 @@ export function Footer() {
             >
               Yasmin Awawdeh
             </a>
-            . All rights reserved.
+            . {t('rights')}
           </p>
 
           <div className="mt-4 flex gap-4 sm:mt-0">
@@ -105,10 +113,10 @@ export function Footer() {
               const Icon = link.icon;
               return (
                 <Link
-                  key={link.label}
+                  key={link.labelKey}
                   href={link.href}
                   className="text-muted-foreground transition-colors hover:text-foreground"
-                  aria-label={link.label}
+                  aria-label={tl(link.labelKey)}
                 >
                   <Icon className="h-5 w-5" />
                 </Link>

@@ -119,6 +119,7 @@ export interface IArticle extends Document {
   title: string;
   slug: string;
   body: string;
+  blocks?: string;
   excerpt: string;
   category: Types.ObjectId;
   author: Types.ObjectId;
@@ -172,3 +173,78 @@ export type CategoryModel = Model<ICategory>;
 export type ArticleModel = Model<IArticle>;
 export type SavedArticleModel = Model<ISavedArticle>;
 export type ReadingHistoryModel = Model<IReadingHistory>;
+
+export interface ICourse extends Document {
+  title: string;
+  slug: string;
+  description: string;
+  image: string;
+  price: number;
+  instructor: Types.ObjectId;
+  category: string;
+  tags: string[];
+  level: 'beginner' | 'intermediate' | 'advanced';
+  whatYouLearn: string[];
+  requirements: string[];
+  published: boolean;
+  sections: ISection[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ISection {
+  title: string;
+  order: number;
+  lessons: ILesson[];
+}
+
+export interface ILesson {
+  title: string;
+  videoId: string;
+  videoUrl: string;
+  duration: number;
+  order: number;
+  isFree: boolean;
+  _id: Types.ObjectId;
+}
+
+export interface IProgress extends Document {
+  userId: Types.ObjectId;
+  courseId: Types.ObjectId;
+  completedLessons: string[];
+  completedAt: Date | null;
+  lastVideoId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IPurchase extends Document {
+  userId: Types.ObjectId;
+  courseId: Types.ObjectId;
+  amount: number;
+  status: 'pending' | 'completed' | 'refunded';
+  sessionId: string;
+  paidAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface INews extends Document {
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string;
+  imageUrl?: string;
+  author: Types.ObjectId;
+  published: boolean;
+  tags: string[];
+  viewCount: number;
+  publishedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type CourseModel = Model<ICourse>;
+export type ProgressModel = Model<IProgress>;
+export type PurchaseModel = Model<IPurchase>;
+export type NewsModel = Model<INews>;

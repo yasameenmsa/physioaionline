@@ -4,76 +4,73 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check } from 'lucide-react';
-
-const tiers = [
-  {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    description: 'Perfect for getting started',
-    features: [
-      '5 practice questions per day',
-      'Basic progress tracking',
-      'Access to free sample questions',
-      'Community support'
-    ],
-    cta: 'Start Free',
-    highlighted: false
-  },
-  {
-    name: 'Premium',
-    price: '$9',
-    period: '/month',
-    description: 'Best for serious students',
-    features: [
-      'Unlimited practice questions',
-      'Detailed performance analytics',
-      'Progress tracking by category',
-      'Email support',
-      'Ad-free experience'
-    ],
-    cta: 'Get Premium',
-    highlighted: true
-  },
-  {
-    name: 'Pro',
-    price: '$29',
-    period: '/month',
-    description: 'Maximum exam preparation',
-    features: [
-      'Everything in Premium',
-      'Advanced analytics & insights',
-      'Custom practice exams',
-      'Priority support',
-      'Early access to new questions',
-      'Exam simulation mode'
-    ],
-    cta: 'Get Pro',
-    highlighted: false
-  }
-];
+import { useTranslations } from 'next-intl';
 
 export function PricingSection() {
+  const t = useTranslations('landing.pricing');
+
+  const tiers = [
+    {
+      nameKey: 'free.name',
+      priceKey: 'free.price',
+      periodKey: 'free.period',
+      descKey: 'free.description',
+      featuresKey: 'free.features',
+      ctaKey: 'free.cta',
+      highlighted: false,
+    },
+    {
+      nameKey: 'premium.name',
+      priceKey: 'premium.price',
+      periodKey: 'premium.period',
+      descKey: 'premium.description',
+      featuresKey: 'premium.features',
+      ctaKey: 'premium.cta',
+      highlighted: true,
+    },
+    {
+      nameKey: 'pro.name',
+      priceKey: 'pro.price',
+      periodKey: 'pro.period',
+      descKey: 'pro.description',
+      featuresKey: 'pro.features',
+      ctaKey: 'pro.cta',
+      highlighted: false,
+    },
+  ];
+
   return (
-    <section className="py-20">
+    <section id="pricing" className="py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold">Simple, Transparent Pricing</h2>
+            <h2 className="mb-4 text-3xl font-bold">{t('title')}</h2>
             <p className="text-lg text-muted-foreground">
-              Choose the plan that fits your study needs. Upgrade or downgrade anytime.
+              {t('description')}
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {tiers.map((tier) => (
-              <PricingCard key={tier.name} {...tier} />
-            ))}
+            {tiers.map((tier) => {
+              const features = t.raw(tier.featuresKey) as string[];
+              return (
+                <PricingCard
+                  key={tier.nameKey}
+                  name={t(tier.nameKey)}
+                  price={t(tier.priceKey)}
+                  period={t(tier.periodKey)}
+                  description={t(tier.descKey)}
+                  features={features}
+                  cta={t(tier.ctaKey)}
+                  highlighted={tier.highlighted}
+                />
+              );
+            })}
           </div>
 
           <div className="mt-12 text-center">
             <p className="text-sm text-muted-foreground">
-              All plans include access to our core question bank. Cancel anytime.
+              {t('footer')}
             </p>
           </div>
         </div>
@@ -93,12 +90,14 @@ interface PricingCardProps {
 }
 
 function PricingCard({ name, price, period, description, features, cta, highlighted }: PricingCardProps) {
+  const t = useTranslations('landing.pricing');
+
   return (
     <Card className={`relative ${highlighted ? 'border-primary-500 shadow-lg scale-105' : ''}`}>
       {highlighted && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
           <span className="inline-flex items-center rounded-full bg-primary-500 px-4 py-1 text-xs font-semibold text-white">
-            Most Popular
+            {t('mostPopular')}
           </span>
         </div>
       )}
@@ -114,7 +113,7 @@ function PricingCard({ name, price, period, description, features, cta, highligh
         <ul className="mb-6 space-y-3">
           {features.map((feature) => (
             <li key={feature} className="flex items-start">
-              <Check className="mr-2 h-5 w-5 shrink-0 text-primary-500" />
+              <Check className="me-2 h-5 w-5 shrink-0 text-primary-500" />
               <span className="text-sm">{feature}</span>
             </li>
           ))}

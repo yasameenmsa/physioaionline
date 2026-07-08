@@ -1,0 +1,635 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "search": "Search",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "saving": "Saving...",
+    "submitting": "Submitting...",
+    "uploading": "Uploading...",
+    "noResults": "No results found",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "close": "Close",
+    "remove": "Remove"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Palestinian Physiotherapy License Exam Prep",
+      "title": "Pass Your Physiotherapy Exam with",
+      "titleHighlight": "AI-Powered",
+      "titleSuffix": "Practice",
+      "description": "Master the Palestinian Physiotherapy Association licensing exam with our intelligent question bank. Get instant feedback, detailed explanations, and track your progress with personalized analytics.",
+      "ctaStart": "Start Practicing Free",
+      "ctaSamples": "Try Sample Questions",
+      "featureQuestions": "77+ Practice Questions",
+      "featureQuestionsDesc": "Real exam questions from past Palestinian licensing exams",
+      "featureProgress": "Track Progress",
+      "featureProgressDesc": "Monitor your improvement with detailed analytics",
+      "featureFeedback": "Instant Feedback",
+      "featureFeedbackDesc": "Learn from detailed explanations for every answer"
+    },
+    "knowledgeBase": {
+      "title": "Evidence-Based Knowledge Base",
+      "description": "Browse our growing collection of evidence-based physiotherapy articles, clinical guides, and rehabilitation protocols written by professionals.",
+      "cta": "Browse Knowledge Base"
+    },
+    "sampleQuestions": {
+      "title": "Try Sample Questions",
+      "description": "Get a feel for our question bank with these sample questions from the exam",
+      "category": "Category",
+      "question": "Question",
+      "of": "of",
+      "correct": "Correct!",
+      "incorrect": "Incorrect",
+      "previous": "Previous",
+      "next": "Next",
+      "prompt": "Want access to 77+ practice questions?",
+      "cta": "Start Free Practice"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "description": "Choose the plan that fits your study needs. Upgrade or downgrade anytime.",
+      "footer": "All plans include access to our core question bank. Cancel anytime.",
+      "mostPopular": "Most Popular",
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "period": "forever",
+        "description": "Perfect for getting started",
+        "features": ["5 practice questions per day", "Basic progress tracking", "Access to free sample questions", "Community support"],
+        "cta": "Start Free"
+      },
+      "premium": {
+        "name": "Premium",
+        "price": "$9",
+        "period": "/month",
+        "description": "Best for serious students",
+        "features": ["Unlimited practice questions", "Detailed performance analytics", "Progress tracking by category", "Email support", "Ad-free experience"],
+        "cta": "Get Premium"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$29",
+        "period": "/month",
+        "description": "Maximum exam preparation",
+        "features": ["Everything in Premium", "Advanced analytics & insights", "Custom practice exams", "Priority support", "Early access to new questions", "Exam simulation mode"],
+        "cta": "Get Pro"
+      }
+    },
+    "waitlist": {
+      "title": "Join Our Waitlist",
+      "description": "Be the first to know when we launch and get exclusive early access discounts.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "cta": "Join Waitlist",
+      "joining": "Joining...",
+      "success": "You're on the list! We'll notify you when we launch.",
+      "error": "Failed to join waitlist",
+      "privacy": "No spam, ever. Unsubscribe anytime.",
+      "invalidEmail": "Please enter a valid email address",
+      "somethingWentWrong": "Something went wrong"
+    },
+    "footer": {
+      "description": "AI-powered physiotherapy exam preparation for Palestinian licensing exams.",
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal",
+      "rights": "All rights reserved.",
+      "madeWith": "Made with",
+      "by": "by",
+      "links": {
+        "footer": {
+          "questions": "Questions",
+          "pricing": "Pricing",
+          "features": "Features"
+        },
+        "social": {
+          "facebook": "Facebook",
+          "twitter": "Twitter",
+          "linkedin": "LinkedIn",
+          "email": "Email"
+        }
+      }
+    }
+  },
+  "news": {
+    "submitNews": "Submit News",
+    "submitNewsDesc": "Share your news, articles, or updates with the community. All submissions require admin approval before being published.",
+    "list": {
+      "title": "News",
+      "description": "Latest physiotherapy news and updates",
+      "all": "All",
+      "noNews": "No news yet",
+      "noNewsDesc": "News articles will appear here once published.",
+      "page": "Page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "detail": {
+      "back": "Back to News",
+      "backToNews": "Back to all news"
+    }
+  },
+  "header": {
+    "nav": {
+      "courses": "Courses",
+      "news": "News",
+      "knowledgeBase": "Knowledge Base",
+      "features": "Features",
+      "sampleQuestions": "Sample Questions",
+      "pricing": "Pricing",
+      "questionBank": "Question Bank"
+    },
+    "login": "Log In",
+    "signup": "Sign Up",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "openMenu": "Open menu",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "description": "Sign in to your PhysioAI.online account",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "errors": {
+        "unexpected": "An unexpected error occurred. Please try again."
+      }
+    },
+    "register": {
+      "title": "Create an account",
+      "description": "Sign up to start preparing for your physiotherapy exams",
+      "fullName": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create account",
+      "creating": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "errors": {
+        "failed": "Failed to create account",
+        "unexpected": "An unexpected error occurred. Please try again."
+      },
+      "success": "Account created successfully! Please check your email to verify your account."
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "submit": "Send reset link",
+      "sending": "Sending reset link...",
+      "successTitle": "Check your email",
+      "successDescription": "We've sent a password reset link to your email address if an account exists.",
+      "checkInbox": "Please check your inbox and follow the instructions in the email. The link will expire in 1 hour.",
+      "dontSeeEmail": "Don't see the email? Check your spam folder or",
+      "tryAgain": "try again",
+      "backToLogin": "Back to login",
+      "errors": {
+        "failed": "Failed to send reset email",
+        "unexpected": "An unexpected error occurred. Please try again."
+      }
+    },
+    "resetPassword": {
+      "title": "Reset Your Password",
+      "description": "Enter your new password below.",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "submit": "Reset password",
+      "resetting": "Resetting password...",
+      "passwordRequirements": "Password must be at least 8 characters with letters and numbers.",
+      "successTitle": "Password Reset Successful",
+      "successDescription": "Your password has been reset successfully.",
+      "redirectMessage": "You can now log in with your new password. Redirecting to login page...",
+      "goToLogin": "Go to Login",
+      "invalidTitle": "Invalid Reset Link",
+      "requestNew": "Request New Reset Link",
+      "backToLogin": "Back to login",
+      "errors": {
+        "invalidLink": "Invalid reset link. Please request a new password reset.",
+        "failed": "Failed to reset password",
+        "unexpected": "An unexpected error occurred. Please try again."
+      }
+    },
+    "verifyEmail": {
+      "loadingTitle": "Verifying Your Email...",
+      "loadingDescription": "Please wait while we verify your email address.",
+      "loadingMessage": "This will only take a moment...",
+      "successTitle": "Email Verified!",
+      "successDescription": "Your email has been verified successfully.",
+      "successMessage": "Email verified successfully!",
+      "failedMessage": "Failed to verify email",
+      "unexpectedError": "An unexpected error occurred. Please try again.",
+      "invalidLink": "Invalid verification link. Please request a new verification email.",
+      "loginPrompt": "You can now log in to your account. Redirecting to login page...",
+      "goToLogin": "Go to Login",
+      "errorTitle": "Verification Failed",
+      "linkExpired": "The verification link may have expired or is invalid.",
+      "requestNew": "Request New Verification Email",
+      "backToLogin": "Back to Login"
+    },
+    "verifyEmailAlert": {
+      "title": "Please verify your email",
+      "sentDescription": "We've sent a verification email to",
+      "checkInbox": "Please check your inbox and click the link to verify your account.",
+      "resentSuccess": "Verification email sent! Please check your inbox.",
+      "resentError": "Failed to send verification email. Please try again later.",
+      "resend": "Resend email",
+      "sending": "Sending...",
+      "tip": "Didn't receive the email? Check your spam folder or make sure the email address is correct."
+    }
+  },
+  "articles": {
+    "list": {
+      "title": "Knowledge Base",
+      "description": "Browse evidence-based physiotherapy articles and resources",
+      "categories": "Categories",
+      "noArticles": "No articles found",
+      "noArticlesSearch": "Try a different search term",
+      "noArticlesCategory": "No articles published yet in this category",
+      "page": "Page",
+      "of": "of"
+    },
+    "detail": {
+      "back": "Back to Knowledge Base",
+      "views": "views",
+      "lastUpdated": "Last updated",
+      "references": "References",
+      "edit": "Edit"
+    },
+    "card": {
+      "readMore": "Read more",
+      "by": "by",
+      "views": "views"
+    },
+    "editor": {
+      "basicInfo": "Basic Information",
+      "basicInfoDesc": "Provide the essential details for your article",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Management of ACL Injuries in Athletes",
+      "categoryLabel": "Category",
+      "selectCategory": "Select a category",
+      "tagsLabel": "Tags",
+      "tagsPlaceholder": "Add a tag...",
+      "excerptLabel": "Excerpt",
+      "excerptPlaceholder": "Brief summary for article cards and search results",
+      "featuredImage": "Featured Image",
+      "featuredImageDesc": "An optional image to make your article stand out",
+      "articleContent": "Article Content",
+      "articleContentDesc": "Build your article using blocks — add text, headings, images, YouTube videos, and more",
+      "noContent": "No content yet. Switch back to edit mode and add blocks.",
+      "references": "References",
+      "referencesDesc": "Add links to evidence sources, research papers, or clinical guidelines",
+      "noReferences": "No references added yet",
+      "allRequired": "All required fields filled",
+      "requiredFields": "Title, category, and content are required",
+      "submitReview": "Submit for Review",
+      "writeNew": "Write New Article",
+      "writeNewDesc": "Share your knowledge with the physiotherapy community",
+      "editArticle": "Edit Article",
+      "editArticleDesc": "Update your article content",
+      "noArticlesYet": "No articles yet",
+      "writeFirst": "Write your first article to contribute to the knowledge base",
+      "writeFirstCta": "Write Your First Article"
+    },
+    "blocks": {
+      "guide": "Guide",
+      "preview": "Preview",
+      "edit": "Edit",
+      "addBlock": "Add Block",
+      "startBuilding": "Start building your article by adding blocks",
+      "removeDivider": "Remove divider",
+      "enterHeading": "Enter heading...",
+      "typeContent": "Type your content here...",
+      "pasteImageUrl": "Paste image URL...",
+      "imageCaption": "Image caption (optional)",
+      "pasteYoutubeUrl": "Paste YouTube URL...",
+      "enterQuote": "Enter quote...",
+      "placeholderLanguage": "language (e.g. javascript, python)...",
+      "yourCode": "// Your code here...",
+      "oneItemPerLine": "One item per line",
+      "eachLineItem": "Each line becomes a list item",
+      "writeArticle": "Write Article"
+    },
+    "adminReview": {
+      "title": "Review Queue",
+      "description": "Approve or reject articles submitted by contributors",
+      "pendingReview": "Pending Review",
+      "noPending": "No articles pending review",
+      "published": "Published",
+      "by": "by",
+      "views": "views"
+    }
+  },
+  "questions": {
+    "list": {
+      "badge": "Question Bank",
+      "title": "Practice Questions",
+      "description": "Browse our collection of {total} physiotherapy exam questions. Filter by category and difficulty, then start a practice session.",
+      "allCategories": "All Categories",
+      "allDifficulties": "All Difficulties",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "noQuestions": "No questions found",
+      "adjustFilters": "Try adjusting your filters to see more questions.",
+      "clearFilters": "Clear Filters",
+      "count": "{count} questions",
+      "previous": "Previous",
+      "next": "Next",
+      "cta": {
+        "title": "Ready to test yourself?",
+        "description": "Start a timed practice session with random questions from your chosen categories.",
+        "button": "Start Practice Session"
+      }
+    },
+    "practice": {
+      "title": "Practice Questions",
+      "description": "Test your knowledge with physiotherapy exam questions",
+      "dailyLimit": "Daily limit",
+      "questionsRemaining": "questions remaining",
+      "haveCode": "Have a code?",
+      "enterCode": "Enter code",
+      "redeem": "Redeem",
+      "startSession": "Start a Practice Session",
+      "startSessionDesc": "Optionally select a category to focus on specific topics",
+      "categoryOptional": "Category (optional)",
+      "allCategories": "All Categories",
+      "loadingQuestions": "Loading questions...",
+      "startPractice": "Start Practice",
+      "sessionComplete": "Session Complete!",
+      "performanceSummary": "Here is your performance summary",
+      "answered": "Answered",
+      "correct": "Correct",
+      "accuracy": "Accuracy",
+      "dailyLimitReached": "Daily limit reached",
+      "dailyLimitDesc": "You have used all your practice questions for today. Upgrade to Premium for unlimited practice.",
+      "upgradePremium": "Upgrade to Premium",
+      "practiceAgain": "Practice Again",
+      "viewProgress": "View Progress",
+      "seeResults": "See Results",
+      "correctAnswer": "Correct!",
+      "incorrectAnswer": "Incorrect"
+    },
+    "progress": {
+      "title": "Your Progress",
+      "description": "Track your exam preparation journey",
+      "questionsAnswered": "Questions Answered",
+      "accuracy": "Accuracy",
+      "currentStreak": "Current Streak",
+      "bestStreak": "Best Streak",
+      "categoryBreakdown": "Category Breakdown",
+      "correctVsIncorrect": "Correct vs incorrect by topic",
+      "accuracyByCategory": "Accuracy by Category",
+      "performancePerTopic": "Performance percentage per topic",
+      "recentPracticeDays": "Recent Practice Days",
+      "showingDays": "Showing up to 30 most recent practice days",
+      "noData": "No progress data yet",
+      "noDataDesc": "Start practicing to see your stats here",
+      "noCategoryData": "No category data yet"
+    }
+  },
+  "dashboard": {
+    "main": {
+      "gettingStarted": "Getting Started",
+      "welcome": "Welcome to PhysioAI.online",
+      "links": {
+        "articles": {
+          "label": "Knowledge Base",
+          "description": "Browse physiotherapy articles and resources"
+        },
+        "practice": {
+          "label": "Practice",
+          "description": "Test your knowledge with exam questions"
+        },
+        "progress": {
+          "label": "Progress",
+          "description": "Track your learning progress"
+        },
+        "contributions": {
+          "label": "My Articles",
+          "description": "Manage your submitted articles"
+        },
+        "bookmarks": {
+          "label": "Bookmarks",
+          "description": "View your saved articles"
+        }
+      }
+    },
+    "contributions": {
+      "title": "My Articles",
+      "article": "article",
+      "articles": "articles",
+      "writeArticle": "Write Article",
+      "noArticles": "No articles yet",
+      "noArticlesDesc": "Write your first article to contribute to the knowledge base",
+      "writeFirst": "Write Your First Article",
+      "views": "views",
+      "version": "v{version}"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your public profile information",
+      "photo": "Profile Photo",
+      "noName": "No name set",
+      "tier": "Tier",
+      "subscription": "Subscription",
+      "subscriptionDesc": "Contact {email} to get a subscription and unlock all features.",
+      "viewPricing": "View pricing plans",
+      "personalInfo": "Personal Information",
+      "displayName": "Display Name",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself...",
+      "saveSuccess": "Profile saved",
+      "chooseImage": "Choose Image"
+    },
+    "bookmarks": {
+      "title": "Saved Articles",
+      "noBookmarks": "No bookmarks yet",
+      "noBookmarksDesc": "Save articles while browsing the knowledge base to read them later",
+      "browse": "Browse Knowledge Base"
+    }
+  },
+  "admin": {
+    "backToDashboard": "Back to Dashboard",
+    "nav": {
+      "dashboard": "Dashboard",
+      "questions": "Questions",
+      "review": "Review Queue",
+      "news": "News",
+      "courses": "Courses"
+    },
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "description": "Manage questions, categories, and site content",
+      "stats": {
+        "questions": "Questions",
+        "categories": "Categories",
+        "users": "Users",
+        "reviewQueue": "Review Queue",
+        "news": "News",
+        "courses": "Courses"
+      },
+  "recentQuestions": "Recent Questions",
+  "recentNews": "Recent News",
+  "recentCourses": "Recent Courses",
+  "noQuestions": "No questions yet.",
+  "addOne": "Add one",
+  "edit": "Edit"
+    },
+    "questions": {
+      "title": "Questions",
+      "total": "total",
+      "addQuestion": "Add Question",
+      "tableHeader": {
+        "question": "Question",
+        "category": "Category",
+        "difficulty": "Difficulty",
+        "source": "Source",
+        "active": "Active",
+        "actions": "Actions"
+      },
+      "noQuestions": "No questions found"
+    },
+    "news": {
+      "title": "News",
+      "total": "total",
+      "noNews": "No news yet",
+      "view": "View",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of"
+    },
+    "courses": {
+      "title": "Courses",
+      "total": "total",
+      "noCourses": "No courses yet",
+      "create": "Create Course",
+      "editTitle": "Edit Course",
+      "view": "View",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of"
+    }
+  },
+  "pricing": {
+    "needCustomPlan": "Need a Custom Plan?",
+    "contactForEnterprise": "Contact {email} for enterprise options or team subscriptions."
+  },
+  "courses": {
+    "list": {
+      "title": "Courses",
+      "description": "Learn physiotherapy through structured video courses",
+      "all": "All",
+      "noCourses": "No courses yet",
+      "noCoursesSearch": "No courses match your search. Try different keywords.",
+      "noCoursesPublished": "Courses will appear here once published.",
+      "createFirst": "Create the First Course",
+      "page": "Page",
+      "of": "of",
+      "create": "Create Course",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "create": {
+      "title": "Create a Course",
+      "importFromYoutube": "Import from YouTube",
+      "importDescription": "Paste a YouTube playlist URL or individual video URL to auto-generate sections and lessons.",
+      "youtubePlaceholder": "https://youtube.com/playlist?list=... or https://youtube.com/watch?v=...",
+      "fetch": "Fetch",
+      "courseDetails": "Course Details",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Complete Physiotherapy Course",
+      "imageUrl": "Image URL",
+      "priceLabel": "Price ($) — 0 means free",
+      "levelLabel": "Level",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "e.g. Orthopedics, Neurology",
+      "tagsLabel": "Tags (comma separated)",
+      "tagsPlaceholder": "rehabilitation, exercise, therapy",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Course description...",
+      "whatYouLearn": "What you'll learn (one per line)",
+      "whatYouLearnPlaceholder": "Master assessment techniques...",
+      "requirements": "Requirements (one per line)",
+      "requirementsPlaceholder": "Basic anatomy knowledge...",
+      "courseContent": "Course Content ({count} sections)",
+      "addSection": "Add Section",
+      "noSections": "No sections yet. Use the YouTube import above or add sections manually.",
+      "addLesson": "Add Lesson",
+      "publishImmediately": "Publish immediately",
+      "creating": "Creating...",
+      "createCourse": "Create Course",
+      "sectionTitle": "Section {number} title",
+      "lessonTitle": "Lesson title",
+      "youtubeUrl": "YouTube URL",
+      "free": "Free"
+    },
+    "view": {
+      "backToCourses": "Back to Courses",
+      "courseContent": "Course Content",
+      "completed": "completed",
+      "lessons": "lessons",
+      "signInToAccess": "Sign in to access this course",
+      "purchaseToUnlock": "Purchase this course to unlock all lessons",
+      "signIn": "Sign In",
+      "purchase": "Purchase for ${price}",
+      "overview": "Overview",
+      "qa": "Q&A",
+      "notes": "Notes",
+      "description": "Description",
+      "whatYouLearn": "What you'll learn",
+      "requirements": "Requirements",
+      "qaComingSoon": "Q&A Coming Soon",
+      "qaDescription": "Ask questions about this course and get answers from instructors.",
+      "notesComingSoon": "Notes Coming Soon",
+      "notesDescription": "Take notes while watching and they'll be saved here.",
+      "downloadCertificate": "Download Certificate",
+      "markComplete": "Mark complete",
+      "markIncomplete": "Mark incomplete"
+    },
+    "categories": {
+      "all": "All",
+      "assessment": "Assessment & Examination",
+      "cardiopulmonary": "Cardiopulmonary",
+      "electrotherapy": "Electrotherapy",
+      "mobility": "Mobility & Positioning",
+      "neurology": "Neurology",
+      "orthopedics": "Orthopedics",
+      "pediatrics": "Pediatrics",
+      "professional": "Professional Practice",
+      "research": "Research & Statistics",
+      "therapeutic": "Therapeutic Exercise"
+    },
+    "card": {
+      "by": "by",
+      "lessons": "lessons",
+      "sections": "sections",
+      "free": "Free"
+    }
+  }
+}

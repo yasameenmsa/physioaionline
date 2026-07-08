@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -33,6 +34,7 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations('auth.register');
 
   const {
     register,
@@ -70,19 +72,18 @@ export function RegisterForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || 'Failed to create account');
+        setError(result.error || t('errors.failed'));
         return;
       }
 
-      setSuccess(result.message || 'Account created successfully! Please check your email to verify your account.');
+      setSuccess(result.message || t('success'));
       reset();
 
-      // Redirect to login after 3 seconds
       setTimeout(() => {
         router.push('/login?verified=false');
       }, 3000);
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+      setError(t('errors.unexpected'));
     } finally {
       setIsLoading(false);
     }
@@ -91,9 +92,9 @@ export function RegisterForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardTitle className="text-2xl">{t('title')}</CardTitle>
         <CardDescription>
-          Sign up to start preparing for your physiotherapy exams
+          {t('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -111,10 +112,10 @@ export function RegisterForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
+            <Label htmlFor="name">{t('fullName')}</Label>
             <Input
               id="name"
-              placeholder="John Doe"
+              placeholder={t('namePlaceholder')}
               disabled={isLoading}
               {...register('name')}
               aria-invalid={!!errors.name}
@@ -125,11 +126,11 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('email')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="john@example.com"
+              placeholder={t('emailPlaceholder')}
               disabled={isLoading}
               {...register('email')}
               aria-invalid={!!errors.email}
@@ -140,7 +141,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('password')}</Label>
             <Input
               id="password"
               type="password"
@@ -155,7 +156,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword">{t('confirmPassword')}</Label>
             <Input
               id="confirmPassword"
               type="password"
@@ -172,20 +173,20 @@ export function RegisterForm() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating account...
+                <Loader2 className="me-2 h-4 w-4 animate-spin" />
+                {t('creating')}
               </>
             ) : (
-              'Create account'
+              t('submit')
             )}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
-          Already have an account?{' '}
+          {t('hasAccount')}{' '}
           <Link href="/login" className="text-primary hover:underline">
-            Sign in
+            {t('signIn')}
           </Link>
         </p>
       </CardFooter>

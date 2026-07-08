@@ -1,0 +1,88 @@
+import Link from 'next/link';
+import { Calendar, Eye, Tag } from 'lucide-react';
+
+interface NewsCardProps {
+  _id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  imageUrl?: string;
+  tags?: string[];
+  viewCount?: number;
+  publishedAt?: string;
+  author?: { _id: string; name: string } | null;
+}
+
+export function NewsCard({
+  slug,
+  title,
+  excerpt,
+  imageUrl,
+  tags,
+  viewCount,
+  publishedAt,
+  author,
+}: NewsCardProps) {
+  const date = publishedAt
+    ? new Date(publishedAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : '';
+
+  return (
+    <Link
+      href={`/news/${slug}`}
+      className="group block rounded-lg border bg-card hover:shadow-md transition-shadow overflow-hidden"
+    >
+      {imageUrl && (
+        <div className="aspect-video w-full overflow-hidden bg-muted">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="h-full w-full object-cover transition-transform group-hover:scale-105"
+          />
+        </div>
+      )}
+      <div className="p-4 space-y-3">
+        <h3 className="font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
+          {title}
+        </h3>
+        {excerpt && (
+          <p className="text-sm text-muted-foreground line-clamp-2">
+            {excerpt}
+          </p>
+        )}
+        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+          {date && (
+            <span className="flex items-center gap-1">
+              <Calendar className="h-3 w-3" />
+              {date}
+            </span>
+          )}
+          {viewCount !== undefined && (
+            <span className="flex items-center gap-1">
+              <Eye className="h-3 w-3" />
+              {viewCount}
+            </span>
+          )}
+          {author && <span>{author.name}</span>}
+        </div>
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-0.5 rounded-full bg-muted px-2 py-0.5 text-xs"
+              >
+                <Tag className="h-2.5 w-2.5" />
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+}

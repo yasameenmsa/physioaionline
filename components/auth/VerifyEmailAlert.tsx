@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AlertCircle, Mail, CheckCircle2, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 
@@ -13,6 +14,7 @@ interface VerifyEmailAlertProps {
 export function VerifyEmailAlert({ email, onResend }: VerifyEmailAlertProps) {
   const [isResending, setIsResending] = useState(false);
   const [resendStatus, setResendStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const t = useTranslations('auth.verifyEmailAlert');
 
   const handleResend = async () => {
     setIsResending(true);
@@ -46,23 +48,23 @@ export function VerifyEmailAlert({ email, onResend }: VerifyEmailAlertProps) {
     <Alert className="border-yellow-200 bg-yellow-50 dark:border-yellow-900 dark:bg-yellow-950">
       <AlertCircle className="h-4 w-4 text-yellow-600 dark:text-yellow-500" />
       <AlertTitle className="text-yellow-800 dark:text-yellow-200">
-        Please verify your email
+        {t('title')}
       </AlertTitle>
       <AlertDescription className="text-yellow-700 dark:text-yellow-300 space-y-3">
         <p>
-          We've sent a verification email to <strong>{email}</strong>. Please check your inbox and click the link to verify your account.
+          {t('sentDescription')} <strong>{email}</strong>. {t('checkInbox')}
         </p>
 
         {resendStatus === 'success' && (
           <div className="flex items-center gap-2 text-sm">
             <CheckCircle2 className="h-4 w-4 text-green-600" />
-            <span>Verification email sent! Please check your inbox.</span>
+            <span>{t('resentSuccess')}</span>
           </div>
         )}
 
         {resendStatus === 'error' && (
           <p className="text-sm text-destructive">
-            Failed to send verification email. Please try again later.
+            {t('resentError')}
           </p>
         )}
 
@@ -76,20 +78,20 @@ export function VerifyEmailAlert({ email, onResend }: VerifyEmailAlertProps) {
           >
             {isResending ? (
               <>
-                <Loader2 className="mr-2 h-3 w-3 animate-spin" />
-                Sending...
+                <Loader2 className="me-2 h-3 w-3 animate-spin" />
+                {t('sending')}
               </>
             ) : (
               <>
-                <Mail className="mr-2 h-3 w-3" />
-                Resend email
+                <Mail className="me-2 h-3 w-3" />
+                {t('resend')}
               </>
             )}
           </Button>
         </div>
 
         <p className="text-xs">
-          Didn't receive the email? Check your spam folder or make sure the email address is correct.
+          {t('tip')}
         </p>
       </AlertDescription>
     </Alert>

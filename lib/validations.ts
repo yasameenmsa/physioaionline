@@ -62,9 +62,17 @@ export const paymentProcessSchema = z.object({
   adminNotes: z.string().optional(),
 });
 
+export const blockSchema = z.object({
+  id: z.string(),
+  type: z.enum(['heading', 'paragraph', 'image', 'youtube', 'quote', 'code', 'list', 'divider']),
+  content: z.string(),
+  attrs: z.record(z.unknown()).optional(),
+});
+
 export const articleSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200),
   body: z.string().min(1, 'Body is required'),
+  blocks: z.array(blockSchema).optional(),
   excerpt: z.string().min(1, 'Excerpt is required').max(300),
   category: z.string().min(1, 'Category is required'),
   tags: z.array(z.string()).optional().default([]),
