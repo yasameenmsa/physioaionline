@@ -13,6 +13,7 @@ interface Question {
   options: string[];
   correctAnswer: number;
   explanation: string;
+  imageUrl?: string;
   category: {
     name: string;
   };
@@ -118,6 +119,15 @@ export function SampleQuestions() {
               <CardTitle className="text-xl">{currentQuestion.questionText}</CardTitle>
             </CardHeader>
             <CardContent>
+              {currentQuestion.imageUrl && (
+                <div className="mb-6 flex justify-center">
+                  <img
+                    src={currentQuestion.imageUrl}
+                    alt="Question illustration"
+                    className="max-w-full h-auto rounded-lg border max-h-64 object-contain"
+                  />
+                </div>
+              )}
               <div className="space-y-3">
                 {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedAnswer === index;

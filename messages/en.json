@@ -206,10 +206,12 @@
       "dontSeeEmail": "Don't see the email? Check your spam folder or",
       "tryAgain": "try again",
       "backToLogin": "Back to login",
-      "errors": {
-        "failed": "Failed to send reset email",
-        "unexpected": "An unexpected error occurred. Please try again."
-      }
+    "errors": {
+      "failed": "Failed to send reset email",
+      "unexpected": "An unexpected error occurred. Please try again.",
+      "tooManyRequests": "Too many password reset requests. Please try again later.",
+      "invalidEmail": "Invalid email address"
+    }
     },
     "resetPassword": {
       "title": "Reset Your Password",
@@ -226,11 +228,20 @@
       "invalidTitle": "Invalid Reset Link",
       "requestNew": "Request New Reset Link",
       "backToLogin": "Back to login",
-      "errors": {
-        "invalidLink": "Invalid reset link. Please request a new password reset.",
-        "failed": "Failed to reset password",
-        "unexpected": "An unexpected error occurred. Please try again."
-      }
+    "errors": {
+      "invalidLink": "Invalid reset link. Please request a new password reset.",
+      "failed": "Failed to reset password",
+      "unexpected": "An unexpected error occurred. Please try again.",
+      "tooManyAttempts": "Too many password reset attempts. Please try again later.",
+      "passwordWeak": "Password must be at least 8 characters and include both letters and numbers",
+      "invalidToken": "Invalid or expired reset token",
+      "tokenExpired": "Reset token has expired. Please request a new password reset.",
+      "success": "Password reset successfully. You can now log in with your new password.",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordLetter": "Password must contain at least one letter",
+      "passwordNumber": "Password must contain at least one number",
+      "passwordMatch": "Passwords don't match"
+    }
     },
     "verifyEmail": {
       "loadingTitle": "Verifying Your Email...",

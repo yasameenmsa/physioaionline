@@ -13,17 +13,21 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const forgotPasswordSchema = z.object({
-  email: z.string().email('Invalid email address'),
-});
-
-type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
-
 export function ForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations('auth.forgotPassword');
+
+  const forgotPasswordSchema = z.object({
+    email: z.string().email(t('errors.invalidEmail')),
+  });
+
+  type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+
+  const errorMap: Record<string, string> = {
+    'Too many password reset requests. Please try again later.': t('errors.tooManyRequests'),
+  };
 
   const {
     register,
@@ -52,7 +56,7 @@ export function ForgotPasswordForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || t('errors.failed'));
+        setError(errorMap[result.error] || t('errors.failed'));
         return;
       }
 

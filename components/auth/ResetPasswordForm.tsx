@@ -14,20 +14,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const resetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters')
-    .regex(/[a-zA-Z]/, 'Password must contain at least one letter')
-    .regex(/\d/, 'Password must contain at least one number'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ['confirmPassword'],
-});
-
-type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
-
 export function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -38,6 +24,28 @@ export function ResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isTokenValid, setIsTokenValid] = useState(!!token);
   const t = useTranslations('auth.resetPassword');
+
+  const resetPasswordSchema = z.object({
+    password: z
+      .string()
+      .min(8, t('errors.passwordMin'))
+      .regex(/[a-zA-Z]/, t('errors.passwordLetter'))
+      .regex(/\d/, t('errors.passwordNumber')),
+    confirmPassword: z.string(),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: t('errors.passwordMatch'),
+    path: ['confirmPassword'],
+  });
+
+  type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+
+  const errorMap: Record<string, string> = {
+    'Too many password reset attempts. Please try again later.': t('errors.tooManyAttempts'),
+    'Password must be at least 8 characters and include both letters and numbers': t('errors.passwordWeak'),
+    'Invalid or expired reset token': t('errors.invalidToken'),
+    'Reset token has expired. Please request a new password reset.': t('errors.tokenExpired'),
+    'Password reset successfully. You can now log in with your new password.': t('errors.success'),
+  };
 
   useEffect(() => {
     if (!token) {
@@ -84,7 +92,7 @@ export function ResetPasswordForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setError(result.error || t('errors.failed'));
+        setError(errorMap[result.error] || t('errors.failed'));
         return;
       }
 
