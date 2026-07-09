@@ -1,30 +1,47 @@
-# PhysioAI.online
+# dependencies
+node_modules/
+.pnp
+.pnp.js
 
-AI-powered exam preparation platform for physiotherapy students.
+# testing
+coverage/
 
-## Quick Start
+# next.js
+.next/
+out/
 
-The main application code is in the `physioai/` directory.
+# production
+build
 
-```bash
-cd physioai
-npm install
-npm run dev
-```
+# misc
+.DS_Store
+*.pem
 
-See [physioai/README.md](./physioai/README.md) for detailed documentation.
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-## Documentation
+# local env files
+.env*.local
+.env
 
-Project documentation is available in the `specs/` directory using Spec Kit framework.
+# vercel
+.vercel
 
-## Tech Stack
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
-- Next.js 14, React 18, TypeScript
-- MongoDB with Mongoose
-- NextAuth.js v5 for authentication
-- Tailwind CSS + shadcn/ui components
+# uploads
+public/uploads
+uploads
 
-## License
+# playwright
+playwright-report
+test-results
 
-MIT
+# vitest
+vitest-coverage
+.gstack/
