@@ -77,6 +77,7 @@ export function ResetPasswordForm() {
         body: JSON.stringify({
           token,
           password: data.password,
+          confirmPassword: data.confirmPassword,
         }),
       });
 

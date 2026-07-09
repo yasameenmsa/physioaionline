@@ -1,12 +1,12 @@
 'use client';
 
 import { Link } from '@/i18n/routing';
-import { Mail, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Linkedin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
   forStudents: [
-    { labelKey: 'footer.questions', href: '/questions' },
+    { labelKey: 'footer.questions', href: '/sample-questions' },
     { labelKey: 'footer.knowledgeBase', href: '/articles' },
     { labelKey: 'footer.pricing', href: '#pricing' },
   ],
@@ -18,11 +18,18 @@ const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: '#', labelKey: 'social.facebook' },
-  { icon: Twitter, href: '#', labelKey: 'social.twitter' },
-  { icon: Linkedin, href: '#', labelKey: 'social.linkedin' },
-  { icon: Mail, href: 'mailto:info@physioai.online', labelKey: 'social.email' },
+  { icon: XIcon, href: '#', labelKey: 'social.x' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/yasmin-msa', labelKey: 'social.linkedin' },
+  { icon: Mail, href: 'mailto:yasmeenawawdehm@gmail.com', labelKey: 'social.email' },
 ];
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   const t = useTranslations('landing.footer');
