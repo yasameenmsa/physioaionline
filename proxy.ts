@@ -45,8 +45,6 @@ export default function proxy(req: NextRequest) {
   const intlResponse = intlMiddleware(req);
   if (intlResponse) return intlResponse;
 
-  // If intlMiddleware didn't handle it but path has a locale prefix (/en/, /ar/),
-  // treat it as a public content request (courses, news, articles etc.)
   const localeMatch = pathname.match(/^\/(en|ar)(\/|$)/);
   if (localeMatch) {
     const remaining = pathname.slice(localeMatch[0].length - 1) || '/';

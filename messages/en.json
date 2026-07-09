@@ -104,19 +104,26 @@
       "rights": "All rights reserved.",
       "madeWith": "Made with",
       "by": "by",
-      "links": {
-        "footer": {
-          "questions": "Questions",
-          "pricing": "Pricing",
-          "features": "Features"
-        },
-        "social": {
-          "facebook": "Facebook",
-          "twitter": "Twitter",
-          "linkedin": "LinkedIn",
-          "email": "Email"
+        "links": {
+          "footer": {
+            "questions": "Questions",
+            "pricing": "Pricing",
+            "features": "Features",
+            "knowledgeBase": "Knowledge Base",
+            "courses": "Courses",
+            "about": "About",
+            "contact": "Contact",
+            "blog": "Blog",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service"
+          },
+          "social": {
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "linkedin": "LinkedIn",
+            "email": "Email"
+          }
         }
-      }
     }
   },
   "news": {
@@ -409,6 +416,8 @@
     }
   },
   "dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back, {name}",
     "main": {
       "gettingStarted": "Getting Started",
       "welcome": "Welcome to PhysioAI.online",
@@ -434,6 +443,21 @@
           "description": "View your saved articles"
         }
       }
+    },
+    "nav": {
+      "knowledgeBase": "Knowledge Base",
+      "practice": "Practice",
+      "progress": "Progress",
+      "myArticles": "My Articles",
+      "bookmarks": "Bookmarks",
+      "profile": "Profile",
+      "admin": "Admin",
+      "dashboard": "Dashboard",
+      "courses": "Courses",
+      "news": "News",
+      "questions": "Questions",
+      "reviewQueue": "Review Queue",
+      "codes": "Codes"
     },
     "contributions": {
       "title": "My Articles",

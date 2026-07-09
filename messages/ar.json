@@ -104,19 +104,26 @@
       "rights": "جميع الحقوق محفوظة.",
       "madeWith": "صُنع بـ",
       "by": "بواسطة",
-      "links": {
-        "footer": {
-          "questions": "الأسئلة",
-          "pricing": "الأسعار",
-          "features": "المميّزات"
-        },
-        "social": {
-          "facebook": "فيسبوك",
-          "twitter": "تويتر",
-          "linkedin": "لينكد إن",
-          "email": "البريد الإلكتروني"
+        "links": {
+          "footer": {
+            "questions": "الأسئلة",
+            "pricing": "الأسعار",
+            "features": "المميّزات",
+            "knowledgeBase": "قاعدة المعرفة",
+            "courses": "الكورسات",
+            "about": "عن المنصة",
+            "contact": "اتصل بنا",
+            "blog": "المدونة",
+            "privacy": "سياسة الخصوصية",
+            "terms": "شروط الخدمة"
+          },
+          "social": {
+            "facebook": "فيسبوك",
+            "twitter": "تويتر",
+            "linkedin": "لينكد إن",
+            "email": "البريد الإلكتروني"
+          }
         }
-      }
     }
   },
   "news": {
@@ -409,6 +416,8 @@
     }
   },
   "dashboard": {
+    "title": "لوحة التحكم",
+    "welcomeBack": "مرحباً بعودتك، {name}",
     "main": {
       "gettingStarted": "ابدأ هنا",
       "welcome": "مرحباً بك في PhysioAI.online",
@@ -434,6 +443,21 @@
           "description": "عرض مقالاتك المحفوظة"
         }
       }
+    },
+    "nav": {
+      "knowledgeBase": "قاعدة المعرفة",
+      "practice": "تطبيق",
+      "progress": "التقدّم",
+      "myArticles": "مقالاتي",
+      "bookmarks": "المحفوظات",
+      "profile": "الملف الشخصي",
+      "admin": "المشرف",
+      "dashboard": "لوحة التحكم",
+      "courses": "الكورسات",
+      "news": "الأخبار",
+      "questions": "الأسئلة",
+      "reviewQueue": "قائمة المراجعة",
+      "codes": "الأكواد"
     },
     "contributions": {
       "title": "مقالاتي",

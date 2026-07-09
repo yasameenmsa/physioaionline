@@ -76,6 +76,14 @@ export function LoginForm() {
           setError(null);
           setShowVerifyAlert(true);
           setVerifyEmail(data.email);
+          return;
+        }
+
+        const internalErrors = ['Configuration', 'AccessDenied', 'CredentialsSignin'];
+        if (internalErrors.includes(result.error)) {
+          setError(t('errors.unexpected'));
+        } else if (result.error === 'Email and password required') {
+          setError('Email and password are required');
         } else {
           setError(result.error);
         }

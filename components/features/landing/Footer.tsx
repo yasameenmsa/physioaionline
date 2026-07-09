@@ -7,11 +7,11 @@ import { useLocale, useTranslations } from 'next-intl';
 const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
   product: [
     { labelKey: 'footer.questions', href: '/questions' },
+    { labelKey: 'footer.knowledgeBase', href: '/articles' },
+    { labelKey: 'footer.courses', href: '/courses' },
     { labelKey: 'footer.pricing', href: '#pricing' },
     { labelKey: 'footer.features', href: '#features' },
   ],
-  company: [],
-  legal: [],
 };
 
 const socialLinks = [
