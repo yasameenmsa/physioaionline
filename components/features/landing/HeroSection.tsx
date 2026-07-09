@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2, BookOpen, Target, TrendingUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';

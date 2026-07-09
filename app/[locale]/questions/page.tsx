@@ -27,17 +27,22 @@ interface QuestionsResponse {
   total: number;
   page: number;
   totalPages: number;
+  isLimited?: boolean;
+  visibleLimit?: number;
 }
 
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [total, setTotal] = useState(0);
+  const [actualTotal, setActualTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [category, setCategory] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isLimited, setIsLimited] = useState(false);
+  const [visibleLimit, setVisibleLimit] = useState(0);
   const t = useTranslations('questions.list');
 
   const difficulties = [
@@ -65,7 +70,10 @@ export default function QuestionsPage() {
         if (d.data) {
           setQuestions(d.data.questions);
           setTotal(d.data.total);
+          setActualTotal(d.data.actualTotal ?? d.data.total);
           setTotalPages(d.data.totalPages);
+          setIsLimited(d.data.isLimited ?? false);
+          setVisibleLimit(d.data.visibleLimit ?? 0);
         }
         setLoading(false);
       });
@@ -88,7 +96,7 @@ export default function QuestionsPage() {
               {t('title')}
             </h1>
             <p className="text-muted-foreground">
-              {t('description', { total })}
+              {t('description', { total: isLimited ? actualTotal : total })}
             </p>
           </div>
 
@@ -114,9 +122,30 @@ export default function QuestionsPage() {
               ))}
             </select>
             <div className="text-sm text-muted-foreground ml-auto">
-              {t('count', { count: total })}
+              {t('count', { count: isLimited ? actualTotal : total })}
             </div>
           </div>
+
+          {isLimited && visibleLimit > 0 && (
+            <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg dark:bg-amber-950/20 dark:border-amber-800">
+              <div className="flex items-start gap-3">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                    {t('limited', { count: visibleLimit, total: actualTotal })}
+                  </p>
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                    <Link href="/login" className="underline font-medium">
+                      {t('limitedLogin')}
+                    </Link>
+                    {' — '}
+                    <Link href="#pricing" className="underline font-medium">
+                      {t('limitedUpgrade')}
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {loading ? (
             <div className="space-y-4">

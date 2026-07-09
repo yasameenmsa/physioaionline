@@ -98,9 +98,8 @@
     },
     "footer": {
       "description": "AI-powered physiotherapy exam preparation for Palestinian licensing exams.",
-      "product": "Product",
-      "company": "Company",
-      "legal": "Legal",
+      "forStudents": "For Students",
+      "forProfessionals": "For Professionals",
       "rights": "All rights reserved.",
       "madeWith": "Made with",
       "by": "by",
@@ -111,11 +110,7 @@
             "features": "Features",
             "knowledgeBase": "Knowledge Base",
             "courses": "Courses",
-            "about": "About",
-            "contact": "Contact",
-            "blog": "Blog",
-            "privacy": "Privacy Policy",
-            "terms": "Terms of Service"
+            "news": "News"
           },
           "social": {
             "facebook": "Facebook",
@@ -363,6 +358,9 @@
       "count": "{count} questions",
       "previous": "Previous",
       "next": "Next",
+      "limited": "Showing {count} of {total} questions",
+      "limitedLogin": "Log in to see more",
+      "limitedUpgrade": "Upgrade to Premium for unlimited access",
       "cta": {
         "title": "Ready to test yourself?",
         "description": "Start a timed practice session with random questions from your chosen categories.",

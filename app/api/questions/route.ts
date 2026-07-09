@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
+import { auth } from '@/lib/auth';
 import Question from '@/models/Question';
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB();
+
+    const session = await auth();
+    const user = session?.user as { role?: string; tier?: string } | undefined;
+    const isPremium = user?.role === 'admin' || user?.tier === 'premium' || user?.tier === 'pro';
+    const isAuthenticated = !!session?.user;
+
+    const visibleLimit = isPremium ? Infinity : isAuthenticated ? 5 : 2;
 
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
@@ -16,23 +24,31 @@ export async function GET(request: NextRequest) {
     if (category) filter.category = category;
     if (difficulty) filter.difficulty = difficulty;
 
-    const [questions, total] = await Promise.all([
+    const [allQuestions, total] = await Promise.all([
       Question.find(filter)
         .populate('category', 'name slug')
         .select('-correctAnswer -explanation')
-        .skip((page - 1) * limit)
-        .limit(limit)
         .lean(),
       Question.countDocuments(filter),
     ]);
+
+    const visiblePool = isPremium ? allQuestions : allQuestions.slice(0, visibleLimit);
+    const visibleTotal = visiblePool.length;
+    const totalPages = Math.ceil(visibleTotal / limit);
+    const safePage = Math.min(page, Math.max(1, totalPages));
+    const startIdx = (safePage - 1) * limit;
+    const questions = visiblePool.slice(startIdx, startIdx + limit);
 
     return NextResponse.json({
       success: true,
       data: {
         questions,
-        total,
-        page,
-        totalPages: Math.ceil(total / limit),
+        total: visibleTotal,
+        actualTotal: total,
+        page: safePage,
+        totalPages,
+        isLimited: !isPremium,
+        visibleLimit,
       },
     });
   } catch (error) {

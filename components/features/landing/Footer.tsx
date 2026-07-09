@@ -1,16 +1,19 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Mail, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
-  product: [
+  forStudents: [
     { labelKey: 'footer.questions', href: '/questions' },
     { labelKey: 'footer.knowledgeBase', href: '/articles' },
-    { labelKey: 'footer.courses', href: '/courses' },
     { labelKey: 'footer.pricing', href: '#pricing' },
+  ],
+  forProfessionals: [
+    { labelKey: 'footer.courses', href: '/courses' },
     { labelKey: 'footer.features', href: '#features' },
+    { labelKey: 'footer.news', href: '/news' },
   ],
 };
 
@@ -38,11 +41,11 @@ export function Footer() {
             </p>
           </div>
 
-          {footerLinks.product.length > 0 && (
+          {footerLinks.forStudents.length > 0 && (
             <div>
-              <h4 className="mb-4 font-semibold">{t('product')}</h4>
+              <h4 className="mb-4 font-semibold">{t('forStudents')}</h4>
               <ul className="space-y-2 text-sm">
-                {footerLinks.product.map((link) => (
+                {footerLinks.forStudents.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -56,29 +59,11 @@ export function Footer() {
             </div>
           )}
 
-          {footerLinks.company.length > 0 && (
+          {footerLinks.forProfessionals.length > 0 && (
             <div>
-              <h4 className="mb-4 font-semibold">{t('company')}</h4>
+              <h4 className="mb-4 font-semibold">{t('forProfessionals')}</h4>
               <ul className="space-y-2 text-sm">
-                {footerLinks.company.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {tl(link.labelKey)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {footerLinks.legal.length > 0 && (
-            <div>
-              <h4 className="mb-4 font-semibold">{t('legal')}</h4>
-              <ul className="space-y-2 text-sm">
-                {footerLinks.legal.map((link) => (
+                {footerLinks.forProfessionals.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
