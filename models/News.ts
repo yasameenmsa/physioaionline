@@ -4,9 +4,12 @@ import type { INews, NewsModel } from '@/types/models';
 const newsSchema = new Schema<INews>(
   {
     title: { type: String, required: true },
+    titleAr: { type: String, default: '' },
     slug: { type: String, required: true, unique: true },
     content: { type: String, required: true },
+    contentAr: { type: String, default: '' },
     excerpt: { type: String, default: '' },
+    excerptAr: { type: String, default: '' },
     imageUrl: { type: String, default: '' },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     published: { type: Boolean, default: false },

@@ -14,8 +14,11 @@ interface AdminNewsFormProps {
   initialData?: {
     slug: string;
     title: string;
+    titleAr?: string;
     content: string;
+    contentAr?: string;
     excerpt: string;
+    excerptAr?: string;
     imageUrl: string;
     tags: string[];
     published: boolean;
@@ -27,8 +30,11 @@ export function AdminNewsForm({ initialData }: AdminNewsFormProps) {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     title: initialData?.title || '',
+    titleAr: initialData?.titleAr || '',
     content: initialData?.content || '',
+    contentAr: initialData?.contentAr || '',
     excerpt: initialData?.excerpt || '',
+    excerptAr: initialData?.excerptAr || '',
     imageUrl: initialData?.imageUrl || '',
     tags: initialData?.tags?.join(', ') || '',
     published: initialData?.published || false,
@@ -45,8 +51,11 @@ export function AdminNewsForm({ initialData }: AdminNewsFormProps) {
     try {
       const body = {
         title: form.title,
+        titleAr: form.titleAr,
         content: form.content,
+        contentAr: form.contentAr,
         excerpt: form.excerpt || form.title.slice(0, 200),
+        excerptAr: form.excerptAr,
         imageUrl: form.imageUrl,
         tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         published: form.published,
@@ -77,6 +86,8 @@ export function AdminNewsForm({ initialData }: AdminNewsFormProps) {
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
       <Card className="p-6 space-y-4">
+        <h3 className="text-lg font-semibold border-b pb-2 mb-4">English</h3>
+
         <div className="space-y-2">
           <Label htmlFor="title">Title *</Label>
           <Input
@@ -85,16 +96,6 @@ export function AdminNewsForm({ initialData }: AdminNewsFormProps) {
             onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
             placeholder="News title"
             required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="imageUrl">Image URL</Label>
-          <ImageUploadInput
-            id="imageUrl"
-            value={form.imageUrl}
-            onChange={(value) => setForm((f) => ({ ...f, imageUrl: value }))}
-            placeholder="https://example.com/image.jpg"
           />
         </div>
 
@@ -118,6 +119,57 @@ export function AdminNewsForm({ initialData }: AdminNewsFormProps) {
             placeholder="News content (HTML or markdown)"
             rows={12}
             required
+          />
+        </div>
+      </Card>
+
+      <Card className="p-6 space-y-4">
+        <h3 className="text-lg font-semibold border-b pb-2 mb-4">العربية</h3>
+
+        <div className="space-y-2">
+          <Label htmlFor="titleAr">العنوان</Label>
+          <Input
+            id="titleAr"
+            value={form.titleAr}
+            onChange={(e) => setForm((f) => ({ ...f, titleAr: e.target.value }))}
+            placeholder="عنوان الخبر"
+            dir="rtl"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="excerptAr">الملخص (اختياري)</Label>
+          <Textarea
+            id="excerptAr"
+            value={form.excerptAr}
+            onChange={(e) => setForm((f) => ({ ...f, excerptAr: e.target.value }))}
+            placeholder="وصف مختصر لبطاقة المعاينة"
+            rows={2}
+            dir="rtl"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="contentAr">المحتوى</Label>
+          <Textarea
+            id="contentAr"
+            value={form.contentAr}
+            onChange={(e) => setForm((f) => ({ ...f, contentAr: e.target.value }))}
+            placeholder="محتوى الخبر (HTML أو Markdown)"
+            rows={12}
+            dir="rtl"
+          />
+        </div>
+      </Card>
+
+      <Card className="p-6 space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="imageUrl">Image URL</Label>
+          <ImageUploadInput
+            id="imageUrl"
+            value={form.imageUrl}
+            onChange={(value) => setForm((f) => ({ ...f, imageUrl: value }))}
+            placeholder="https://example.com/image.jpg"
           />
         </div>
 

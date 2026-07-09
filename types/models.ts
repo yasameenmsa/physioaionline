@@ -231,9 +231,12 @@ export interface IPurchase extends Document {
 
 export interface INews extends Document {
   title: string;
+  titleAr?: string;
   slug: string;
   content: string;
+  contentAr?: string;
   excerpt: string;
+  excerptAr?: string;
   imageUrl?: string;
   author: Types.ObjectId;
   published: boolean;

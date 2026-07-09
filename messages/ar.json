@@ -546,12 +546,25 @@
     "news": {
       "title": "الأخبار",
       "total": "الإجمالي",
+      "create": "إنشاء",
+      "createTitle": "إنشاء خبر",
+      "editTitle": "تعديل الخبر",
       "noNews": "لا توجد أخبار بعد",
       "view": "عرض",
       "previous": "السابق",
       "next": "التالي",
       "page": "صفحة",
-      "of": "من"
+      "of": "من",
+      "englishSection": "English",
+      "arabicSection": "العربية",
+      "titleLabel": "العنوان",
+      "titleArLabel": "العنوان (عربي)",
+      "excerptLabel": "الملخص (اختياري)",
+      "excerptArLabel": "الملخص (عربي - اختياري)",
+      "contentLabel": "المحتوى",
+      "contentArLabel": "المحتوى (عربي)",
+      "imageUrlLabel": "رابط الصورة",
+      "tagsLabel": "الوسوم (مفصولة بفواصل)"
     },
     "courses": {
       "title": "الكورسات",

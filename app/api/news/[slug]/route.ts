@@ -50,8 +50,11 @@ export async function PUT(
 
     const updates: Record<string, unknown> = {};
     if (body.title) updates.title = body.title;
+    if (body.titleAr !== undefined) updates.titleAr = body.titleAr;
     if (body.content) updates.content = body.content;
+    if (body.contentAr !== undefined) updates.contentAr = body.contentAr;
     if (body.excerpt !== undefined) updates.excerpt = body.excerpt;
+    if (body.excerptAr !== undefined) updates.excerptAr = body.excerptAr;
     if (body.imageUrl !== undefined) updates.imageUrl = body.imageUrl;
     if (body.tags) updates.tags = body.tags;
     if (body.published !== undefined) {

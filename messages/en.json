@@ -546,12 +546,25 @@
     "news": {
       "title": "News",
       "total": "total",
+      "create": "Create",
+      "createTitle": "Create News",
+      "editTitle": "Edit News",
       "noNews": "No news yet",
       "view": "View",
       "previous": "Previous",
       "next": "Next",
       "page": "Page",
-      "of": "of"
+      "of": "of",
+      "englishSection": "English",
+      "arabicSection": "العربية",
+      "titleLabel": "Title",
+      "titleArLabel": "العنوان",
+      "excerptLabel": "Excerpt (optional)",
+      "excerptArLabel": "الملخص (اختياري)",
+      "contentLabel": "Content",
+      "contentArLabel": "المحتوى",
+      "imageUrlLabel": "Image URL",
+      "tagsLabel": "Tags (comma separated)"
     },
     "courses": {
       "title": "Courses",

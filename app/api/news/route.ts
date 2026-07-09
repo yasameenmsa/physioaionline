@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
 
     await connectDB();
     const body = await req.json();
-    const { title, content, excerpt, imageUrl, tags, published } = body;
+    const { title, titleAr, content, contentAr, excerpt, excerptAr, imageUrl, tags, published } = body;
 
     if (!title || !content) {
       return apiError('Title and content are required', 400);
@@ -68,9 +68,12 @@ export async function POST(req: NextRequest) {
 
     const newsItem = await News.create({
       title,
+      titleAr: titleAr || '',
       slug,
       content,
+      contentAr: contentAr || '',
       excerpt: excerpt || title.slice(0, 200),
+      excerptAr: excerptAr || '',
       imageUrl: imageUrl || '',
       author: session.user.id,
       published: isPublished,

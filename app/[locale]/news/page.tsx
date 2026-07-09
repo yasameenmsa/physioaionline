@@ -1,9 +1,14 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import dynamic from 'next/dynamic';
 import { connectDB } from '@/lib/db';
 import News from '@/models/News';
-import { NewsCard } from '@/components/features/news/NewsCard';
 import { Rss, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const NewsListClient = dynamic(
+  () => import('@/components/features/news/NewsListClient').then((m) => m.NewsListClient),
+  { loading: () => <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 min-h-[200px]" /> }
+);
 
 interface PageProps {
   searchParams: Promise<{ tag?: string; page?: string }>;
@@ -93,29 +98,27 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
           </div>
         ) : (
           <>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {news.map((item) => (
-                <NewsCard
-                  key={item._id.toString()}
-                  _id={item._id.toString()}
-                  slug={item.slug}
-                  title={item.title}
-                  excerpt={item.excerpt}
-                  imageUrl={item.imageUrl}
-                  tags={item.tags}
-                  viewCount={item.viewCount}
-                  publishedAt={item.publishedAt?.toISOString()}
-                  author={
-                    (item as any).author
-                      ? {
-                          _id: (item as any).author._id.toString(),
-                          name: (item as any).author.name,
-                        }
-                      : null
-                  }
-                />
-              ))}
-            </div>
+            <NewsListClient
+              items={news.map((item) => {
+                const i = item as any;
+                return {
+                  _id: String(i._id),
+                  slug: i.slug,
+                  title: i.title,
+                  titleAr: i.titleAr || null,
+                  excerpt: i.excerpt,
+                  excerptAr: i.excerptAr || null,
+                  imageUrl: i.imageUrl || null,
+                  tags: Array.isArray(i.tags) ? [...i.tags] : [],
+                  viewCount: i.viewCount,
+                  publishedAt: i.publishedAt ? new Date(i.publishedAt).toISOString() : null,
+                  author: i.author
+                    ? { _id: String(i.author._id), name: i.author.name }
+                    : null,
+                };
+              })}
+              locale={locale}
+            />
 
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-8">

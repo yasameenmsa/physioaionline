@@ -31,8 +31,11 @@ export default async function AdminEditNewsPage({ params }: PageProps) {
         initialData={{
           slug: item.slug,
           title: item.title,
+          titleAr: item.titleAr || '',
           content: item.content,
+          contentAr: item.contentAr || '',
           excerpt: item.excerpt || '',
+          excerptAr: item.excerptAr || '',
           imageUrl: item.imageUrl || '',
           tags: item.tags || [],
           published: item.published || false,

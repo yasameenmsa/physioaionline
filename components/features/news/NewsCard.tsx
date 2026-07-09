@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Calendar, Eye, Tag } from 'lucide-react';
 
@@ -5,26 +7,38 @@ interface NewsCardProps {
   _id: string;
   slug: string;
   title: string;
+  titleAr?: string;
   excerpt: string;
+  excerptAr?: string;
   imageUrl?: string;
   tags?: string[];
   viewCount?: number;
   publishedAt?: string;
   author?: { _id: string; name: string } | null;
+  locale?: string;
+  lang?: 'en' | 'ar';
 }
 
 export function NewsCard({
   slug,
   title,
+  titleAr,
   excerpt,
+  excerptAr,
   imageUrl,
   tags,
   viewCount,
   publishedAt,
   author,
+  locale = 'en',
+  lang,
 }: NewsCardProps) {
+  const activeLang = lang || locale as 'en' | 'ar';
+  const displayTitle = activeLang === 'ar' && titleAr ? titleAr : title;
+  const displayExcerpt = activeLang === 'ar' && excerptAr ? excerptAr : excerpt;
+
   const date = publishedAt
-    ? new Date(publishedAt).toLocaleDateString('en-US', {
+    ? new Date(publishedAt).toLocaleDateString(activeLang === 'ar' ? 'ar-SA' : 'en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -40,18 +54,18 @@ export function NewsCard({
         <div className="aspect-video w-full overflow-hidden bg-muted">
           <img
             src={imageUrl}
-            alt={title}
+            alt={displayTitle}
             className="h-full w-full object-cover transition-transform group-hover:scale-105"
           />
         </div>
       )}
-      <div className="p-4 space-y-3">
+      <div className="p-4 space-y-3" dir={activeLang === 'ar' ? 'rtl' : 'ltr'}>
         <h3 className="font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
-          {title}
+          {displayTitle}
         </h3>
-        {excerpt && (
+        {displayExcerpt && (
           <p className="text-sm text-muted-foreground line-clamp-2">
-            {excerpt}
+            {displayExcerpt}
           </p>
         )}
         <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
