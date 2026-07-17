@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { apiSuccess, apiError } from '@/lib/utils';
+import { validate, schemas } from '@/lib/validations';
 import Course from '@/models/Course';
 import Purchase from '@/models/Purchase';
 
@@ -87,9 +88,19 @@ export async function PUT(
     }
 
     const body = await req.json();
-    const updated = await Course.findByIdAndUpdate(course._id, body, {
-      new: true,
-    });
+
+    const validation = validate(schemas.courseUpdate, body);
+    if (!validation.success) {
+      return apiError(validation.error, 400);
+    }
+
+    const data = validation.data;
+    const allowedFields: Record<string, any> = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) allowedFields[key] = value;
+    }
+
+    const updated = await Course.findByIdAndUpdate(course._id, allowedFields, { new: true });
 
     return apiSuccess(updated, 'Course updated successfully');
   } catch (error) {

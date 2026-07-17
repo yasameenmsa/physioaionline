@@ -1,17 +1,24 @@
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import Article from '@/models/Article';
 import User from '@/models/User';
 import { AdminReviewItem } from './AdminReviewItem';
 
-export default async function ReviewQueuePage() {
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function ReviewQueuePage({ params }: PageProps) {
+  const { locale } = await params;
   const session = await auth();
   if (!session?.user || session.user.role !== 'admin') {
     redirect('/login');
   }
 
   await connectDB();
+  const t = await getTranslations({ locale, namespace: 'admin.review' });
 
   const [pending, published, drafts] = await Promise.all([
     Article.find({ status: 'review' })
@@ -35,22 +42,22 @@ export default async function ReviewQueuePage() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Review Queue</h2>
+      <h2 className="text-xl font-semibold mb-2">{t('title')}</h2>
       <p className="text-sm text-muted-foreground mb-6">
-        Approve or reject articles submitted by contributors
+        {t('description')}
       </p>
 
       <div className="space-y-8">
         <section>
           <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            Pending Review
+            {t('pendingReview')}
             <span className="inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 px-2 py-0.5 text-xs font-medium">
               {pending.length}
             </span>
           </h3>
           {pending.length === 0 ? (
             <p className="text-sm text-muted-foreground py-8 text-center border rounded-lg">
-              No articles pending review
+              {t('noPending')}
             </p>
           ) : (
             <div className="space-y-3">
@@ -62,7 +69,7 @@ export default async function ReviewQueuePage() {
         </section>
 
         <section>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Published ({published.length})</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-3">{t('published', { count: published.length })}</h3>
           <div className="space-y-2">
             {(published as any[]).map((a) => (
               <div key={a._id.toString()} className="flex items-center justify-between p-3 border rounded-lg text-sm">
@@ -71,11 +78,11 @@ export default async function ReviewQueuePage() {
                     {a.title}
                   </a>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    by {(a.author as any)?.name} · {a.viewCount} views
+                    {t('submittedBy')} {(a.author as any)?.name} · {a.viewCount} {t('views')}
                   </p>
                 </div>
                 <span className="text-xs text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400 rounded-full px-2 py-0.5">
-                  Published
+                  {t('publishedBadge')}
                 </span>
               </div>
             ))}

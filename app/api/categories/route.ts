@@ -20,6 +20,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: categories,
+    }, {
+      headers: {
+        'Cache-Control': 'public, max-age=300, stale-while-revalidate=60',
+      },
     });
   } catch (error) {
     console.error('Error fetching categories:', error);

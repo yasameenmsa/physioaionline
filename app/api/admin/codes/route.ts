@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
+import { rateLimit } from '@/lib/rate-limit';
 import Voucher from '@/models/Voucher';
 import crypto from 'crypto';
 
@@ -30,6 +31,11 @@ export async function POST(request: NextRequest) {
     const session = await auth();
     if (session?.user?.role !== 'admin') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const rl = rateLimit(`codes:${session.user.id}`, 10, 60 * 60 * 1000);
+    if (!rl.allowed) {
+      return NextResponse.json({ error: `Rate limit exceeded. Try again in ${Math.ceil(rl.retryAfterMs / 60000)} minutes.` }, { status: 429 });
     }
 
     const body = await request.json();

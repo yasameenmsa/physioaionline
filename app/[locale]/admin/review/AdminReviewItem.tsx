@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/lib/utils';
 import { Check, X, ExternalLink } from 'lucide-react';
@@ -18,6 +19,7 @@ interface ArticleData {
 
 export function AdminReviewItem({ article }: { article: ArticleData }) {
   const router = useRouter();
+  const t = useTranslations('admin.review');
   const [action, setAction] = useState<'idle' | 'approving' | 'rejecting'>('idle');
   const [expanded, setExpanded] = useState(false);
 
@@ -44,7 +46,7 @@ export function AdminReviewItem({ article }: { article: ArticleData }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
             <span className="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 px-2 py-0.5 text-xs font-medium">
-              Pending
+              {t('pending')}
             </span>
             {article.category && (
               <span className="text-xs text-muted-foreground">{article.category.name}</span>
@@ -58,7 +60,7 @@ export function AdminReviewItem({ article }: { article: ArticleData }) {
           </button>
           {expanded && (
             <p className="text-xs text-muted-foreground mt-2 line-clamp-3">
-              Submitted by {article.author?.name || 'Unknown'} · {article.author?.email}
+              {t('submittedBy')} {article.author?.name || t('unknown')} · {article.author?.email}
             </p>
           )}
           <p className="text-xs text-muted-foreground mt-1">
@@ -87,7 +89,7 @@ export function AdminReviewItem({ article }: { article: ArticleData }) {
             ) : (
               <>
                 <Check className="h-3 w-3 mr-1" />
-                Approve
+                {t('approve')}
               </>
             )}
           </Button>
@@ -103,7 +105,7 @@ export function AdminReviewItem({ article }: { article: ArticleData }) {
             ) : (
               <>
                 <X className="h-3 w-3 mr-1" />
-                Send Back
+                {t('sendBack')}
               </>
             )}
           </Button>

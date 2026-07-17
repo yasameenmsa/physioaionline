@@ -268,7 +268,7 @@ export default function EditArticlePage() {
             </div>
             {imageUrl && (
               <div className="mt-3 rounded-md border overflow-hidden max-w-sm">
-                <img src={imageUrl} alt="" className="w-full h-auto max-h-48 object-cover" onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }} />
+                <img src={imageUrl} alt="Article preview image" className="w-full h-auto max-h-48 object-cover" loading="lazy" onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }} />
               </div>
             )}
           </CardContent>

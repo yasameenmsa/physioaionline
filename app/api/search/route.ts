@@ -4,6 +4,7 @@ import Article from '@/models/Article';
 import Category from '@/models/Category';
 import User from '@/models/User';
 import { apiSuccess, apiError } from '@/lib/utils';
+import { escapeRegex } from '@/lib/escape-regex';
 
 export async function GET(req: NextRequest) {
   try {
@@ -27,7 +28,7 @@ export async function GET(req: NextRequest) {
         .limit(limit)
         .lean(),
       Category.find({
-        name: { $regex: q, $options: 'i' },
+        name: { $regex: escapeRegex(q), $options: 'i' },
         active: true,
       })
         .limit(5)

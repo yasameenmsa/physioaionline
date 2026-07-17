@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { BookOpen, Bookmark, FileEdit, Library, HelpCircle, BarChart3, Settings, Ticket, User, GraduationCap, Rss } from 'lucide-react';
+import { BookOpen, Bookmark, FileEdit, Library, HelpCircle, BarChart3, Settings, Ticket, User, GraduationCap, Rss, ScrollText } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 export default async function DashboardLayout({
@@ -24,6 +24,7 @@ export default async function DashboardLayout({
     { href: '/dashboard/progress', label: t('nav.progress'), icon: BarChart3 },
     { href: '/dashboard/contributions', label: t('nav.myArticles'), icon: FileEdit },
     { href: '/dashboard/bookmarks', label: t('nav.bookmarks'), icon: Bookmark },
+    { href: '/dashboard/workshops', label: 'My Workshops', icon: GraduationCap },
   ];
 
   const bottomNavItems = [
@@ -68,20 +69,6 @@ export default async function DashboardLayout({
                     {t('nav.dashboard')}
                   </Link>
                   <Link
-                    href="/admin/courses"
-                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  >
-                    <GraduationCap className="h-4 w-4" />
-                    {t('nav.courses')}
-                  </Link>
-                  <Link
-                    href="/admin/news"
-                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  >
-                    <Rss className="h-4 w-4" />
-                    {t('nav.news')}
-                  </Link>
-                  <Link
                     href="/admin/questions"
                     className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   >
@@ -94,6 +81,34 @@ export default async function DashboardLayout({
                   >
                     <BookOpen className="h-4 w-4" />
                     {t('nav.reviewQueue')}
+                  </Link>
+                  <Link
+                    href="/admin/news"
+                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  >
+                    <Rss className="h-4 w-4" />
+                    {t('nav.news')}
+                  </Link>
+                  <Link
+                    href="/admin/courses"
+                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  >
+                    <GraduationCap className="h-4 w-4" />
+                    {t('nav.courses')}
+                  </Link>
+                  <Link
+                    href="/admin/workshops"
+                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  >
+                    <GraduationCap className="h-4 w-4" />
+                    {t('nav.workshops')}
+                  </Link>
+                  <Link
+                    href="/admin/prompts"
+                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  >
+                    <ScrollText className="h-4 w-4" />
+                    {t('nav.prompts')}
                   </Link>
                   <Link
                     href="/admin/codes"

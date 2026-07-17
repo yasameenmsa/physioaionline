@@ -1,7 +1,9 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import { apiSuccess, apiError, generateSlug } from '@/lib/utils';
+import { escapeRegex } from '@/lib/escape-regex';
+import { validate, schemas } from '@/lib/validations';
 import Course from '@/models/Course';
 
 export async function GET(req: NextRequest) {
@@ -19,7 +21,7 @@ export async function GET(req: NextRequest) {
     if (category) filter.category = category;
     if (level) filter.level = level;
     if (search) {
-      filter.title = { $regex: search, $options: 'i' };
+      filter.title = { $regex: escapeRegex(search), $options: 'i' };
     }
 
     const skip = (page - 1) * limit;
@@ -51,11 +53,18 @@ export async function GET(req: NextRequest) {
       sectionCount: c.sections?.length || 0,
     }));
 
-    return apiSuccess({
-      courses: mapped,
-      total,
-      page,
-      totalPages: Math.ceil(total / limit),
+    return NextResponse.json({
+      success: true,
+      data: {
+        courses: mapped,
+        total,
+        page,
+        totalPages: Math.ceil(total / limit),
+      },
+    }, {
+      headers: {
+        'Cache-Control': 'public, max-age=60, stale-while-revalidate=30',
+      },
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -71,18 +80,20 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const body = await req.json();
 
-    if (!body.title || !body.sections?.length) {
-      return apiError('Title and at least one section are required', 400);
+    const validation = validate(schemas.courseCreate, body);
+    if (!validation.success) {
+      return apiError(validation.error, 400);
     }
 
-    let slug = generateSlug(body.title);
+    const data = validation.data;
+    let slug = generateSlug(data.title);
     const existing = await Course.findOne({ slug });
     if (existing) {
       slug = `${slug}-${Date.now()}`;
     }
 
     const course = await Course.create({
-      ...body,
+      ...data,
       slug,
       instructor: session.user.id,
     });

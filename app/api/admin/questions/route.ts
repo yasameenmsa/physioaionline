@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth';
 import Question from '@/models/Question';
 import Category from '@/models/Category';
 import { apiSuccess, apiError } from '@/lib/utils';
+import { escapeRegex } from '@/lib/escape-regex';
 import { z } from 'zod';
 
 const createQuestionSchema = z.object({
@@ -42,9 +43,10 @@ export async function GET(req: NextRequest) {
     if (active === 'true') filter.active = true;
     if (active === 'false') filter.active = false;
     if (search) {
+      const escaped = escapeRegex(search);
       filter.$or = [
-        { questionText: { $regex: search, $options: 'i' } },
-        { source: { $regex: search, $options: 'i' } },
+        { questionText: { $regex: escaped, $options: 'i' } },
+        { source: { $regex: escaped, $options: 'i' } },
       ];
     }
 

@@ -90,7 +90,7 @@ export default function ProfilePage() {
           <div className="relative">
             <div className="h-20 w-20 rounded-full bg-muted overflow-hidden flex items-center justify-center border-2 border-border">
               {image ? (
-                <img src={image} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }} />
+                <img src={image} alt={user?.name || 'Profile photo'} className="h-full w-full object-cover" loading="lazy" onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }} />
               ) : (
                 <span className="text-2xl font-bold text-muted-foreground">
                   {(user?.name || user?.email || 'U').charAt(0).toUpperCase()}

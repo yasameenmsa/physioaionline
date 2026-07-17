@@ -1,20 +1,40 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
-interface SafeImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'onError'> {
+interface SafeImageProps {
+  src?: string | null;
+  alt?: string;
   fallback?: string;
+  className?: string;
+  fill?: boolean;
+  sizes?: string;
+  priority?: boolean;
 }
 
-export function SafeImage({ src, fallback = '/placeholder.svg', alt, ...props }: SafeImageProps) {
+export function SafeImage({
+  src,
+  alt = '',
+  fallback = '/placeholder.svg',
+  className = '',
+  fill = true,
+  sizes,
+  priority,
+}: SafeImageProps) {
   const [imgSrc, setImgSrc] = useState(src || fallback);
 
   return (
-    <img
+    <Image
       src={imgSrc}
       alt={alt}
-      onError={() => setImgSrc(fallback)}
-      {...props}
+      fill={fill}
+      sizes={sizes || '(max-width: 768px) 100vw, 50vw'}
+      priority={priority}
+      className={`object-cover ${className}`}
+      onError={() => {
+        if (imgSrc !== fallback) setImgSrc(fallback);
+      }}
     />
   );
 }

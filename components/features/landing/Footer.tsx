@@ -42,7 +42,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold text-primary-500">PhysioAI</h3>
+            <h3 className="text-lg font-bold text-primary">PhysioAI</h3>
             <p className="text-sm text-muted-foreground">
               {t('description')}
             </p>

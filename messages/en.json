@@ -140,9 +140,15 @@
       "backToNews": "Back to all news"
     }
   },
+  "workshops": {
+    "title": "Workshops",
+    "description": "Rich, interactive learning content with text, images, and more",
+    "createWorkshop": "Create Workshop"
+  },
   "header": {
     "nav": {
       "courses": "Courses",
+      "workshops": "Workshops",
       "news": "News",
       "knowledgeBase": "Knowledge Base",
       "features": "Features",
@@ -450,6 +456,10 @@
         "bookmarks": {
           "label": "Bookmarks",
           "description": "View your saved articles"
+        },
+        "workshops": {
+          "label": "Workshops",
+          "description": "Interactive learning content with text, images, and more"
         }
       }
     },
@@ -463,9 +473,11 @@
       "admin": "Admin",
       "dashboard": "Dashboard",
       "courses": "Courses",
+      "workshops": "Workshops",
       "news": "News",
       "questions": "Questions",
       "reviewQueue": "Review Queue",
+      "prompts": "Prompts",
       "codes": "Codes"
     },
     "contributions": {
@@ -509,7 +521,9 @@
       "questions": "Questions",
       "review": "Review Queue",
       "news": "News",
-      "courses": "Courses"
+      "courses": "Courses",
+      "workshops": "Workshops",
+      "prompts": "Prompts"
     },
     "dashboard": {
       "title": "Admin Dashboard",
@@ -520,14 +534,22 @@
         "users": "Users",
         "reviewQueue": "Review Queue",
         "news": "News",
-        "courses": "Courses"
+        "courses": "Courses",
+        "workshops": "Workshops"
       },
   "recentQuestions": "Recent Questions",
   "recentNews": "Recent News",
   "recentCourses": "Recent Courses",
+  "recentWorkshops": "Recent Workshops",
   "noQuestions": "No questions yet.",
+  "noWorkshops": "No workshops yet.",
   "addOne": "Add one",
-  "edit": "Edit"
+  "edit": "Edit",
+  "draft": "Draft",
+  "free": "Free",
+  "langAr": "عربي",
+  "langEn": "EN",
+  "sections": "sections"
     },
     "questions": {
       "title": "Questions",
@@ -541,7 +563,17 @@
         "active": "Active",
         "actions": "Actions"
       },
-      "noQuestions": "No questions found"
+      "noQuestions": "No questions found",
+      "editQuestion": "Edit Question",
+      "updateDetails": "Update question details",
+      "edit": "Edit",
+      "active": "Active",
+      "inactive": "Inactive",
+      "difficulty": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
+      }
     },
     "news": {
       "title": "News",
@@ -558,13 +590,32 @@
       "englishSection": "English",
       "arabicSection": "العربية",
       "titleLabel": "Title",
+      "titlePlaceholder": "News title",
       "titleArLabel": "العنوان",
+      "titleArPlaceholder": "عنوان الخبر",
       "excerptLabel": "Excerpt (optional)",
+      "excerptPlaceholder": "Short description for card preview",
       "excerptArLabel": "الملخص (اختياري)",
+      "excerptArPlaceholder": "وصف مختصر لبطاقة المعاينة",
       "contentLabel": "Content",
+      "contentPlaceholder": "News content (HTML or markdown)",
       "contentArLabel": "المحتوى",
+      "contentArPlaceholder": "محتوى الخبر (HTML أو Markdown)",
       "imageUrlLabel": "Image URL",
-      "tagsLabel": "Tags (comma separated)"
+      "tagsLabel": "Tags (comma separated)",
+      "titleContentRequired": "Title and content are required",
+      "failedToSave": "Failed to save news",
+      "deleteConfirm": "Delete this news item?",
+      "deleteFailed": "Failed to delete",
+      "delete": "Delete",
+      "unpublish": "Unpublish",
+      "approve": "Approve",
+      "approvePublish": "Approve & Publish",
+      "publishFailed": "Failed to toggle publish status",
+      "cancel": "Cancel",
+      "update": "Update",
+      "createBtn": "Create",
+      "publishImmediately": "Publish immediately"
     },
     "courses": {
       "title": "Courses",
@@ -577,6 +628,119 @@
       "next": "Next",
       "page": "Page",
       "of": "of"
+    },
+    "workshops": {
+      "title": "Workshops",
+      "total": "total",
+      "newWorkshop": "New Workshop",
+      "noWorkshops": "No workshops yet",
+      "published": "Published",
+      "draft": "Draft",
+      "unknown": "Unknown",
+      "lessons": "lessons",
+      "sections": "sections",
+      "editTitle": "Edit Workshop",
+      "view": "View",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "workshopDetails": "Workshop Details",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Workshop title",
+      "coverImage": "Cover Image",
+      "coverImagePlaceholder": "Cover image URL",
+      "priceLabel": "Price ($)",
+      "levelLabel": "Level",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "languageLabel": "Language",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "e.g., Orthopedics",
+      "tagsLabel": "Tags (comma-separated)",
+      "tagsPlaceholder": "tag1, tag2, tag3",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "What this workshop covers...",
+      "whatYouLearn": "What You'll Learn (one per line)",
+      "whatYouLearnPlaceholder": "Skill 1\nSkill 2\nSkill 3",
+      "requirementsLabel": "Requirements (one per line)",
+      "requirementsPlaceholder": "Prerequisite 1\nPrerequisite 2",
+    "publishImmediately": "Publish immediately",
+    "cancel": "Cancel",
+    "createWorkshop": "Create Workshop",
+    "update": "Update",
+    "saving": "Saving...",
+      "titleRequired": "Title is required",
+      "failedToSave": "Failed to save workshop"
+    },
+    "editor": {
+      "workshopContent": "Workshop Content",
+      "noSections": "No sections yet. Click + to add one.",
+      "untitled": "Untitled",
+      "addLesson": "Add lesson",
+      "lessons": "lessons",
+      "section": "Section",
+      "newLesson": "New Lesson",
+      "untitledSection": "Untitled Section",
+      "untitledLesson": "Untitled Lesson",
+      "selectLessonToEdit": "Select a lesson to edit",
+      "noLessonSelected": "No lesson selected",
+      "selectLessonOrCreate": "Select a lesson from the sidebar or create a new one",
+      "saving": "Saving...",
+      "saved": "Saved",
+      "saveFailed": "Save failed",
+      "save": "Save",
+      "blocksSelected": "{count} blocks selected",
+      "merge": "Merge",
+      "clear": "Clear",
+      "addBlock": "Add a block",
+      "pasteAsBlocks": "Paste as blocks",
+      "pasteHtml": "Paste HTML",
+      "pasteHtmlTitle": "Paste HTML",
+      "pasteHtmlDesc": "Paste your HTML from ChatGPT, HTML docs, or any source. It will be converted to workshop blocks.",
+      "cancel": "Cancel",
+      "convertToBlocks": "Convert to Blocks",
+      "noValidBlocks": "No valid blocks found in the HTML",
+      "searchBlocks": "Search blocks...",
+      "noBlocksFound": "No blocks found",
+      "failedToLoad": "Failed to load workshop"
+    },
+    "codes": {
+      "title": "Voucher Codes",
+      "description": "Generate and manage premium/trial codes",
+      "generate": "Generate Codes",
+      "type": "Type",
+      "trial": "Trial",
+      "premium": "Premium",
+      "durationDays": "Duration (days)",
+      "maxUses": "Max uses",
+      "count": "Count",
+      "generateBtn": "Generate",
+      "allCodes": "All Codes",
+      "noCodes": "No codes generated yet",
+      "code": "Code",
+      "uses": "Uses",
+      "status": "Status",
+      "created": "Created",
+      "active": "Active",
+      "inactive": "Inactive",
+      "copyCode": "Copy code",
+      "copy": "Copy"
+    },
+    "review": {
+      "title": "Review Queue",
+      "description": "Approve or reject articles submitted by contributors",
+      "pendingReview": "Pending Review",
+      "noPending": "No articles pending review",
+      "published": "Published ({count})",
+      "submittedBy": "Submitted by",
+      "unknown": "Unknown",
+      "approve": "Approve",
+      "sendBack": "Send Back",
+      "pending": "Pending",
+      "views": "views",
+      "publishedBadge": "Published"
     }
   },
   "pricing": {

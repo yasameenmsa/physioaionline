@@ -334,7 +334,7 @@ export default function NewArticlePage() {
               <CardContent>
                 {imageUrl ? (
                   <div className="relative rounded-lg border overflow-hidden group">
-                    <img src={imageUrl} alt="" className="w-full h-48 object-cover" />
+                    <img src={imageUrl} alt="Featured image preview" className="w-full h-48 object-cover" loading="lazy" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <Button type="button" variant="destructive" size="sm" onClick={() => setImageUrl('')}><Trash2 className="h-4 w-4 me-2" />Remove Image</Button>
                     </div>

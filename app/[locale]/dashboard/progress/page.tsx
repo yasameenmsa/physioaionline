@@ -1,16 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
 import { Trophy, Flame, Brain, Target } from 'lucide-react';
+
+const ChartSection = lazy(() => import('./ChartSection'));
 
 interface CategoryStat {
   categoryId: string;
@@ -149,18 +142,9 @@ export default function ProgressPage() {
             </CardHeader>
             <CardContent>
               {chartData.length > 0 ? (
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 10 }}>
-                      <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                      <XAxis type="number" />
-                      <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 12 }} />
-                      <Tooltip />
-                      <Bar dataKey="Correct" stackId="a" fill="#22c55e" radius={[0, 0, 0, 0]} />
-                      <Bar dataKey="Incorrect" stackId="a" fill="#ef4444" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <Suspense fallback={<div className="h-80 bg-muted rounded animate-pulse" />}>
+                  <ChartSection chartData={chartData} />
+                </Suspense>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-12">
                   No category data yet

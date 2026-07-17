@@ -114,7 +114,6 @@ export async function POST(req: NextRequest) {
     return apiSuccess(populated, isAdmin ? 'Article published' : 'Article submitted for review');
   } catch (error) {
     console.error('Error creating article:', error);
-    const message = error instanceof Error ? error.message : 'Failed to create article';
-    return apiError(message, 500);
+    return apiError('Failed to create article', 500);
   }
 }

@@ -93,10 +93,10 @@ function PricingCard({ name, price, period, description, features, cta, highligh
   const t = useTranslations('landing.pricing');
 
   return (
-    <Card className={`relative ${highlighted ? 'border-primary-500 shadow-lg scale-105' : ''}`}>
+    <Card className={`relative ${highlighted ? 'border-primary shadow-lg scale-105' : ''}`}>
       {highlighted && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center rounded-full bg-primary-500 px-4 py-1 text-xs font-semibold text-white">
+          <span className="inline-flex items-center rounded-full bg-primary px-4 py-1 text-xs font-semibold text-white">
             {t('mostPopular')}
           </span>
         </div>
@@ -113,7 +113,7 @@ function PricingCard({ name, price, period, description, features, cta, highligh
         <ul className="mb-6 space-y-3">
           {features.map((feature) => (
             <li key={feature} className="flex items-start">
-              <Check className="me-2 h-5 w-5 shrink-0 text-primary-500" />
+              <Check className="me-2 h-5 w-5 shrink-0 text-primary" />
               <span className="text-sm">{feature}</span>
             </li>
           ))}

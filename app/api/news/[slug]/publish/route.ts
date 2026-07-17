@@ -33,7 +33,8 @@ export async function POST(
     await newsItem.save();
 
     return apiSuccess({ published: newPublishedState }, `News item ${newPublishedState ? 'published' : 'unpublished'}`);
-  } catch (error: any) {
-    return apiError(error.message || 'Failed to publish news', 500);
+  } catch (error) {
+    console.error('Error publishing news:', error);
+    return apiError('Failed to publish news', 500);
   }
 }

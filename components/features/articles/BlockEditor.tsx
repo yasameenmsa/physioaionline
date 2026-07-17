@@ -247,7 +247,7 @@ function BlockEditor({ blocks, onChange }: BlockEditorProps) {
             />
             {block.content && (
               <div className="rounded-lg border overflow-hidden max-w-md">
-                <img src={block.content} alt="" className="w-full h-auto max-h-64 object-cover" />
+                <img src={block.content} alt="Article image preview" className="w-full h-auto max-h-64 object-cover" loading="lazy" />
               </div>
             )}
             <Input

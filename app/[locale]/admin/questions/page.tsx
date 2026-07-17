@@ -1,21 +1,27 @@
 import { connectDB } from '@/lib/db';
+import { escapeRegex } from '@/lib/escape-regex';
 import Question from '@/models/Question';
 import Category from '@/models/Category';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 export default async function QuestionsPage({
   searchParams,
+  params,
 }: {
   searchParams: Promise<{ page?: string; category?: string; difficulty?: string; search?: string }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const params = await searchParams;
-  const page = Math.max(1, parseInt(params.page ?? '1'));
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'admin.questions' });
+  const params2 = await searchParams;
+  const page = Math.max(1, parseInt(params2.page ?? '1'));
   const limit = 50;
   const skip = (page - 1) * limit;
-  const categoryFilter = params.category;
-  const difficultyFilter = params.difficulty;
-  const searchFilter = params.search;
+  const categoryFilter = params2.category;
+  const difficultyFilter = params2.difficulty;
+  const searchFilter = params2.search;
 
   await connectDB();
 
@@ -23,9 +29,10 @@ export default async function QuestionsPage({
   if (categoryFilter) filter.category = categoryFilter;
   if (difficultyFilter) filter.difficulty = difficultyFilter;
   if (searchFilter) {
+    const escaped = escapeRegex(searchFilter);
     filter.$or = [
-      { questionText: { $regex: searchFilter, $options: 'i' } },
-      { source: { $regex: searchFilter, $options: 'i' } },
+      { questionText: { $regex: escaped, $options: 'i' } },
+      { source: { $regex: escaped, $options: 'i' } },
     ];
   }
 
@@ -46,15 +53,15 @@ export default async function QuestionsPage({
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold">Questions</h2>
-          <p className="text-sm text-muted-foreground">{total} total</p>
+          <h2 className="text-xl font-semibold">{t('title')}</h2>
+          <p className="text-sm text-muted-foreground">{total} {t('total')}</p>
         </div>
         <Link
           href="/admin/questions/new"
           className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           <Plus className="h-4 w-4" />
-          Add Question
+          {t('addQuestion')}
         </Link>
       </div>
 
@@ -63,19 +70,19 @@ export default async function QuestionsPage({
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b bg-muted/50">
-                <th className="text-left p-3 font-medium">Question</th>
-                <th className="text-left p-3 font-medium">Category</th>
-                <th className="text-left p-3 font-medium">Difficulty</th>
-                <th className="text-left p-3 font-medium">Source</th>
-                <th className="text-left p-3 font-medium">Active</th>
-                <th className="text-right p-3 font-medium">Actions</th>
+                <th className="text-left p-3 font-medium">{t('tableHeader.question')}</th>
+                <th className="text-left p-3 font-medium">{t('tableHeader.category')}</th>
+                <th className="text-left p-3 font-medium">{t('tableHeader.difficulty')}</th>
+                <th className="text-left p-3 font-medium">{t('tableHeader.source')}</th>
+                <th className="text-left p-3 font-medium">{t('tableHeader.active')}</th>
+                <th className="text-right p-3 font-medium">{t('tableHeader.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {(questions as any[]).length === 0 ? (
                 <tr>
                   <td colSpan={6} className="p-6 text-center text-muted-foreground">
-                    No questions found
+                    {t('noQuestions')}
                   </td>
                 </tr>
               ) : (
@@ -93,7 +100,7 @@ export default async function QuestionsPage({
                         q.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
                         'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                       }`}>
-                        {q.difficulty}
+                        {q.difficulty === 'easy' ? t('difficulty.easy') : q.difficulty === 'medium' ? t('difficulty.medium') : t('difficulty.hard')}
                       </span>
                     </td>
                     <td className="p-3 text-muted-foreground max-w-[150px] truncate">
@@ -105,7 +112,7 @@ export default async function QuestionsPage({
                           ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
                           : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
                       }`}>
-                        {q.active ? 'Active' : 'Inactive'}
+                        {q.active ? t('active') : t('inactive')}
                       </span>
                     </td>
                     <td className="p-3 text-right">
@@ -113,7 +120,7 @@ export default async function QuestionsPage({
                         href={`/admin/questions/${q._id}/edit`}
                         className="text-xs text-primary hover:underline"
                       >
-                        Edit
+                        {t('edit')}
                       </Link>
                     </td>
                   </tr>

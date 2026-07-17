@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { connectDB } from '@/lib/db';
+import { escapeRegex } from '@/lib/escape-regex';
 import { auth } from '@/lib/auth';
 import { getTranslations } from 'next-intl/server';
 import Course from '@/models/Course';
@@ -47,7 +48,7 @@ export default async function CoursesPage({
   const filter: Record<string, any> = {};
   if (category) filter.category = category;
   if (level) filter.level = level;
-  if (search) filter.title = { $regex: search, $options: 'i' };
+  if (search) filter.title = { $regex: escapeRegex(search), $options: 'i' };
 
   const skip = (page - 1) * limit;
   const [courses, total] = await Promise.all([

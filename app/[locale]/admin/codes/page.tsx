@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,6 +21,7 @@ interface Voucher {
 }
 
 export default function AdminCodesPage() {
+  const t = useTranslations('admin.codes');
   const [codes, setCodes] = useState<Voucher[]>([]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -68,31 +70,31 @@ export default function AdminCodesPage() {
   return (
     <div className="max-w-4xl mx-auto py-8 space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">Voucher Codes</h1>
-        <p className="text-muted-foreground">Generate and manage premium/trial codes</p>
+        <h1 className="text-2xl font-bold">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Generate Codes</CardTitle>
+          <CardTitle className="text-lg">{t('generate')}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleGenerate} className="space-y-4">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div>
-                <Label>Type</Label>
+                <Label>{t('type')}</Label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value as 'trial' | 'premium' })}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                 >
-                  <option value="trial">Trial</option>
-                  <option value="premium">Premium</option>
+                  <option value="trial">{t('trial')}</option>
+                  <option value="premium">{t('premium')}</option>
                 </select>
               </div>
               {form.type === 'trial' && (
                 <div>
-                  <Label>Duration (days)</Label>
+                  <Label>{t('durationDays')}</Label>
                   <Input
                     type="number"
                     min={1}

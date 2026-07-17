@@ -13,6 +13,8 @@ import '../models/Course';
 import '../models/Progress';
 import '../models/Purchase';
 import '../models/News';
+import '../models/Workshop';
+import '../models/WorkshopProgress';
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 

@@ -106,7 +106,7 @@ export function RegisterForm() {
           )}
 
           {success && (
-            <div className="bg-green-10 text-green-600 text-sm p-3 rounded-md">
+            <div className="bg-green-50 text-green-600 text-sm p-3 rounded-md">
               {success}
             </div>
           )}

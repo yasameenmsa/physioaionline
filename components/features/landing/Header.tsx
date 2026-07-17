@@ -2,10 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Menu, LogOut, LayoutDashboard, User, Globe } from 'lucide-react';
+import { Menu, LogOut, LayoutDashboard, User, Globe, Sun, Moon } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { Link, usePathname } from '@/i18n/routing';
 
 function UserDropdown({ name, email }: { name?: string | null; email?: string | null }) {
@@ -89,6 +90,26 @@ function LanguageSwitcher() {
   );
 }
 
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="inline-flex items-center justify-center rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+      title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+    >
+      {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: session, status } = useSession();
@@ -101,10 +122,10 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center space-x-2 ltr:space-x-2 rtl:space-x-reverse">
           {locale === 'ar' ? (
-            <span className="text-xl font-bold text-primary-600 whitespace-nowrap">فيزيـو إيـه آي أونـلايـن</span>
+            <span className="text-xl font-bold text-primary whitespace-nowrap">فيزيـو إيـه آي أونـلايـن</span>
           ) : (
             <>
-              <span className="text-xl font-bold text-primary-600">PhysioAI</span>
+              <span className="text-xl font-bold text-primary">PhysioAI</span>
               <span className="text-xl font-light text-foreground">.online</span>
             </>
           )}
@@ -114,6 +135,9 @@ export function Header() {
         <nav className="hidden md:flex md:items-center md:gap-6">
           <Link href="/courses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.courses')}
+          </Link>
+          <Link href="/workshops" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            {t('nav.workshops')}
           </Link>
           <Link href="/news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.news')}
@@ -133,6 +157,7 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex md:items-center md:gap-2">
+          <ThemeToggle />
           <LanguageSwitcher />
           {isLoggedIn ? (
             <UserDropdown name={session.user.name} email={session.user.email} />
@@ -175,6 +200,13 @@ export function Header() {
               {t('nav.courses')}
             </Link>
             <Link
+              href="/workshops"
+              className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('nav.workshops')}
+            </Link>
+            <Link
               href="/news"
               className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
               onClick={() => setMobileMenuOpen(false)}
@@ -210,7 +242,10 @@ export function Header() {
               {t('nav.pricing')}
             </Link>
             <div className="pt-4 flex flex-col gap-2">
-              <LanguageSwitcher />
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <LanguageSwitcher />
+              </div>
               {isLoggedIn ? (
                 <>
                   <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium">

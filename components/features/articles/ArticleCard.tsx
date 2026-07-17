@@ -35,7 +35,7 @@ export function ArticleCard({
         <div className="aspect-video w-full overflow-hidden bg-muted">
           <SafeImage
             src={imageUrl || '/placeholder.svg'}
-            alt=""
+            alt={title || 'Article thumbnail'}
             className="h-full w-full object-cover transition-transform hover:scale-105"
           />
         </div>

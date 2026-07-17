@@ -146,7 +146,7 @@ export function SampleQuestions() {
                             : showExplanation && isSelected && !isCorrect
                             ? 'border-red-500 bg-red-50 text-red-900'
                             : isSelected
-                            ? 'border-primary-500 bg-primary-50'
+                            ? 'border-primary bg-primary/10'
                             : 'border-border bg-card hover:bg-muted'
                         }
                         ${showExplanation ? 'cursor-default' : 'cursor-pointer'}

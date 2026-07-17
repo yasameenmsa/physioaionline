@@ -3,6 +3,15 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { existsSync } from 'fs';
 
+const SAFE_MIME: Record<string, string> = {
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.pdf': 'application/pdf',
+};
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ name: string }> }
@@ -21,19 +30,11 @@ export async function GET(
   }
 
   const ext = path.extname(sanitized).toLowerCase();
-  const mime: Record<string, string> = {
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.png': 'image/png',
-    '.gif': 'image/gif',
-    '.webp': 'image/webp',
-    '.svg': 'image/svg+xml',
-  };
 
   const buffer = await readFile(filepath);
   return new NextResponse(buffer, {
     headers: {
-      'Content-Type': mime[ext] || 'application/octet-stream',
+      'Content-Type': SAFE_MIME[ext] || 'application/octet-stream',
       'Cache-Control': 'public, max-age=31536000, immutable',
     },
   });

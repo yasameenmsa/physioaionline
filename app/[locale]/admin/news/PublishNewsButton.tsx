@@ -20,7 +20,7 @@ export function PublishNewsButton({ slug, currentlyPublished }: { slug: string; 
       if (!data.success) throw new Error(data.error);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || 'Failed to toggle publish status');
+      alert(err.message || t('publishFailed'));
     } finally {
       setLoading(false);
     }
@@ -32,10 +32,10 @@ export function PublishNewsButton({ slug, currentlyPublished }: { slug: string; 
         onClick={handleTogglePublish}
         disabled={loading}
         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-red-600 disabled:opacity-50"
-        title="Unpublish"
+        title={t('unpublish')}
       >
         {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <X className="h-3 w-3" />}
-        Unpublish
+        {t('unpublish')}
       </button>
     );
   }
@@ -45,10 +45,10 @@ export function PublishNewsButton({ slug, currentlyPublished }: { slug: string; 
       onClick={handleTogglePublish}
       disabled={loading}
       className="inline-flex items-center gap-1 text-xs text-green-600 hover:text-green-700 font-medium disabled:opacity-50"
-      title="Approve & Publish"
+      title={t('approvePublish')}
     >
       {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Check className="h-3 w-3" />}
-      Approve
+      {t('approve')}
     </button>
   );
 }

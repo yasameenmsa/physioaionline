@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
+import { validate, schemas } from '@/lib/validations';
 import User from '@/models/User';
 
 export async function GET() {
@@ -31,14 +32,18 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, bio, image } = body;
+
+    const validation = validate(schemas.profileUpdate, body);
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
+    }
 
     await connectDB();
 
     const update: Record<string, unknown> = {};
-    if (name !== undefined) update.name = name;
-    if (bio !== undefined) update.bio = bio;
-    if (image !== undefined) update.image = image;
+    for (const [key, value] of Object.entries(validation.data)) {
+      if (value !== undefined) update[key] = value;
+    }
 
     const user = await User.findByIdAndUpdate(session.user.id, { $set: update }, { new: true }).select('-password');
     if (!user) {

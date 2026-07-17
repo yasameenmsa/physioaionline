@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server';
 import { Inter, Noto_Sans_Arabic } from 'next/font/google';
 import { Providers } from '@/components/providers';
 import { Header } from '@/components/features/landing/Header';
+import { LocaleDir } from '@/components/LocaleDir';
 import { auth } from '@/lib/auth';
 import { routing } from '@/i18n/routing';
 
@@ -38,10 +39,12 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages}>
       <Providers session={session}>
-        <div className={fontClass}>
-          <Header />
-          {children}
-        </div>
+        <LocaleDir>
+          <div className={`${fontClass} flex flex-col h-screen overflow-hidden`}>
+            <Header />
+            <main className="flex-1 min-h-0 overflow-y-auto">{children}</main>
+          </div>
+        </LocaleDir>
       </Providers>
     </NextIntlClientProvider>
   );

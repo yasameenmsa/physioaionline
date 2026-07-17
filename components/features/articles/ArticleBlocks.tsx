@@ -1,4 +1,5 @@
 import type { Block, BlockAttrs } from '@/lib/blocks';
+import { SafeImage } from '@/components/ui/SafeImage';
 
 function getYoutubeEmbedUrl(url: string): string {
   const patterns = [
@@ -37,7 +38,7 @@ function renderBlock(block: Block) {
     case 'image':
       return (
         <figure className="my-6 space-y-2">
-          <img src={block.content} alt={block.attrs?.alt || ''} className="rounded-lg w-full max-w-full object-cover" />
+          <SafeImage src={block.content} alt={block.attrs?.alt || 'Article image'} className="rounded-lg w-full max-w-full object-cover" />
           {block.attrs?.caption && <figcaption className="text-center text-sm text-muted-foreground">{block.attrs.caption}</figcaption>}
         </figure>
       );
