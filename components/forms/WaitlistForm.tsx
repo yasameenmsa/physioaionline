@@ -58,7 +58,7 @@ export function WaitlistForm({ onSuccess, className }: WaitlistFormProps) {
       onSuccess?.();
     } catch (error) {
       setSubmitStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong');
+      setErrorMessage('Something went wrong');
     } finally {
       setIsSubmitting(false);
     }

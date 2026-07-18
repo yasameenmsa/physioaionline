@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-export function DeleteNewsButton({ slug }: { slug: string }) {
+export function DeleteWorkshopButton({ slug }: { slug: string }) {
   const router = useRouter();
-  const t = useTranslations('admin.news');
+  const t = useTranslations('admin.workshops');
   const [deleting, setDeleting] = useState(false);
 
   async function handleDelete() {
     if (!confirm(t('deleteConfirm'))) return;
     setDeleting(true);
     try {
-      const res = await fetch(`/api/news/${slug}`, { method: 'DELETE' });
+      const res = await fetch(`/api/workshops/${slug}`, { method: 'DELETE' });
       const json = await res.json();
       if (!json.success) throw new Error(json.error);
       router.refresh();
-    } catch (err: any) {
+    } catch {
       alert(t('deleteFailed'));
     } finally {
       setDeleting(false);

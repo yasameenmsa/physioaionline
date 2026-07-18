@@ -102,8 +102,14 @@ export async function POST(req: NextRequest) {
     });
 
     return apiSuccess(workshop, 'Workshop created successfully');
-  } catch (error) {
-    console.error('Error creating workshop:', error);
-    return apiError('Failed to create workshop', 500);
+  } catch (error: any) {
+    console.error('Error creating workshop:', error?.message || error);
+    if (error?.errors) {
+      console.error('Validation errors:', JSON.stringify(error.errors, null, 2));
+      const firstKey = Object.keys(error.errors)[0];
+      const firstErr = error.errors[firstKey];
+      return apiError(`${firstKey}: ${firstErr?.message || 'Validation failed'}`, 400);
+    }
+    return apiError(error?.message || 'Failed to create workshop', 500);
   }
 }

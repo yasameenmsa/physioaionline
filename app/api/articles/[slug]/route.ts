@@ -3,7 +3,7 @@ import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
 import Article from '@/models/Article';
 import User from '@/models/User';
-import { articleUpdateSchema } from '@/lib/validations';
+import { schemas } from '@/lib/validations';
 import { apiSuccess, apiError, generateSlug } from '@/lib/utils';
 
 export async function GET(
@@ -55,7 +55,7 @@ export async function PUT(
 
     const { slug } = await params;
     const body = await req.json();
-    const parsed = articleUpdateSchema.safeParse(body);
+    const parsed = schemas.articleUpdate.safeParse(body);
     if (!parsed.success) {
       return apiError(parsed.error.issues[0]?.message ?? 'Invalid input');
     }

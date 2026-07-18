@@ -104,7 +104,7 @@ export default function AdminCodesPage() {
                 </div>
               )}
               <div>
-                <Label>Max uses</Label>
+                <Label>{t('maxUses')}</Label>
                 <Input
                   type="number"
                   min={1}
@@ -113,7 +113,7 @@ export default function AdminCodesPage() {
                 />
               </div>
               <div>
-                <Label>Count</Label>
+                <Label>{t('count')}</Label>
                 <Input
                   type="number"
                   min={1}
@@ -130,7 +130,7 @@ export default function AdminCodesPage() {
 
             <Button type="submit" disabled={generating}>
               {generating ? <Loader2 className="h-4 w-4 animate-spin me-2" /> : <Plus className="h-4 w-4 me-2" />}
-              Generate
+              {t('generateBtn')}
             </Button>
           </form>
         </CardContent>
@@ -138,7 +138,7 @@ export default function AdminCodesPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">All Codes</CardTitle>
+          <CardTitle className="text-lg">{t('allCodes')}</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
@@ -146,17 +146,17 @@ export default function AdminCodesPage() {
               <Loader2 className="h-6 w-6 animate-spin" />
             </div>
           ) : codes.length === 0 ? (
-            <p className="text-sm text-muted-foreground py-4 text-center">No codes generated yet</p>
+            <p className="text-sm text-muted-foreground py-4 text-center">{t('noCodes')}</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b text-left">
-                    <th className="pb-2 font-medium">Code</th>
-                    <th className="pb-2 font-medium">Type</th>
-                    <th className="pb-2 font-medium">Uses</th>
-                    <th className="pb-2 font-medium">Status</th>
-                    <th className="pb-2 font-medium">Created</th>
+                    <th className="pb-2 font-medium">{t('code')}</th>
+                    <th className="pb-2 font-medium">{t('type')}</th>
+                    <th className="pb-2 font-medium">{t('uses')}</th>
+                    <th className="pb-2 font-medium">{t('status')}</th>
+                    <th className="pb-2 font-medium">{t('created')}</th>
                     <th className="pb-2 font-medium"></th>
                   </tr>
                 </thead>
@@ -168,18 +168,18 @@ export default function AdminCodesPage() {
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                           v.type === 'premium' ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'
                         }`}>
-                          {v.type === 'premium' ? 'Premium' : `Trial (${v.durationDays}d)`}
+                          {v.type === 'premium' ? t('premium') : `${t('trial')} (${v.durationDays}d)`}
                         </span>
                       </td>
                       <td className="py-2">{v.usedCount}/{v.maxUses}</td>
                       <td className="py-2">
                         {v.active ? (
                           <span className="flex items-center gap-1 text-green-600">
-                            <CheckCircle2 className="h-3.5 w-3.5" /> Active
+                            <CheckCircle2 className="h-3.5 w-3.5" /> {t('active')}
                           </span>
                         ) : (
                           <span className="flex items-center gap-1 text-red-600">
-                            <XCircle className="h-3.5 w-3.5" /> Inactive
+                            <XCircle className="h-3.5 w-3.5" /> {t('inactive')}
                           </span>
                         )}
                       </td>
@@ -193,7 +193,7 @@ export default function AdminCodesPage() {
                             size="icon"
                             className="h-8 w-8"
                             onClick={() => copyCode(v.code, v._id)}
-                            title="Copy code"
+                            title={t('copyCode')}
                           >
                             {copiedId === v._id ? (
                               <CheckCircle2 className="h-3.5 w-3.5 text-green-600" />

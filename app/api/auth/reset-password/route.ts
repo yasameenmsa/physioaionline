@@ -1,6 +1,6 @@
 import { connectDB } from '@/lib/db';
 import User from '@/models/User';
-import { resetPasswordSchema } from '@/lib/validations';
+import { schemas } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
 import { hashToken, isTokenExpired } from '@/lib/tokens';
 import { hashPassword, isPasswordStrong } from '@/lib/auth';
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const { data, error } = await parseRequestBody(request, resetPasswordSchema);
+    const { data, error } = await parseRequestBody(request, schemas.resetPassword);
 
     if (error) {
       return errorResponse(error, 400);

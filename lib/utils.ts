@@ -74,9 +74,9 @@ export function apiSuccess<T>(data: T, message?: string): Response {
   return Response.json({ success: true, data, message });
 }
 
-export function formatDate(date: Date | string): string {
+export function formatDate(date: Date | string, locale: string = 'en'): string {
   const d = typeof date === 'string' ? new Date(date) : date;
-  return d.toLocaleDateString('en-US', {
+  return d.toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -102,12 +102,16 @@ export function truncate(text: string, length: number): string {
 }
 
 export function generateSlug(text: string): string {
-  return text
+  const slug = text
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
     .replace(/-+/g, '-')
-    .trim();
+    .replace(/^-|-$/g, '');
+  if (!slug) {
+    return `workshop-${Date.now()}`;
+  }
+  return slug;
 }
 
 export function calculatePercentage(value: number, total: number): number {

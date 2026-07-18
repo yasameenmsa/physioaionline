@@ -20,7 +20,7 @@ export function PublishNewsButton({ slug, currentlyPublished }: { slug: string; 
       if (!data.success) throw new Error(data.error);
       router.refresh();
     } catch (err: any) {
-      alert(err.message || t('publishFailed'));
+      alert(t('publishFailed'));
     } finally {
       setLoading(false);
     }

@@ -4,8 +4,9 @@ import { escapeRegex } from '@/lib/escape-regex';
 import Workshop from '@/models/Workshop';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Plus, Edit, Eye, EyeOff, Trash2, ToggleLeft, ToggleRight, Search, Pencil } from 'lucide-react';
+import { Plus, Pencil } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { DeleteWorkshopButton } from './DeleteWorkshopButton';
 
 interface PageProps {
   searchParams: Promise<{ page?: string; search?: string }>;
@@ -109,6 +110,7 @@ export default async function AdminWorkshopsPage({ searchParams, params }: PageP
                   >
                     <Pencil className="h-3 w-3" />
                   </Link>
+                  <DeleteWorkshopButton slug={w.slug} />
                 </div>
               </div>
             ))}

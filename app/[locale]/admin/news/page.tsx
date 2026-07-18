@@ -51,7 +51,7 @@ export default async function AdminNewsPage({ searchParams, params }: PageProps)
           className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
         >
           <Plus className="h-4 w-4" />
-          {t('create') || 'Create'}
+          {t('create')}
         </Link>
       </div>
 
@@ -66,7 +66,7 @@ export default async function AdminNewsPage({ searchParams, params }: PageProps)
                   <div className="flex items-center gap-2">
                     <p className="font-medium truncate">{item.title}</p>
                     {!item.published && (
-                      <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-1.5 py-0.5 rounded">Draft</span>
+                      <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-1.5 py-0.5 rounded">{t('draft')}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
@@ -93,7 +93,7 @@ export default async function AdminNewsPage({ searchParams, params }: PageProps)
                     className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
                   >
                     <Pencil className="h-3 w-3" />
-                    Edit
+                    {t('edit')}
                   </Link>
                   <DeleteNewsButton slug={item.slug} />
                 </div>

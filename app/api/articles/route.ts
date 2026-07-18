@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 import Article from '@/models/Article';
 import Category from '@/models/Category';
 import User from '@/models/User';
-import { articleSchema } from '@/lib/validations';
+import { validate, schemas } from '@/lib/validations';
 import { apiSuccess, apiError, generateSlug } from '@/lib/utils';
 
 export async function GET(req: NextRequest) {
@@ -77,9 +77,9 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const parsed = articleSchema.safeParse(body);
+    const parsed = validate(schemas.articleCreate, body);
     if (!parsed.success) {
-      return apiError(parsed.error.issues[0]?.message ?? 'Invalid input');
+      return apiError(parsed.error);
     }
 
     await connectDB();

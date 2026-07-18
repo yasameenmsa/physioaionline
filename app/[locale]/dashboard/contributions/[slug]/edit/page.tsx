@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
+import DOMPurify from 'dompurify';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,6 +26,7 @@ export default function EditArticlePage() {
   const router = useRouter();
   const params = useParams();
   const slug = params.slug as string;
+  const t = useTranslations('dashboard.contributions');
   const [categories, setCategories] = useState<Array<{ _id: string; name: string }>>([]);
   const [form, setForm] = useState({
     title: '',
@@ -151,7 +154,7 @@ export default function EditArticlePage() {
   }
 
   if (loading) {
-    return <div className="text-center py-10 text-muted-foreground">Loading...</div>;
+    return <div className="text-center py-10 text-muted-foreground">{t('loading')}</div>;
   }
 
   const hasContent = blocks.length > 0 || form.body.length > 0;
@@ -165,28 +168,28 @@ export default function EditArticlePage() {
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back
+          {t('back')}
         </Link>
         <div className="h-4 w-px bg-border" />
-        <span className="text-sm text-muted-foreground">Edit Article</span>
+        <span className="text-sm text-muted-foreground">{t('editArticle')}</span>
       </div>
 
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Edit Article</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t('editArticle')}</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Update your article content
+            {t('editArticleDesc')}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button type="button" variant="ghost" size="sm" onClick={() => setShowGuide(!showGuide)}>
             <BookOpen className="h-4 w-4 me-2" />
-            Guide
+            {t('guide')}
             {showGuide ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
           </Button>
           <Button type="button" variant="outline" size="sm" onClick={() => { setPreview(!preview); setShowGuide(false); }}>
             {preview ? <Edit3 className="h-4 w-4 me-2" /> : <Eye className="h-4 w-4 me-2" />}
-            {preview ? 'Edit' : 'Preview'}
+            {preview ? t('edit') : t('preview')}
           </Button>
         </div>
       </div>
@@ -196,30 +199,30 @@ export default function EditArticlePage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <FileText className="h-4 w-4 text-muted-foreground" />
-              <CardTitle className="text-lg">Basic Information</CardTitle>
+              <CardTitle className="text-lg">{t('basicInfo')}</CardTitle>
             </div>
-            <CardDescription>Update the essential details for your article</CardDescription>
+            <CardDescription>{t('basicInfoDesc')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">{t('title')}</Label>
               <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">{t('category')}</Label>
                 <select id="category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" required>
-                  <option value="">Select a category</option>
+                  <option value="">{t('selectCategory')}</option>
                   {categories.map((c) => <option key={c._id} value={c._id}>{c.name}</option>)}
                 </select>
               </div>
 
               <div className="space-y-2">
-                <Label>Tags</Label>
+                <Label>{t('tags')}</Label>
                 <div className="flex gap-2">
-                  <Input value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())} placeholder="Add a tag..." />
+                  <Input value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())} placeholder={t('addTag')} />
                   <Button type="button" variant="outline" size="icon" onClick={addTag}><Plus className="h-4 w-4" /></Button>
                 </div>
                 {tagList.length > 0 && (
@@ -237,7 +240,7 @@ export default function EditArticlePage() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="excerpt">Excerpt</Label>
+                <Label htmlFor="excerpt">{t('excerpt')}</Label>
                 <span className="text-xs text-muted-foreground">{form.excerpt.length}/300</span>
               </div>
               <Textarea id="excerpt" value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} rows={2} maxLength={300} />
@@ -249,20 +252,20 @@ export default function EditArticlePage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <ImageIcon className="h-4 w-4 text-muted-foreground" />
-              <CardTitle className="text-lg">Featured Image</CardTitle>
+              <CardTitle className="text-lg">{t('featuredImage')}</CardTitle>
             </div>
-            <CardDescription>Update the article&apos;s featured image</CardDescription>
+            <CardDescription>{t('featuredImageDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
               <label className="cursor-pointer inline-flex items-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent transition-colors">
                 <Upload className="h-4 w-4" />
-                {isUploading ? 'Uploading...' : 'Choose Image'}
+                {isUploading ? t('uploading') : t('chooseImage')}
                 <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={isUploading} />
               </label>
               {imageUrl && (
                 <button type="button" onClick={() => setImageUrl('')} className="text-sm text-destructive hover:underline">
-                  <X className="h-4 w-4 inline" /> Remove
+                  <X className="h-4 w-4 inline" /> {t('remove')}
                 </button>
               )}
             </div>
@@ -279,11 +282,11 @@ export default function EditArticlePage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-muted-foreground" />
-                <CardTitle className="text-lg">Article Content</CardTitle>
+                <CardTitle className="text-lg">{t('articleContent')}</CardTitle>
               </div>
-              {blocks.length > 0 && <span className="text-xs text-muted-foreground">{blocks.length} blocks</span>}
+              {blocks.length > 0 && <span className="text-xs text-muted-foreground">{t('blocks', { count: blocks.length })}</span>}
             </div>
-            <CardDescription>Edit your article content using the block editor</CardDescription>
+            <CardDescription>{t('articleContentDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             {preview ? (
@@ -291,7 +294,7 @@ export default function EditArticlePage() {
                 {blocks.length > 0 ? (
                   <ArticleBlocks blocks={blocks} />
                 ) : (
-                  <div className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: form.body }} />
+                  <div className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(form.body) }} />
                 )}
               </div>
             ) : (
@@ -304,9 +307,9 @@ export default function EditArticlePage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <Link2 className="h-4 w-4 text-muted-foreground" />
-              <CardTitle className="text-lg">References</CardTitle>
+              <CardTitle className="text-lg">{t('references')}</CardTitle>
             </div>
-            <CardDescription>Update evidence sources</CardDescription>
+            <CardDescription>{t('referencesDesc')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex gap-2">
@@ -327,7 +330,7 @@ export default function EditArticlePage() {
               </ul>
             ) : (
               <div className="flex items-center justify-center rounded-lg border border-dashed p-8">
-                <p className="text-sm text-muted-foreground">No references added yet</p>
+                <p className="text-sm text-muted-foreground">{t('noReferences')}</p>
               </div>
             )}
           </CardContent>
@@ -342,12 +345,12 @@ export default function EditArticlePage() {
 
         <div className="flex items-center justify-between gap-4 pt-2 pb-8">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            {isValid ? <><Check className="h-3.5 w-3.5 text-green-500" /> All required fields filled</> : <><AlertCircle className="h-3.5 w-3.5 text-amber-500" /> Title, category, and content are required</>}
+            {isValid ? <><Check className="h-3.5 w-3.5 text-green-500" /> {t('allFieldsFilled')}</> : <><AlertCircle className="h-3.5 w-3.5 text-amber-500" /> {t('requiredFields')}</>}
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/dashboard/contributions"><Button type="button" variant="ghost">Cancel</Button></Link>
+            <Link href="/dashboard/contributions"><Button type="button" variant="ghost">{t('cancel')}</Button></Link>
             <Button type="submit" disabled={submitting || !isValid} size="lg">
-              {submitting ? <><Loader2 className="h-4 w-4 me-2 animate-spin" />Saving...</> : <><Check className="h-4 w-4 me-2" />Save Changes</>}
+              {submitting ? <><Loader2 className="h-4 w-4 me-2 animate-spin" />{t('saving')}</> : <><Check className="h-4 w-4 me-2" />{t('saveChanges')}</>}
             </Button>
             <DeleteArticleButton slug={slug} redirectTo="/dashboard/contributions" />
           </div>

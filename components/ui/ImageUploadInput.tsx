@@ -37,8 +37,8 @@ export function ImageUploadInput({ id, value, onChange, placeholder, className }
       } else {
         alert(data.error || 'Failed to upload image');
       }
-    } catch (error: any) {
-      alert(error.message || 'An error occurred during upload');
+    } catch {
+      alert('An error occurred during upload');
     } finally {
       setUploading(false);
       // Reset input value so the same file can be uploaded again if needed

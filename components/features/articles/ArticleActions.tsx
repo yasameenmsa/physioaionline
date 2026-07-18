@@ -15,8 +15,12 @@ export function ArticleActions({ articleId, slug }: ArticleActionsProps) {
 
   useEffect(() => {
     fetch('/api/bookmarks')
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) return null;
+        return r.json();
+      })
       .then((d) => {
+        if (!d) return;
         const bookmarks: Array<{ articleId: { _id: string } | string }> = d.data || [];
         const ids = bookmarks.map((b) =>
           typeof b.articleId === 'string' ? b.articleId : b.articleId?._id

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { connectDB } from '@/lib/db';
 import WaitlistEntry from '@/models/WaitlistEntry';
-import { waitlistSchema } from '@/lib/validations';
+import { schemas } from '@/lib/validations';
 import { checkRateLimit } from '@/lib/rate-limiter';
 
 export async function POST(request: NextRequest) {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const result = waitlistSchema.safeParse(body);
+    const result = schemas.waitlist.safeParse(body);
 
     if (!result.success) {
       const firstError = result.error.issues[0];

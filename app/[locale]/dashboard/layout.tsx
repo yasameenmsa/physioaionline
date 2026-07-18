@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { BookOpen, Bookmark, FileEdit, Library, HelpCircle, BarChart3, Settings, Ticket, User, GraduationCap, Rss, ScrollText } from 'lucide-react';
+import { BookOpen, Bookmark, FileEdit, Library, HelpCircle, BarChart3, Settings, Ticket, User, GraduationCap, Rss, ScrollText, FileText } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 export default async function DashboardLayout({
@@ -74,6 +74,13 @@ export default async function DashboardLayout({
                   >
                     <HelpCircle className="h-4 w-4" />
                     {t('nav.questions')}
+                  </Link>
+                  <Link
+                    href="/admin/articles"
+                    className="flex items-center gap-3 px-3 py-2 rounded-md text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  >
+                    <FileText className="h-4 w-4" />
+                    {t('nav.articles')}
                   </Link>
                   <Link
                     href="/admin/review"

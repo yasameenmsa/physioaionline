@@ -25,17 +25,39 @@ const publicPrefixes = [
   '/favicon.ico',
 ];
 
+function applySecurityHeaders(res: NextResponse) {
+  res.headers.set('X-Content-Type-Options', 'nosniff');
+  res.headers.set('X-Frame-Options', 'DENY');
+  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.headers.set(
+    'Content-Security-Policy',
+    [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' blob: data: https:",
+      "font-src 'self' https://fonts.gstatic.com",
+      "connect-src 'self'",
+      "frame-ancestors 'none'",
+      "form-action 'self'",
+      "base-uri 'self'",
+    ].join('; ')
+  );
+  return res;
+}
+
 export default function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (publicPrefixes.some((p) => pathname.startsWith(p))) {
-    if (pathname.startsWith('/api')) return NextResponse.next();
+    if (pathname.startsWith('/api')) {
+      return applySecurityHeaders(NextResponse.next());
+    }
     return intlMiddleware(req) ?? NextResponse.next();
   }
 
   if (publicRoutes.includes(pathname)) {
-    const response = NextResponse.next();
-    return intlMiddleware(req) ?? response;
+    return intlMiddleware(req) ?? NextResponse.next();
   }
 
   if (/\.(svg|png|jpg|jpeg|gif|webp|ico)$/.test(pathname)) {
@@ -66,7 +88,7 @@ export default function proxy(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  return applySecurityHeaders(NextResponse.next());
 }
 
 export const config = {

@@ -1,6 +1,6 @@
 import { connectDB } from '@/lib/db';
 import User from '@/models/User';
-import { resendVerificationSchema } from '@/lib/validations';
+import { schemas } from '@/lib/validations';
 import { successResponse, errorResponse, parseRequestBody } from '@/lib/utils';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { headers } from 'next/headers';
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const { data, error } = await parseRequestBody(request, resendVerificationSchema);
+    const { data, error } = await parseRequestBody(request, schemas.resendVerification);
 
     if (error) {
       return errorResponse(error, 400);

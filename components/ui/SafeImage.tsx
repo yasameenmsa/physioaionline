@@ -25,16 +25,18 @@ export function SafeImage({
   const [imgSrc, setImgSrc] = useState(src || fallback);
 
   return (
-    <Image
-      src={imgSrc}
-      alt={alt}
-      fill={fill}
-      sizes={sizes || '(max-width: 768px) 100vw, 50vw'}
-      priority={priority}
-      className={`object-cover ${className}`}
-      onError={() => {
-        if (imgSrc !== fallback) setImgSrc(fallback);
-      }}
-    />
+    <div className={`relative ${fill ? 'w-full h-full' : ''} ${className}`}>
+      <Image
+        src={imgSrc}
+        alt={alt}
+        fill={fill}
+        sizes={sizes || '(max-width: 768px) 100vw, 50vw'}
+        priority={priority}
+        className="object-cover"
+        onError={() => {
+          if (imgSrc !== fallback) setImgSrc(fallback);
+        }}
+      />
+    </div>
   );
 }

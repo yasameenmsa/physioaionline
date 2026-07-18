@@ -64,7 +64,7 @@ export default async function AdminCoursesPage({ searchParams, params }: PagePro
                     <div className="flex items-center gap-2">
                       <p className="font-medium truncate">{c.title}</p>
                       {!c.published && (
-                        <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-1.5 py-0.5 rounded">Draft</span>
+                        <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-1.5 py-0.5 rounded">{t('draft')}</span>
                       )}
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
@@ -73,9 +73,9 @@ export default async function AdminCoursesPage({ searchParams, params }: PagePro
                       <span>{c.level}</span>
                       <span className="flex items-center gap-1">
                         <DollarSign className="h-3 w-3" />
-                        {c.price > 0 ? `$${c.price}` : 'Free'}
+                        {c.price > 0 ? `$${c.price}` : t('free')}
                       </span>
-                      <span>{c.sections?.length || 0} sections</span>
+                      <span>{c.sections?.length || 0} {t('sections')}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
@@ -87,7 +87,7 @@ export default async function AdminCoursesPage({ searchParams, params }: PagePro
                       className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
                     >
                       <Pencil className="h-3 w-3" />
-                      Edit
+                      {t('edit')}
                     </Link>
                   </div>
                 </div>

@@ -5,9 +5,10 @@ import User from '@/models/User';
 import News from '@/models/News';
 import Course from '@/models/Course';
 import Workshop from '@/models/Workshop';
+import Article from '@/models/Article';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { HelpCircle, BookOpen, Users, Layers, Rss, GraduationCap, Calendar, Eye, DollarSign, PenTool } from 'lucide-react';
+import { HelpCircle, BookOpen, Users, Layers, Rss, GraduationCap, Calendar, Eye, DollarSign, PenTool, FileText } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -18,13 +19,14 @@ export default async function AdminDashboard({ params }: PageProps) {
   await connectDB();
   const t = await getTranslations({ locale, namespace: 'admin.dashboard' });
 
-  const [totalQuestions, totalCategories, totalUsers, totalNews, totalCourses, totalWorkshops, recentQuestions, recentNewsItems, recentCourses, recentWorkshops] = await Promise.all([
+  const [totalQuestions, totalCategories, totalUsers, totalNews, totalCourses, totalWorkshops, totalArticles, recentQuestions, recentNewsItems, recentCourses, recentWorkshops] = await Promise.all([
     Question.countDocuments(),
     Category.countDocuments({ active: true }),
     User.countDocuments(),
     News.countDocuments(),
     Course.countDocuments(),
     Workshop.countDocuments(),
+    Article.countDocuments(),
     Question.find()
       .populate('category', 'name')
       .sort({ createdAt: -1 })
@@ -49,6 +51,7 @@ export default async function AdminDashboard({ params }: PageProps) {
 
   const stats = [
     { label: t('stats.questions'), value: totalQuestions, icon: HelpCircle, href: '/admin/questions' },
+    { label: t('stats.articles'), value: totalArticles, icon: FileText, href: '/admin/articles' },
     { label: t('stats.categories'), value: totalCategories, icon: Layers, href: '/admin/categories' },
     { label: t('stats.news'), value: totalNews, icon: Rss, href: '/admin/news' },
     { label: t('stats.courses'), value: totalCourses, icon: GraduationCap, href: '/admin/courses' },
@@ -134,7 +137,7 @@ export default async function AdminDashboard({ params }: PageProps) {
                         {item.publishedAt && (
                           <span className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
-                            {new Date(item.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                            {new Date(item.publishedAt).toLocaleDateString(locale === 'ar' ? 'ar-SA' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                           </span>
                         )}
                         <span className="flex items-center gap-1">

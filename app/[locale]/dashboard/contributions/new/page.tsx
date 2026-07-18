@@ -230,6 +230,12 @@ export default function NewArticlePage() {
                     ['Code', 'Code blocks'],
                     ['List', 'Ordered/unordered lists'],
                     ['Divider', 'Separate sections'],
+                    ['Columns', 'Multi-column layouts'],
+                    ['Callout', 'Highlighted info boxes'],
+                    ['Toggle', 'Collapsible sections'],
+                    ['Table', 'Data tables'],
+                    ['File', 'Downloadable files'],
+                    ['Quiz', 'Multiple choice questions'],
                   ].map(([type, desc]) => (
                     <div key={type} className="flex items-center gap-2 p-2 rounded-lg bg-background border">
                       <span className="text-xs font-bold">{type}</span>

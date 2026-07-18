@@ -7,7 +7,7 @@ const priceSchema = z.number().min(0).max(99999).optional();
 const levelSchema = z.enum(['beginner', 'intermediate', 'advanced']).optional();
 const languageSchema = z.enum(['ar', 'en']).optional();
 const tagsSchema = z.array(z.string().max(50)).max(20).optional();
-const imageSchema = z.string().url('Invalid image URL').max(2000).optional().or(z.literal(''));
+const imageSchema = z.string().max(2000).optional().or(z.literal(''));
 const boolSchema = z.boolean().optional();
 
 const sectionSchema = z.object({
@@ -112,10 +112,54 @@ const newsUpdateSchema = z.object({
   published: boolSchema,
 });
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email('Invalid email address'),
+});
+
+const registerSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(100),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
+const resendVerificationSchema = z.object({
+  email: z.string().email('Invalid email address'),
+});
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(1, 'Token is required'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
+const waitlistSchema = z.object({
+  email: z.string().email('Invalid email address'),
+});
+
 const profileUpdateSchema = z.object({
   name: z.string().trim().min(1).max(100).optional(),
   bio: z.string().max(2000).optional(),
   image: z.string().max(2000).optional().or(z.literal('')),
+});
+
+const articleCreateSchema = z.object({
+  title: titleSchema,
+  body: z.string().trim().min(1, 'Body is required').max(500000),
+  excerpt: z.string().max(500).optional(),
+  category: z.string().min(1, 'Category is required'),
+  imageUrl: z.string().max(2000).optional().or(z.literal('')),
+  tags: tagsSchema,
+  blocks: z.array(z.any()).optional(),
+});
+
+const articleUpdateSchema = z.object({
+  title: titleSchema.optional(),
+  body: z.string().max(500000).optional(),
+  excerpt: z.string().max(500).optional(),
+  category: z.string().optional(),
+  imageUrl: z.string().max(2000).optional().or(z.literal('')),
+  tags: tagsSchema,
+  blocks: z.array(z.any()).optional(),
+  status: z.enum(['draft', 'review', 'published']).optional(),
 });
 
 export type CourseCreateInput = z.infer<typeof courseCreateSchema>;
@@ -125,6 +169,8 @@ export type WorkshopUpdateInput = z.infer<typeof workshopUpdateSchema>;
 export type NewsCreateInput = z.infer<typeof newsCreateSchema>;
 export type NewsUpdateInput = z.infer<typeof newsUpdateSchema>;
 export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>;
+export type ArticleCreateInput = z.infer<typeof articleCreateSchema>;
+export type ArticleUpdateInput = z.infer<typeof articleUpdateSchema>;
 
 export function validate<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: T } | { success: false; error: string } {
   const result = schema.safeParse(data);
@@ -144,4 +190,11 @@ export const schemas = {
   newsCreate: newsCreateSchema,
   newsUpdate: newsUpdateSchema,
   profileUpdate: profileUpdateSchema,
+  articleCreate: articleCreateSchema,
+  articleUpdate: articleUpdateSchema,
+  forgotPassword: forgotPasswordSchema,
+  register: registerSchema,
+  resendVerification: resendVerificationSchema,
+  resetPassword: resetPasswordSchema,
+  waitlist: waitlistSchema,
 };
