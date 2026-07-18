@@ -90,7 +90,7 @@ export async function PUT(
 
     // Deep merge sections to preserve recursive children
     if (data.sections !== undefined) {
-      workshop.sections = data.sections;
+      workshop.sections = data.sections as any;
     }
     // Update whitelisted fields
     Object.keys(allowedFields).forEach((key) => {
