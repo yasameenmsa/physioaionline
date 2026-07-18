@@ -205,7 +205,7 @@ export default function EditArticlePage() {
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="title">{t('title')}</Label>
+              <Label htmlFor="title">{t('titleLabel')}</Label>
               <Input id="title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
             </div>
 

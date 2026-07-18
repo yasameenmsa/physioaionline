@@ -7,7 +7,7 @@ import { Link } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +30,7 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [showVerifyAlert, setShowVerifyAlert] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const t = useTranslations('auth.login');
 
   const verified = searchParams.get('verified');
@@ -72,14 +73,14 @@ export function LoginForm() {
       });
 
       if (result?.error) {
-        if (result.error.includes('verify')) {
+        if (result.error === 'CredentialsSignin') {
           setError(null);
           setShowVerifyAlert(true);
           setVerifyEmail(data.email);
           return;
         }
 
-        const internalErrors = ['Configuration', 'AccessDenied', 'CredentialsSignin'];
+        const internalErrors = ['Configuration', 'AccessDenied'];
         if (internalErrors.includes(result.error)) {
           setError(t('errors.unexpected'));
         } else if (result.error === 'Email and password required') {
@@ -154,14 +155,25 @@ export function LoginForm() {
                 {t('forgotPassword')}
               </Link>
             </div>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              disabled={isLoading}
-              {...register('password')}
-              aria-invalid={!!errors.password}
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                disabled={isLoading}
+                {...register('password')}
+                aria-invalid={!!errors.password}
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-sm text-destructive">{errors.password.message}</p>
             )}

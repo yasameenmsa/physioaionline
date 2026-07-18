@@ -21,7 +21,7 @@ import {
 import {
   Plus, Save, Check, Loader2, ChevronDown, ChevronRight,
   GripVertical, Trash2, CornerDownRight, ClipboardPaste, MoreVertical,
-  Merge, X, Code,
+  Merge, X, Code, Menu,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
@@ -139,6 +139,7 @@ export function WorkshopEditor({
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
   const [focusedBlockId, setFocusedBlockId] = useState<string | null>(null);
   const [edgeTarget, setEdgeTarget] = useState<{ blockId: string; edge: 'left' | 'right' } | null>(null);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const edgeTargetRef = useRef<{ blockId: string; edge: 'left' | 'right' } | null>(null);
   const pointerRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const hoveredColumnRef = useRef<{ blockId: string; columnIndex: number } | null>(null);
@@ -714,12 +715,6 @@ export function WorkshopEditor({
       return;
     }
 
-    const overBlock = currentLesson?.blocks.find((b) => b.id === over.id);
-    if (overBlock?.type === 'columns') {
-      moveBlockIntoColumn(active.id as string, over.id as string);
-      return;
-    }
-
     const newSections = sections.map((s, si) => {
       if (si !== activeSection) return s;
       return {
@@ -755,17 +750,21 @@ export function WorkshopEditor({
         activeSection={activeSection}
         activeLessonPath={activeLessonPath}
         language={language}
+        mobileOpen={mobileSidebarOpen}
+        onMobileClose={() => setMobileSidebarOpen(false)}
         onSectionChange={(index) => {
           setActiveSection(index);
           setFocusedBlockId(null);
           setActiveLessonPath(
             sections[index]?.lessons?.length > 0 ? [0] : null
           );
+          setMobileSidebarOpen(false);
         }}
         onLessonChange={(sectionIndex, path) => {
           setActiveSection(sectionIndex);
           setFocusedBlockId(null);
           setActiveLessonPath(path);
+          setMobileSidebarOpen(false);
         }}
         onAddSection={addSection}
         onAddLesson={(sectionIndex, parentPath) =>
@@ -790,7 +789,14 @@ export function WorkshopEditor({
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
         <div className="h-12 border-b flex items-center justify-between px-4 shrink-0">
-          <div className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <button
+              className="lg:hidden p-1 rounded hover:bg-muted"
+              onClick={() => setMobileSidebarOpen(true)}
+            >
+              <Menu className="h-4 w-4" />
+            </button>
+            <div className="text-sm text-muted-foreground">
             {currentSection && currentLesson ? (
               <span className="flex items-center gap-1">
                 <span>{currentSection.title || t('untitledSection')}</span>
@@ -806,6 +812,7 @@ export function WorkshopEditor({
             ) : (
               <span>{t('selectLessonToEdit')}</span>
             )}
+          </div>
           </div>
           <div className="flex items-center gap-3">
             {saveStatus === 'saving' && (
@@ -830,7 +837,7 @@ export function WorkshopEditor({
         {/* Blocks */}
         <div className="flex-1 overflow-y-auto">
           {currentLesson ? (
-            <div className="w-full py-8 px-8">
+            <div className="w-full py-6 px-4 sm:py-8 sm:px-6 lg:px-8">
               {selectedBlockIds.size >= 2 && (
                 <div className="mb-3 flex items-center gap-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
                   <span className="text-xs text-primary font-medium">
@@ -926,7 +933,7 @@ export function WorkshopEditor({
               </DndContext>
 
               {/* Add block + Paste buttons */}
-              <div className="relative mt-4 flex gap-2">
+              <div className="relative mt-4 flex flex-col sm:flex-row gap-2">
                 <Button
                   variant="ghost"
                   className="flex-1 border-2 border-dashed text-muted-foreground hover:text-foreground"

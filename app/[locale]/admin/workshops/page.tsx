@@ -59,7 +59,7 @@ export default async function AdminWorkshopsPage({ searchParams, params }: PageP
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
         <div>
           <h2 className="text-xl font-semibold">{t('title')}</h2>
           <p className="text-sm text-muted-foreground">{total} {t('total')}</p>
@@ -78,7 +78,7 @@ export default async function AdminWorkshopsPage({ searchParams, params }: PageP
         ) : (
           <div className="divide-y">
             {workshops.map((w: any) => (
-              <div key={w._id} className="flex items-center justify-between p-4 text-sm">
+              <div key={w._id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 text-sm gap-2">
                 <div className="flex-1 min-w-0 mr-4">
                   <div className="flex items-center gap-2">
                     <p className="font-medium truncate">{w.title}</p>

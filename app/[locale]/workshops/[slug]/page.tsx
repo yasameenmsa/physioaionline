@@ -16,6 +16,8 @@ import {
   Lock,
   Download,
   ClipboardCopy,
+  Menu,
+  X,
 } from 'lucide-react';
 import { cn, formatFileSize } from '@/lib/utils';
 import { workshopToMarkdown, downloadMarkdown } from '@/lib/workshop-to-markdown';
@@ -175,7 +177,7 @@ function renderBlock(block: any) {
       const cols: any[][] = block.attrs?.columns || [[], []];
       const colWidths: number[] = block.attrs?.widths || cols.map(() => Math.floor(12 / cols.length));
       return (
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           {cols.map((col: any[], ci: number) => (
             <div
               key={ci}
@@ -325,6 +327,7 @@ export default function WorkshopViewPage() {
   const [expandedSections, setExpandedSections] = useState<Set<number>>(new Set([0]));
   const [publishing, setPublishing] = useState(false);
   const [copiedPrompt, setCopiedPrompt] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -413,6 +416,7 @@ export default function WorkshopViewPage() {
             onClick={() => {
               setActiveSection(sectionIndex);
               setActiveLessonPath(path);
+              setSidebarOpen(false);
             }}
           >
             {hasChildren ? (
@@ -456,9 +460,35 @@ export default function WorkshopViewPage() {
   const completedCount = progress?.completedLessons?.length || 0;
 
   return (
-    <div className="flex h-full overflow-hidden" dir={workshop.language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="flex h-full overflow-hidden relative" dir={workshop.language === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Mobile sidebar backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Mobile hamburger button */}
+      <button
+        className="fixed top-20 left-2 z-50 lg:hidden p-2 rounded-md bg-background border shadow-md"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </button>
+
       {/* Sidebar */}
-      <div className="w-80 border-r rtl:border-r-0 rtl:border-l bg-muted/20 flex flex-col shrink-0">
+      {(() => {
+        const isRtl = workshop.language === 'ar';
+        const sidebarHidden = isRtl
+          ? 'max-lg:right-0 max-lg:translate-x-full'
+          : 'max-lg:left-0 max-lg:-translate-x-full';
+        return (
+          <div className={cn(
+            "w-80 border-r rtl:border-r-0 rtl:border-l bg-muted/20 flex flex-col shrink-0",
+            "max-lg:fixed max-lg:top-16 max-lg:bottom-0 max-lg:z-50 max-lg:shadow-xl max-lg:transition-transform max-lg:duration-200",
+            sidebarOpen ? "max-lg:translate-x-0" : sidebarHidden
+          )}>
         <div className="p-4 border-b space-y-2">
           <Link href="/workshops" className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1">
             <ArrowLeft className="h-3 w-3" /> All Workshops
@@ -530,6 +560,7 @@ export default function WorkshopViewPage() {
                   setActiveSection(si);
                   setActiveLessonPath(section.lessons?.length > 0 ? [0] : []);
                   toggleSectionExpand(si);
+                  setSidebarOpen(false);
                 }}
               >
                 {expandedSections.has(si) ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
@@ -544,12 +575,14 @@ export default function WorkshopViewPage() {
           ))}
         </div>
       </div>
+        );
+      })()}
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto" dir={workshop.language === 'ar' ? 'rtl' : 'ltr'}>
         {currentLesson ? (
-          <div className={`w-full py-8 px-8 space-y-6 ${workshop.language === 'ar' ? 'text-right' : ''}`}>
-            <div className="flex items-center justify-between">
+          <div className={`w-full py-6 px-4 sm:py-8 sm:px-6 lg:px-8 space-y-6 ${workshop.language === 'ar' ? 'text-right' : ''}`}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-xl font-semibold">{currentLesson.title}</h1>
               <Button
                 size="sm"

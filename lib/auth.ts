@@ -1,8 +1,13 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import { CredentialsSignin } from 'next-auth';
 import bcrypt from 'bcryptjs';
 import { connectDB } from './db';
 import { checkRateLimit } from './rate-limiter';
+
+class EmailNotVerified extends CredentialsSignin {
+  code = 'email_not_verified';
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -49,7 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           // Check if email is verified
           if (!user.emailVerified) {
-            throw new Error('Please verify your email before logging in');
+            throw new EmailNotVerified();
           }
 
           const isPasswordValid = await bcrypt.compare(

@@ -18,7 +18,7 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Plus, ChevronRight, GripVertical, Trash2, CornerDownRight } from 'lucide-react';
+import { Plus, ChevronRight, GripVertical, Trash2, CornerDownRight, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface FlatLesson {
@@ -174,6 +174,8 @@ export function LessonSidebar({
   onRemoveSection,
   onRemoveLesson,
   language = 'en',
+  mobileOpen = false,
+  onMobileClose,
 }: {
   sections: any[];
   activeSection: number | null;
@@ -188,6 +190,8 @@ export function LessonSidebar({
   onRemoveSection: (index: number) => void;
   onRemoveLesson: (path: number[]) => void;
   language?: 'ar' | 'en';
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
 }) {
   const isAr = language === 'ar';
   const t = {
@@ -251,20 +255,11 @@ export function LessonSidebar({
         : null;
       const siblings = parent ? (parent.children || []) : sectionLessons;
       const oldIndex = activeItem.path[activeItem.path.length - 1];
-      const newIndex = overItem.path[overItem.path.length - 1];
+      const newIndex = overItem.path[activeItem.path.length - 1];
 
       if (oldIndex === newIndex) return;
 
       const reordered = arrayMove(siblings, oldIndex, newIndex);
-
-      let newLessons: any[];
-      if (parentPath.length === 0) {
-        newLessons = reordered;
-      } else {
-        newLessons = insertLessonAtPath(sectionLessons, parentPath, { __replace__: true, children: reordered });
-      }
-
-      // Fix: actually replace, don't insert
       const finalLessons = applyReorder(sectionLessons, parentPath, reordered);
 
       const newSections = sections.map((s, i) => {
@@ -309,15 +304,34 @@ export function LessonSidebar({
   const draggingItem = draggingId ? flatLessons.find((l) => l.id === draggingId) : null;
 
   return (
-    <div className="w-72 border-r bg-muted/30 flex flex-col shrink-0">
+    <>
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={onMobileClose}
+        />
+      )}
+      <div className={cn(
+        "w-72 border-r bg-muted/30 flex flex-col shrink-0",
+        "max-lg:fixed max-lg:inset-y-0 max-lg:left-0 max-lg:z-50 max-lg:shadow-xl max-lg:bg-background max-lg:transition-transform max-lg:duration-200",
+        mobileOpen ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"
+      )}>
       <div className="p-3 border-b flex items-center justify-between">
         <h3 className="font-semibold text-sm">{t.title}</h3>
-        <button
-          onClick={onAddSection}
-          className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground"
-        >
-          <Plus className="h-4 w-4" />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={onAddSection}
+            className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground"
+          >
+            <Plus className="h-4 w-4" />
+          </button>
+          <button
+            onClick={onMobileClose}
+            className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground lg:hidden"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
       </div>
       <div className="flex-1 overflow-y-auto p-2 space-y-1">
         {sections.length === 0 && (
@@ -385,7 +399,7 @@ export function LessonSidebar({
                             onTitleChange={onUpdateLessonTitle}
                             onAddChild={(path) => onAddLesson(si, path)}
                             onRemove={(path) => onRemoveLesson(path)}
-                            onSelect={(path) => { onSectionChange(si); onLessonChange(si, path); }}
+                            onSelect={(path) => { onSectionChange(si); onLessonChange(si, path); onMobileClose?.(); }}
                             language={language}
                           />
                         </div>
@@ -417,6 +431,7 @@ export function LessonSidebar({
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

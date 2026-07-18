@@ -66,7 +66,7 @@ export default function DashboardWorkshopsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <h2 className="text-xl font-semibold">My Workshops</h2>
         <Link href="/workshops">
           <Button variant="outline" size="sm">
