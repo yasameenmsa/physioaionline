@@ -38,14 +38,14 @@ export function NewsListClient({ items, locale }: NewsListClientProps) {
             _id={item._id}
             slug={item.slug}
             title={item.title}
-            titleAr={item.titleAr}
+            titleAr={item.titleAr ?? undefined}
             excerpt={item.excerpt}
-            excerptAr={item.excerptAr}
-            imageUrl={item.imageUrl}
+            excerptAr={item.excerptAr ?? undefined}
+            imageUrl={item.imageUrl ?? undefined}
             tags={item.tags}
             viewCount={item.viewCount}
-            publishedAt={item.publishedAt}
-            author={item.author}
+            publishedAt={item.publishedAt ?? undefined}
+            author={item.author ?? undefined}
             locale={locale}
             lang={lang}
           />

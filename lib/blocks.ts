@@ -17,7 +17,7 @@ export type BlockType =
 export interface BlockAttrs {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   align?: 'left' | 'center' | 'right';
-  style?: 'normal' | 'muted' | 'highlight' | 'info' | 'warning';
+  style?: 'normal' | 'muted' | 'highlight' | 'info' | 'warning' | 'success';
   language?: string;
   listType?: 'ordered' | 'unordered';
   caption?: string;
