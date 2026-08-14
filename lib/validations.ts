@@ -121,6 +121,7 @@ const jobCreateSchema = z.object({
   type: jobTypeSchema,
   description: z.string().trim().min(1, 'Description is required').max(20000),
   excerpt: z.string().max(500).optional().or(z.literal('')),
+  logoUrl: z.string().max(2000).optional().or(z.literal('')),
   imageUrl: z.string().max(2000).optional().or(z.literal('')),
   applyUrl: z.string().max(2000).optional().or(z.literal('')),
   contactEmail: z.string().email('Invalid email address').optional().or(z.literal('')),

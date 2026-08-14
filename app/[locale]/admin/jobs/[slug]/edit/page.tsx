@@ -36,6 +36,7 @@ export default async function AdminEditJobPage({ params }: PageProps) {
           type: j.type || 'full-time',
           description: j.description,
           excerpt: j.excerpt || '',
+          logoUrl: j.logoUrl || '',
           imageUrl: j.imageUrl || '',
           applyUrl: j.applyUrl || '',
           contactEmail: j.contactEmail || '',

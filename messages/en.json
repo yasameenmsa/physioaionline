@@ -63,7 +63,12 @@
         "price": "$0",
         "period": "forever",
         "description": "Perfect for getting started",
-        "features": ["5 practice questions per day", "Basic progress tracking", "Access to free sample questions", "Community support"],
+        "features": [
+          "5 practice questions per day",
+          "Basic progress tracking",
+          "Access to free sample questions",
+          "Community support"
+        ],
         "cta": "Start Free"
       },
       "premium": {
@@ -71,7 +76,13 @@
         "price": "$9",
         "period": "/month",
         "description": "Best for serious students",
-        "features": ["Unlimited practice questions", "Detailed performance analytics", "Progress tracking by category", "Email support", "Ad-free experience"],
+        "features": [
+          "Unlimited practice questions",
+          "Detailed performance analytics",
+          "Progress tracking by category",
+          "Email support",
+          "Ad-free experience"
+        ],
         "cta": "Get Premium"
       },
       "pro": {
@@ -79,7 +90,14 @@
         "price": "$29",
         "period": "/month",
         "description": "Maximum exam preparation",
-        "features": ["Everything in Premium", "Advanced analytics & insights", "Custom practice exams", "Priority support", "Early access to new questions", "Exam simulation mode"],
+        "features": [
+          "Everything in Premium",
+          "Advanced analytics & insights",
+          "Custom practice exams",
+          "Priority support",
+          "Early access to new questions",
+          "Exam simulation mode"
+        ],
         "cta": "Get Pro"
       }
     },
@@ -103,23 +121,23 @@
       "rights": "All rights reserved.",
       "madeWith": "Made with",
       "by": "by",
-          "links": {
-            "footer": {
-              "questions": "Questions",
-              "pricing": "Pricing",
-              "features": "Features",
-              "knowledgeBase": "Knowledge Base",
-              "courses": "Courses",
-              "news": "News",
-              "jobs": "Jobs"
-            },
-          "social": {
-            "facebook": "Facebook",
-            "x": "X",
-            "linkedin": "LinkedIn",
-            "email": "Email"
-          }
+      "links": {
+        "footer": {
+          "questions": "Questions",
+          "pricing": "Pricing",
+          "features": "Features",
+          "knowledgeBase": "Knowledge Base",
+          "courses": "Courses",
+          "news": "News",
+          "jobs": "Jobs"
+        },
+        "social": {
+          "facebook": "Facebook",
+          "x": "X",
+          "linkedin": "LinkedIn",
+          "email": "Email"
         }
+      }
     }
   },
   "news": {
@@ -264,12 +282,12 @@
       "dontSeeEmail": "Don't see the email? Check your spam folder or",
       "tryAgain": "try again",
       "backToLogin": "Back to login",
-    "errors": {
-      "failed": "Failed to send reset email",
-      "unexpected": "An unexpected error occurred. Please try again.",
-      "tooManyRequests": "Too many password reset requests. Please try again later.",
-      "invalidEmail": "Invalid email address"
-    }
+      "errors": {
+        "failed": "Failed to send reset email",
+        "unexpected": "An unexpected error occurred. Please try again.",
+        "tooManyRequests": "Too many password reset requests. Please try again later.",
+        "invalidEmail": "Invalid email address"
+      }
     },
     "resetPassword": {
       "title": "Reset Your Password",
@@ -286,20 +304,20 @@
       "invalidTitle": "Invalid Reset Link",
       "requestNew": "Request New Reset Link",
       "backToLogin": "Back to login",
-    "errors": {
-      "invalidLink": "Invalid reset link. Please request a new password reset.",
-      "failed": "Failed to reset password",
-      "unexpected": "An unexpected error occurred. Please try again.",
-      "tooManyAttempts": "Too many password reset attempts. Please try again later.",
-      "passwordWeak": "Password must be at least 8 characters and include both letters and numbers",
-      "invalidToken": "Invalid or expired reset token",
-      "tokenExpired": "Reset token has expired. Please request a new password reset.",
-      "success": "Password reset successfully. You can now log in with your new password.",
-      "passwordMin": "Password must be at least 8 characters",
-      "passwordLetter": "Password must contain at least one letter",
-      "passwordNumber": "Password must contain at least one number",
-      "passwordMatch": "Passwords don't match"
-    }
+      "errors": {
+        "invalidLink": "Invalid reset link. Please request a new password reset.",
+        "failed": "Failed to reset password",
+        "unexpected": "An unexpected error occurred. Please try again.",
+        "tooManyAttempts": "Too many password reset attempts. Please try again later.",
+        "passwordWeak": "Password must be at least 8 characters and include both letters and numbers",
+        "invalidToken": "Invalid or expired reset token",
+        "tokenExpired": "Reset token has expired. Please request a new password reset.",
+        "success": "Password reset successfully. You can now log in with your new password.",
+        "passwordMin": "Password must be at least 8 characters",
+        "passwordLetter": "Password must contain at least one letter",
+        "passwordNumber": "Password must contain at least one number",
+        "passwordMatch": "Passwords don't match"
+      }
     },
     "verifyEmail": {
       "loadingTitle": "Verifying Your Email...",
@@ -630,21 +648,21 @@
         "courses": "Courses",
         "workshops": "Workshops"
       },
-  "recentQuestions": "Recent Questions",
-  "recentNews": "Recent News",
-  "recentCourses": "Recent Courses",
-  "recentWorkshops": "Recent Workshops",
-  "recentJobs": "Recent Jobs",
-  "noQuestions": "No questions yet.",
-  "noWorkshops": "No workshops yet.",
-  "noJobs": "No jobs yet.",
-  "addOne": "Add one",
-  "edit": "Edit",
-  "draft": "Draft",
-  "free": "Free",
-  "langAr": "عربي",
-  "langEn": "EN",
-  "sections": "sections"
+      "recentQuestions": "Recent Questions",
+      "recentNews": "Recent News",
+      "recentCourses": "Recent Courses",
+      "recentWorkshops": "Recent Workshops",
+      "recentJobs": "Recent Jobs",
+      "noQuestions": "No questions yet.",
+      "noWorkshops": "No workshops yet.",
+      "noJobs": "No jobs yet.",
+      "addOne": "Add one",
+      "edit": "Edit",
+      "draft": "Draft",
+      "free": "Free",
+      "langAr": "عربي",
+      "langEn": "EN",
+      "sections": "sections"
     },
     "questions": {
       "title": "Questions",
@@ -788,7 +806,9 @@
       "cancel": "Cancel",
       "update": "Update",
       "createBtn": "Create",
-      "publishImmediately": "Publish immediately"
+      "publishImmediately": "Publish immediately",
+      "logoUrlLabel": "Logo image (center logo)",
+      "imageUrlLabel": "Details image (poster)"
     },
     "courses": {
       "title": "Courses",
@@ -843,14 +863,14 @@
       "whatYouLearnPlaceholder": "Skill 1\nSkill 2\nSkill 3",
       "requirementsLabel": "Requirements (one per line)",
       "requirementsPlaceholder": "Prerequisite 1\nPrerequisite 2",
-    "publishImmediately": "Publish immediately",
-    "cancel": "Cancel",
-    "createWorkshop": "Create Workshop",
-    "update": "Update",
-    "deleteConfirm": "Delete this workshop?",
-    "deleteFailed": "Failed to delete workshop",
-    "delete": "Delete",
-    "saving": "Saving...",
+      "publishImmediately": "Publish immediately",
+      "cancel": "Cancel",
+      "createWorkshop": "Create Workshop",
+      "update": "Update",
+      "deleteConfirm": "Delete this workshop?",
+      "deleteFailed": "Failed to delete workshop",
+      "delete": "Delete",
+      "saving": "Saving...",
       "titleRequired": "Title is required",
       "failedToSave": "Failed to save workshop"
     },

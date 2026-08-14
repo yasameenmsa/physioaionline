@@ -19,6 +19,7 @@ interface AdminJobFormProps {
     type: string;
     description: string;
     excerpt: string;
+    logoUrl: string;
     imageUrl: string;
     applyUrl: string;
     contactEmail: string;
@@ -38,6 +39,7 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
     type: initialData?.type || 'full-time',
     description: initialData?.description || '',
     excerpt: initialData?.excerpt || '',
+    logoUrl: initialData?.logoUrl || '',
     imageUrl: initialData?.imageUrl || '',
     applyUrl: initialData?.applyUrl || '',
     contactEmail: initialData?.contactEmail || '',
@@ -61,6 +63,7 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
         type: form.type,
         description: form.description,
         excerpt: form.excerpt || form.title.slice(0, 200),
+        logoUrl: form.logoUrl,
         imageUrl: form.imageUrl,
         applyUrl: form.applyUrl,
         contactEmail: form.contactEmail,
@@ -164,6 +167,41 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
             rows={10}
             required
           />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="logoUrl">{t('logoUrlLabel')}</Label>
+            <Input
+              id="logoUrl"
+              value={form.logoUrl}
+              onChange={(e) => setForm((f) => ({ ...f, logoUrl: e.target.value }))}
+              placeholder="https://.../logo.png"
+            />
+            {form.logoUrl && (
+              <img
+                src={form.logoUrl}
+                alt="logo"
+                className="h-12 w-12 rounded-lg object-cover border"
+              />
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="imageUrl">{t('imageUrlLabel')}</Label>
+            <Input
+              id="imageUrl"
+              value={form.imageUrl}
+              onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
+              placeholder="https://.../poster.png"
+            />
+            {form.imageUrl && (
+              <img
+                src={form.imageUrl}
+                alt="poster"
+                className="h-12 w-12 rounded-lg object-cover border"
+              />
+            )}
+          </div>
         </div>
       </Card>
 

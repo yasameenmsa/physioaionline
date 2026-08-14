@@ -14,6 +14,7 @@ const jobSchema = new Schema<IJob>(
     },
     description: { type: String, required: true },
     excerpt: { type: String, default: '' },
+    logoUrl: { type: String, default: '' },
     imageUrl: { type: String, default: '' },
     applyUrl: { type: String, default: '' },
     contactEmail: { type: String, default: '' },

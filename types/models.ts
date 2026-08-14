@@ -255,6 +255,7 @@ export interface IJob extends Document {
   type: 'full-time' | 'part-time' | 'remote' | 'contract' | 'internship';
   description: string;
   excerpt: string;
+  logoUrl?: string;
   imageUrl?: string;
   applyUrl?: string;
   contactEmail?: string;

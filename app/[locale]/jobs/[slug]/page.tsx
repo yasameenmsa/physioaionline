@@ -65,7 +65,13 @@ export default async function JobDetailPage({ params }: PageProps) {
         <div className="mt-6 rounded-lg border bg-card p-8 shadow-sm">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex items-start gap-4">
-              {j.imageUrl ? (
+              {j.logoUrl ? (
+                <img
+                  src={j.logoUrl}
+                  alt={j.company}
+                  className="h-14 w-14 rounded-lg object-cover"
+                />
+              ) : j.imageUrl ? (
                 <img
                   src={j.imageUrl}
                   alt={j.company}
@@ -115,6 +121,16 @@ export default async function JobDetailPage({ params }: PageProps) {
           )}
 
           <div className="prose max-w-none mt-6 whitespace-pre-wrap">{j.description}</div>
+
+          {j.imageUrl && j.logoUrl && (
+            <div className="mt-6 rounded-lg border overflow-hidden">
+              <img
+                src={j.imageUrl}
+                alt={j.company}
+                className="w-full object-contain max-h-[70vh] bg-muted"
+              />
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-3 mt-8 pt-6 border-t">
             {j.applyUrl && (
