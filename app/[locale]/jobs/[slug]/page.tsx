@@ -123,11 +123,11 @@ export default async function JobDetailPage({ params }: PageProps) {
           <div className="prose max-w-none mt-6 whitespace-pre-wrap">{j.description}</div>
 
           {j.imageUrl && j.logoUrl && (
-            <div className="mt-6 rounded-lg border overflow-hidden mx-auto max-w-md">
+            <div className="mt-6 rounded-lg border overflow-hidden mx-auto max-w-3xl">
               <img
                 src={j.imageUrl}
                 alt={j.company}
-                className="w-full object-contain max-h-[45vh] bg-muted"
+                className="w-full object-contain max-h-[55vh] bg-muted"
               />
             </div>
           )}
