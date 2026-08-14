@@ -121,7 +121,7 @@ export default async function JobsPage({ searchParams, params }: PageProps) {
                   <Link
                     key={j._id.toString()}
                     href={`/jobs/${j.slug}`}
-                    className="group rounded-lg border bg-card p-6 shadow-sm transition-colors hover:border-primary/50"
+                    className="group rounded-lg border bg-card p-6 shadow-sm transition-colors hover:border-primary/50 min-w-0"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
@@ -151,7 +151,7 @@ export default async function JobsPage({ searchParams, params }: PageProps) {
                         </>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground mt-3 line-clamp-2">
+                    <p className="text-sm text-muted-foreground mt-3 line-clamp-2 min-w-0">
                       {j.excerpt || j.title}
                     </p>
                   </Link>
