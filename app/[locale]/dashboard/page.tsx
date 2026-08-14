@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpen, HelpCircle, BarChart3, FileEdit, Bookmark, GraduationCap } from 'lucide-react';
+import { BookOpen, HelpCircle, BarChart3, FileEdit, Bookmark, GraduationCap, Briefcase } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/lib/auth';
 
@@ -19,6 +19,7 @@ export default async function DashboardPage({ params }: PageProps) {
     { href: '/dashboard/contributions', label: t('links.contributions.label'), description: t('links.contributions.description'), icon: FileEdit },
     { href: '/dashboard/bookmarks', label: t('links.bookmarks.label'), description: t('links.bookmarks.description'), icon: Bookmark },
     { href: '/workshops', label: t('links.workshops.label'), description: t('links.workshops.description'), icon: GraduationCap },
+    { href: '/jobs', label: t('links.jobs.label'), description: t('links.jobs.description'), icon: Briefcase },
   ];
 
   return (

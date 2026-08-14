@@ -6,9 +6,10 @@ import News from '@/models/News';
 import Course from '@/models/Course';
 import Workshop from '@/models/Workshop';
 import Article from '@/models/Article';
+import Job from '@/models/Job';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { HelpCircle, BookOpen, Users, Layers, Rss, GraduationCap, Calendar, Eye, DollarSign, PenTool, FileText } from 'lucide-react';
+import { HelpCircle, BookOpen, Users, Layers, Rss, GraduationCap, Calendar, Eye, DollarSign, PenTool, FileText, Briefcase } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -19,7 +20,7 @@ export default async function AdminDashboard({ params }: PageProps) {
   await connectDB();
   const t = await getTranslations({ locale, namespace: 'admin.dashboard' });
 
-  const [totalQuestions, totalCategories, totalUsers, totalNews, totalCourses, totalWorkshops, totalArticles, recentQuestions, recentNewsItems, recentCourses, recentWorkshops] = await Promise.all([
+  const [totalQuestions, totalCategories, totalUsers, totalNews, totalCourses, totalWorkshops, totalArticles, totalJobs, recentQuestions, recentNewsItems, recentCourses, recentWorkshops, recentJobs] = await Promise.all([
     Question.countDocuments(),
     Category.countDocuments({ active: true }),
     User.countDocuments(),
@@ -27,6 +28,7 @@ export default async function AdminDashboard({ params }: PageProps) {
     Course.countDocuments(),
     Workshop.countDocuments(),
     Article.countDocuments(),
+    Job.countDocuments(),
     Question.find()
       .populate('category', 'name')
       .sort({ createdAt: -1 })
@@ -47,6 +49,11 @@ export default async function AdminDashboard({ params }: PageProps) {
       .sort({ createdAt: -1 })
       .limit(5)
       .lean(),
+    Job.find()
+      .populate('author', 'name')
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .lean(),
   ]);
 
   const stats = [
@@ -54,6 +61,7 @@ export default async function AdminDashboard({ params }: PageProps) {
     { label: t('stats.articles'), value: totalArticles, icon: FileText, href: '/admin/articles' },
     { label: t('stats.categories'), value: totalCategories, icon: Layers, href: '/admin/categories' },
     { label: t('stats.news'), value: totalNews, icon: Rss, href: '/admin/news' },
+    { label: t('stats.jobs'), value: totalJobs, icon: Briefcase, href: '/admin/jobs' },
     { label: t('stats.courses'), value: totalCourses, icon: GraduationCap, href: '/admin/courses' },
     { label: t('stats.workshops'), value: totalWorkshops, icon: PenTool, href: '/admin/workshops' },
     { label: t('stats.users'), value: totalUsers, icon: Users, href: '#' },
@@ -245,6 +253,48 @@ export default async function AdminDashboard({ params }: PageProps) {
                       {t('edit')}
                     </Link>
                   </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-8">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold">{t('recentJobs')}</h3>
+          <Link
+            href="/admin/jobs/create"
+            className="text-xs text-primary hover:underline"
+          >
+            {t('addOne')} →
+          </Link>
+        </div>
+        <div className="rounded-lg border">
+          {recentJobs.length === 0 ? (
+            <p className="text-sm text-muted-foreground p-6 text-center">
+              {t('noJobs')} <Link href="/admin/jobs/create" className="text-primary hover:underline">{t('addOne')}</Link>
+            </p>
+          ) : (
+            <div className="divide-y">
+              {(recentJobs as any[]).map((job) => (
+                <div key={job._id.toString()} className="flex items-center justify-between p-4 text-sm">
+                  <div className="flex-1 min-w-0 mr-4">
+                    <div className="flex items-center gap-2">
+                      <p className="truncate font-medium">{job.title}</p>
+                      {!job.published && (
+                        <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 px-1.5 py-0.5 rounded shrink-0">{t('draft')}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
+                      <span className="truncate">{job.company}</span>
+                      {job.location && <span>{job.location}</span>}
+                      {job.type && <span>{job.type}</span>}
+                      {job.author && <span>{(job.author as any).name}</span>}
+                    </div>
+                  </div>
+                  <Link href={`/admin/jobs/${job.slug}/edit`} className="text-xs text-primary hover:underline shrink-0">
+                    {t('edit')}
+                  </Link>
                 </div>
               ))}
             </div>

@@ -1,28 +1,30 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import dynamic from 'next/dynamic';
 import { connectDB } from '@/lib/db';
 import { auth } from '@/lib/auth';
-import News from '@/models/News';
-import { Rss, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const NewsListClient = dynamic(
-  () => import('@/components/features/news/NewsListClient').then((m) => m.NewsListClient),
-  { loading: () => <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 min-h-[200px]" /> }
-);
+import Job from '@/models/Job';
+import { Briefcase, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 
 interface PageProps {
   searchParams: Promise<{ tag?: string; page?: string }>;
   params: Promise<{ locale: string }>;
 }
 
-export default async function NewsPage({ searchParams, params }: PageProps) {
+const typeLabels: Record<string, string> = {
+  'full-time': 'Full Time',
+  'part-time': 'Part Time',
+  remote: 'Remote',
+  contract: 'Contract',
+  internship: 'Internship',
+};
+
+export default async function JobsPage({ searchParams, params }: PageProps) {
   const { tag, page: pageStr } = await searchParams;
   const { locale } = await params;
   const currentPage = Math.max(1, parseInt(pageStr ?? '1'));
   const limit = 12;
   const skip = (currentPage - 1) * limit;
-  const t = await getTranslations({ locale, namespace: 'news.list' });
+  const t = await getTranslations({ locale, namespace: 'jobs.list' });
   const session = await auth();
 
   await connectDB();
@@ -30,17 +32,17 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
   const filter: Record<string, unknown> = { published: true };
   if (tag) filter.tags = { $in: [tag] };
 
-  const [news, total] = await Promise.all([
-    News.find(filter)
+  const [jobs, total] = await Promise.all([
+    Job.find(filter)
       .populate('author', 'name')
       .sort({ publishedAt: -1 })
       .skip(skip)
       .limit(limit)
       .lean(),
-    News.countDocuments(filter),
+    Job.countDocuments(filter),
   ]);
 
-  const allTags = await News.distinct('tags', {
+  const allTags = await Job.distinct('tags', {
     published: true,
     tags: { $ne: '', $exists: true },
   });
@@ -52,15 +54,15 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
           <div className="flex items-center gap-3">
-            <Rss className="h-6 w-6 text-primary" />
+            <Briefcase className="h-6 w-6 text-primary" />
             <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
           </div>
           {session?.user && (
             <Link
-              href="/news/create"
+              href="/jobs/create"
               className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
             >
-              Submit News
+              {t('postJob')}
             </Link>
           )}
         </div>
@@ -69,7 +71,7 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-8">
             <Link
-              href="/news"
+              href="/jobs"
               className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 !tag
                   ? 'bg-primary text-primary-foreground'
@@ -78,57 +80,81 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
             >
               {t('all')}
             </Link>
-            {allTags.map((t) => (
+            {allTags.map((tg) => (
               <Link
-                key={t}
-                href={`/news?tag=${encodeURIComponent(t)}`}
+                key={tg}
+                href={`/jobs?tag=${encodeURIComponent(tg)}`}
                 className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  tag === t
+                  tag === tg
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
               >
-                {t}
+                {tg}
               </Link>
             ))}
           </div>
         )}
 
-        {news.length === 0 ? (
+        {jobs.length === 0 ? (
           <div className="text-center py-20">
-            <Rss className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-            <h2 className="text-lg font-semibold">{t('noNews')}</h2>
-            <p className="text-muted-foreground mt-2">{t('noNewsDesc')}</p>
+            <Briefcase className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('noJobs')}</h2>
+            <p className="text-muted-foreground mt-2">{t('noJobsDesc')}</p>
           </div>
         ) : (
           <>
-            <NewsListClient
-              items={news.map((item) => {
-                const i = item as any;
-                return {
-                  _id: String(i._id),
-                  slug: i.slug,
-                  title: i.title,
-                  titleAr: i.titleAr || null,
-                  excerpt: i.excerpt,
-                  excerptAr: i.excerptAr || null,
-                  imageUrl: i.imageUrl || null,
-                  tags: Array.isArray(i.tags) ? [...i.tags] : [],
-                  viewCount: i.viewCount,
-                  publishedAt: i.publishedAt ? new Date(i.publishedAt).toISOString() : null,
-                  author: i.author
-                    ? { _id: String(i.author._id), name: i.author.name }
-                    : null,
-                };
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {jobs.map((job) => {
+                const j = job as any;
+                const label =
+                  locale === 'ar'
+                    ? ({
+                        'full-time': 'دوام كامل',
+                        'part-time': 'دوام جزئي',
+                        remote: 'عن بُعد',
+                        contract: 'عقد',
+                        internship: 'تدريب',
+                      } as Record<string, string>)[j.type] || typeLabels[j.type]
+                    : typeLabels[j.type];
+                return (
+                  <Link
+                    key={j._id.toString()}
+                    href={`/jobs/${j.slug}`}
+                    className="group rounded-lg border bg-card p-6 shadow-sm transition-colors hover:border-primary/50"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <h3 className="font-semibold truncate group-hover:text-primary transition-colors">
+                          {j.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1 truncate">{j.company}</p>
+                      </div>
+                      <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground shrink-0">
+                        {label}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3">
+                      {j.location && (
+                        <>
+                          <MapPin className="h-3 w-3" />
+                          <span>{j.location}</span>
+                        </>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-3 line-clamp-2">
+                      {j.excerpt || j.title}
+                    </p>
+                  </Link>
+                );
               })}
-              locale={locale}
-            />
+            </div>
 
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-8">
                 {currentPage > 1 && (
                   <Link
-                    href={`/news?page=${currentPage - 1}${tag ? `&tag=${tag}` : ''}`}
+                    href={`/jobs?page=${currentPage - 1}${tag ? `&tag=${tag}` : ''}`}
                     className="inline-flex items-center gap-1 px-4 py-2 text-sm rounded-md border hover:bg-muted"
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -140,7 +166,7 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
                 </span>
                 {currentPage < totalPages && (
                   <Link
-                    href={`/news?page=${currentPage + 1}${tag ? `&tag=${tag}` : ''}`}
+                    href={`/jobs?page=${currentPage + 1}${tag ? `&tag=${tag}` : ''}`}
                     className="inline-flex items-center gap-1 px-4 py-2 text-sm rounded-md border hover:bg-muted"
                   >
                     {t('next')}

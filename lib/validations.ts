@@ -112,6 +112,23 @@ const newsUpdateSchema = z.object({
   published: boolSchema,
 });
 
+const jobTypeSchema = z.enum(['full-time', 'part-time', 'remote', 'contract', 'internship']);
+
+const jobCreateSchema = z.object({
+  title: titleSchema,
+  company: z.string().trim().min(1, 'Company is required').max(200),
+  location: z.string().max(200).optional().or(z.literal('')),
+  type: jobTypeSchema,
+  description: z.string().trim().min(1, 'Description is required').max(20000),
+  excerpt: z.string().max(500).optional().or(z.literal('')),
+  imageUrl: z.string().max(2000).optional().or(z.literal('')),
+  applyUrl: z.string().max(2000).optional().or(z.literal('')),
+  contactEmail: z.string().email('Invalid email address').optional().or(z.literal('')),
+  tags: z.array(z.string().max(50)).max(20).optional(),
+});
+
+const jobUpdateSchema = jobCreateSchema.partial();
+
 const forgotPasswordSchema = z.object({
   email: z.string().email('Invalid email address'),
 });
@@ -168,6 +185,8 @@ export type WorkshopCreateInput = z.infer<typeof workshopCreateSchema>;
 export type WorkshopUpdateInput = z.infer<typeof workshopUpdateSchema>;
 export type NewsCreateInput = z.infer<typeof newsCreateSchema>;
 export type NewsUpdateInput = z.infer<typeof newsUpdateSchema>;
+export type JobCreateInput = z.infer<typeof jobCreateSchema>;
+export type JobUpdateInput = z.infer<typeof jobUpdateSchema>;
 export type ProfileUpdateInput = z.infer<typeof profileUpdateSchema>;
 export type ArticleCreateInput = z.infer<typeof articleCreateSchema>;
 export type ArticleUpdateInput = z.infer<typeof articleUpdateSchema>;
@@ -189,6 +208,8 @@ export const schemas = {
   workshopUpdate: workshopUpdateSchema,
   newsCreate: newsCreateSchema,
   newsUpdate: newsUpdateSchema,
+  jobCreate: jobCreateSchema,
+  jobUpdate: jobUpdateSchema,
   profileUpdate: profileUpdateSchema,
   articleCreate: articleCreateSchema,
   articleUpdate: articleUpdateSchema,

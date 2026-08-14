@@ -142,6 +142,9 @@ export function Header() {
           <Link href="/news" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.news')}
           </Link>
+          <Link href="/jobs" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            {t('nav.jobs')}
+          </Link>
           <Link href="/articles" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.knowledgeBase')}
           </Link>
@@ -212,6 +215,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               {t('nav.news')}
+            </Link>
+            <Link
+              href="/jobs"
+              className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t('nav.jobs')}
             </Link>
             <Link
               href="/articles"

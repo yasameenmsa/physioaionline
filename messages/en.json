@@ -103,15 +103,16 @@
       "rights": "All rights reserved.",
       "madeWith": "Made with",
       "by": "by",
-        "links": {
-          "footer": {
-            "questions": "Questions",
-            "pricing": "Pricing",
-            "features": "Features",
-            "knowledgeBase": "Knowledge Base",
-            "courses": "Courses",
-            "news": "News"
-          },
+          "links": {
+            "footer": {
+              "questions": "Questions",
+              "pricing": "Pricing",
+              "features": "Features",
+              "knowledgeBase": "Knowledge Base",
+              "courses": "Courses",
+              "news": "News",
+              "jobs": "Jobs"
+            },
           "social": {
             "facebook": "Facebook",
             "x": "X",
@@ -140,6 +141,56 @@
       "backToNews": "Back to all news"
     }
   },
+  "jobs": {
+    "submitJob": "Post a Job",
+    "submitJobDesc": "Share a physiotherapy job opening with the community. Listings require admin approval before being published.",
+    "submitted": "Job submitted successfully! It will be published after admin approval.",
+    "failed": "Failed to submit job",
+    "requiredFields": "Please fill in all required fields",
+    "cancel": "Cancel",
+    "submitBtn": "Submit for Approval",
+    "list": {
+      "title": "Physiotherapy Jobs",
+      "description": "Browse physiotherapy job openings and opportunities",
+      "postJob": "Post a Job",
+      "all": "All",
+      "noJobs": "No jobs yet",
+      "noJobsDesc": "Job listings will appear here once published.",
+      "page": "Page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "detail": {
+      "back": "Back to Jobs",
+      "apply": "Apply",
+      "contact": "Contact"
+    },
+    "form": {
+      "title": "Job Title",
+      "titlePlaceholder": "e.g. Physical Therapist",
+      "company": "Company / Clinic",
+      "companyPlaceholder": "e.g. Al-Shifa Rehabilitation Center",
+      "location": "Location",
+      "locationPlaceholder": "e.g. Ramallah, Palestine",
+      "type": "Job Type",
+      "excerpt": "Short Summary (optional)",
+      "excerptPlaceholder": "Brief description for the card preview",
+      "description": "Full Description",
+      "descriptionPlaceholder": "Describe the role, responsibilities, requirements, and how to apply...",
+      "applyUrl": "Application Link",
+      "contactEmail": "Contact Email",
+      "tags": "Tags (comma separated)",
+      "tagsPlaceholder": "hospital, clinic, pediatric, rehab"
+    },
+    "type": {
+      "full-time": "Full Time",
+      "part-time": "Part Time",
+      "remote": "Remote",
+      "contract": "Contract",
+      "internship": "Internship"
+    }
+  },
   "workshops": {
     "title": "Workshops",
     "description": "Rich, interactive learning content with text, images, and more",
@@ -150,6 +201,7 @@
       "courses": "Courses",
       "workshops": "Workshops",
       "news": "News",
+      "jobs": "Jobs",
       "knowledgeBase": "Knowledge Base",
       "features": "Features",
       "sampleQuestions": "Sample Questions",
@@ -460,6 +512,10 @@
         "workshops": {
           "label": "Workshops",
           "description": "Interactive learning content with text, images, and more"
+        },
+        "jobs": {
+          "label": "Jobs",
+          "description": "Browse physiotherapy job openings and opportunities"
         }
       }
     },
@@ -475,6 +531,7 @@
       "courses": "Courses",
       "workshops": "Workshops",
       "news": "News",
+      "jobs": "Jobs",
       "questions": "Questions",
       "articles": "Articles",
       "reviewQueue": "Review Queue",
@@ -554,6 +611,7 @@
       "articles": "Articles",
       "review": "Review Queue",
       "news": "News",
+      "jobs": "Jobs",
       "courses": "Courses",
       "workshops": "Workshops",
       "prompts": "Prompts"
@@ -568,6 +626,7 @@
         "users": "Users",
         "reviewQueue": "Review Queue",
         "news": "News",
+        "jobs": "Jobs",
         "courses": "Courses",
         "workshops": "Workshops"
       },
@@ -575,8 +634,10 @@
   "recentNews": "Recent News",
   "recentCourses": "Recent Courses",
   "recentWorkshops": "Recent Workshops",
+  "recentJobs": "Recent Jobs",
   "noQuestions": "No questions yet.",
   "noWorkshops": "No workshops yet.",
+  "noJobs": "No jobs yet.",
   "addOne": "Add one",
   "edit": "Edit",
   "draft": "Draft",
@@ -680,6 +741,54 @@
       "publishImmediately": "Publish immediately",
       "draft": "Draft",
       "edit": "Edit"
+    },
+    "jobs": {
+      "title": "Jobs",
+      "total": "total",
+      "create": "Create",
+      "createTitle": "Create Job",
+      "editTitle": "Edit Job",
+      "noJobs": "No jobs yet",
+      "view": "View",
+      "edit": "Edit",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "deleteConfirm": "Delete this job listing?",
+      "deleteFailed": "Failed to delete",
+      "delete": "Delete",
+      "unpublish": "Unpublish",
+      "approve": "Approve",
+      "approvePublish": "Approve & Publish",
+      "publishFailed": "Failed to toggle publish status",
+      "draft": "Draft",
+      "requiredFields": "Title, company and description are required",
+      "failedToSave": "Failed to save job",
+      "titleLabel": "Job Title",
+      "titlePlaceholder": "e.g. Physical Therapist",
+      "companyLabel": "Company / Clinic",
+      "companyPlaceholder": "e.g. Al-Shifa Rehabilitation Center",
+      "locationLabel": "Location",
+      "locationPlaceholder": "e.g. Ramallah, Palestine",
+      "typeLabel": "Job Type",
+      "typeFullTime": "Full Time",
+      "typePartTime": "Part Time",
+      "typeRemote": "Remote",
+      "typeContract": "Contract",
+      "typeInternship": "Internship",
+      "excerptLabel": "Short Summary (optional)",
+      "excerptPlaceholder": "Brief description for the card preview",
+      "descriptionLabel": "Full Description",
+      "descriptionPlaceholder": "Describe the role, responsibilities, requirements, and how to apply...",
+      "applyUrlLabel": "Application Link",
+      "contactEmailLabel": "Contact Email",
+      "tagsLabel": "Tags (comma separated)",
+      "tagsPlaceholder": "hospital, clinic, pediatric, rehab",
+      "cancel": "Cancel",
+      "update": "Update",
+      "createBtn": "Create",
+      "publishImmediately": "Publish immediately"
     },
     "courses": {
       "title": "Courses",
