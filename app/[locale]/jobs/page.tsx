@@ -105,13 +105,13 @@ export default async function JobsPage({ searchParams, params }: PageProps) {
                 const j = job as any;
                 const label =
                   locale === 'ar'
-                    ? {
+                    ? ({
                         'full-time': 'دوام كامل',
                         'part-time': 'دوام جزئي',
                         remote: 'عن بُعد',
                         contract: 'عقد',
                         internship: 'تدريب',
-                      }[j.type] || typeLabels[j.type]
+                      } as Record<string, string>)[j.type] || typeLabels[j.type]
                     : typeLabels[j.type];
                 return (
                   <Link

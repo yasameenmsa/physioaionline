@@ -16,7 +16,7 @@ async function main() {
   const author = await User.findOne({ email: 'yasmeenawawdehm@gmail.com' }).lean();
   if (!author) throw new Error('author not found');
 
-  let category = await Category.findOne({ slug: 'artificial-intelligence' }).lean();
+  let category: any = await Category.findOne({ slug: 'artificial-intelligence' }).lean();
   if (!category) {
     category = await Category.create({
       name: 'الذكاء الاصطناعي',
