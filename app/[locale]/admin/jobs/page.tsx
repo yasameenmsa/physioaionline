@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Job from '@/models/Job';
-import { Eye, Calendar, Pencil, Trash2, MapPin } from 'lucide-react';
+import { Eye, Calendar, Pencil, Trash2, MapPin, Plus } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { PublishJobButton } from './PublishJobButton';
 import { DeleteJobButton } from './DeleteJobButton';
@@ -54,6 +54,13 @@ export default async function AdminJobsPage({ searchParams, params }: PageProps)
           <h2 className="text-xl font-semibold">{t('title')}</h2>
           <p className="text-sm text-muted-foreground">{total} {t('total')}</p>
         </div>
+        <Link
+          href="/admin/jobs/create"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          <Plus className="h-4 w-4" />
+          {t('create')}
+        </Link>
       </div>
 
       <div className="rounded-lg border">
@@ -96,6 +103,13 @@ export default async function AdminJobsPage({ searchParams, params }: PageProps)
                   <PublishJobButton slug={job.slug} currentlyPublished={job.published} />
                   <Link href={`/jobs/${job.slug}`} className="text-xs text-primary hover:underline">
                     {t('view')}
+                  </Link>
+                  <Link
+                    href={`/admin/jobs/${job.slug}/edit`}
+                    className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+                  >
+                    <Pencil className="h-3 w-3" />
+                    {t('edit')}
                   </Link>
                   <DeleteJobButton slug={job.slug} />
                 </div>
