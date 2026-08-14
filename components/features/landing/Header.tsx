@@ -132,7 +132,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex lg:items-center lg:gap-6">
+        <nav className="hidden xl:flex xl:items-center xl:gap-6">
           <Link href="/courses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             {t('nav.courses')}
           </Link>
@@ -159,7 +159,7 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden lg:flex lg:items-center lg:gap-2">
+        <div className="hidden xl:flex xl:items-center xl:gap-2">
           <ThemeToggle />
           <LanguageSwitcher />
           {isLoggedIn ? (
@@ -183,7 +183,7 @@ export function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-foreground"
+          className="xl:hidden inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-foreground"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           <Menu className="h-6 w-6" />
@@ -193,7 +193,7 @@ export function Header() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t bg-background">
+        <div className="xl:hidden border-t bg-background">
           <nav className="container mx-auto space-y-1 px-4 py-4 sm:px-6 lg:px-8">
             <Link
               href="/courses"
