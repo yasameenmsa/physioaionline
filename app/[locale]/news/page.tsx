@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import dynamic from 'next/dynamic';
 import { connectDB } from '@/lib/db';
+import { auth } from '@/lib/auth';
 import News from '@/models/News';
 import { Rss, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -22,6 +23,7 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
   const limit = 12;
   const skip = (currentPage - 1) * limit;
   const t = await getTranslations({ locale, namespace: 'news.list' });
+  const session = await auth();
 
   await connectDB();
 
@@ -53,12 +55,14 @@ export default async function NewsPage({ searchParams, params }: PageProps) {
             <Rss className="h-6 w-6 text-primary" />
             <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
           </div>
-          <Link
-            href="/news/create"
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
-          >
-            Submit News
-          </Link>
+          {session?.user && (
+            <Link
+              href="/news/create"
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+            >
+              Submit News
+            </Link>
+          )}
         </div>
         <p className="text-muted-foreground mb-8">{t('description')}</p>
 
