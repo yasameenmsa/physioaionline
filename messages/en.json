@@ -512,6 +512,10 @@
         "workshops": {
           "label": "Workshops",
           "description": "Interactive learning content with text, images, and more"
+        },
+        "jobs": {
+          "label": "Jobs",
+          "description": "Browse physiotherapy job openings and opportunities"
         }
       }
     },
