@@ -125,7 +125,7 @@ export default async function JobsPage({ searchParams, params }: PageProps) {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
                           {(j.logoUrl || j.imageUrl) && (
                             <img
                               src={j.logoUrl || j.imageUrl}
@@ -133,13 +133,13 @@ export default async function JobsPage({ searchParams, params }: PageProps) {
                               className="h-9 w-9 rounded-md object-cover shrink-0"
                             />
                           )}
-                          <h3 className="font-semibold truncate group-hover:text-primary transition-colors">
+                          <h3 className="font-semibold truncate min-w-0 group-hover:text-primary transition-colors">
                             {j.title}
                           </h3>
                         </div>
                         <p className="text-sm text-muted-foreground mt-1 truncate">{j.company}</p>
                       </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground shrink-0">
+                      <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground shrink-0 whitespace-nowrap">
                         {label}
                       </span>
                     </div>
