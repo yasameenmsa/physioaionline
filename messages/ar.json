@@ -621,6 +621,7 @@
         "users": "المستخدمون",
         "reviewQueue": "قائمة المراجعة",
         "news": "الأخبار",
+        "jobs": "الوظائف",
         "courses": "الكورسات",
         "workshops": "ورش العمل"
       },
@@ -628,8 +629,10 @@
       "recentNews": "آخر الأخبار",
       "recentCourses": "آخر الكورسات",
       "recentWorkshops": "آخر ورش العمل",
+      "recentJobs": "آخر الوظائف",
       "noQuestions": "لا توجد أسئلة بعد.",
       "noWorkshops": "لا توجد ورش عمل بعد.",
+      "noJobs": "لا توجد وظائف بعد.",
       "addOne": "أضف واحداً",
       "edit": "تعديل",
       "draft": "مسودة",

@@ -622,6 +622,7 @@
         "users": "Users",
         "reviewQueue": "Review Queue",
         "news": "News",
+        "jobs": "Jobs",
         "courses": "Courses",
         "workshops": "Workshops"
       },
@@ -629,8 +630,10 @@
   "recentNews": "Recent News",
   "recentCourses": "Recent Courses",
   "recentWorkshops": "Recent Workshops",
+  "recentJobs": "Recent Jobs",
   "noQuestions": "No questions yet.",
   "noWorkshops": "No workshops yet.",
+  "noJobs": "No jobs yet.",
   "addOne": "Add one",
   "edit": "Edit",
   "draft": "Draft",
