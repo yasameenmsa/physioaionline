@@ -20,6 +20,7 @@ const publicPrefixes = [
   '/questions',
   '/courses',
   '/news',
+  '/jobs',
   '/_next/static',
   '/_next/image',
   '/favicon.ico',

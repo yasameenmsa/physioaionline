@@ -103,15 +103,16 @@
       "rights": "All rights reserved.",
       "madeWith": "Made with",
       "by": "by",
-        "links": {
-          "footer": {
-            "questions": "Questions",
-            "pricing": "Pricing",
-            "features": "Features",
-            "knowledgeBase": "Knowledge Base",
-            "courses": "Courses",
-            "news": "News"
-          },
+          "links": {
+            "footer": {
+              "questions": "Questions",
+              "pricing": "Pricing",
+              "features": "Features",
+              "knowledgeBase": "Knowledge Base",
+              "courses": "Courses",
+              "news": "News",
+              "jobs": "Jobs"
+            },
           "social": {
             "facebook": "Facebook",
             "x": "X",
@@ -140,6 +141,56 @@
       "backToNews": "Back to all news"
     }
   },
+  "jobs": {
+    "submitJob": "Post a Job",
+    "submitJobDesc": "Share a physiotherapy job opening with the community. Listings require admin approval before being published.",
+    "submitted": "Job submitted successfully! It will be published after admin approval.",
+    "failed": "Failed to submit job",
+    "requiredFields": "Please fill in all required fields",
+    "cancel": "Cancel",
+    "submitBtn": "Submit for Approval",
+    "list": {
+      "title": "Physiotherapy Jobs",
+      "description": "Browse physiotherapy job openings and opportunities",
+      "postJob": "Post a Job",
+      "all": "All",
+      "noJobs": "No jobs yet",
+      "noJobsDesc": "Job listings will appear here once published.",
+      "page": "Page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "detail": {
+      "back": "Back to Jobs",
+      "apply": "Apply",
+      "contact": "Contact"
+    },
+    "form": {
+      "title": "Job Title",
+      "titlePlaceholder": "e.g. Physical Therapist",
+      "company": "Company / Clinic",
+      "companyPlaceholder": "e.g. Al-Shifa Rehabilitation Center",
+      "location": "Location",
+      "locationPlaceholder": "e.g. Ramallah, Palestine",
+      "type": "Job Type",
+      "excerpt": "Short Summary (optional)",
+      "excerptPlaceholder": "Brief description for the card preview",
+      "description": "Full Description",
+      "descriptionPlaceholder": "Describe the role, responsibilities, requirements, and how to apply...",
+      "applyUrl": "Application Link",
+      "contactEmail": "Contact Email",
+      "tags": "Tags (comma separated)",
+      "tagsPlaceholder": "hospital, clinic, pediatric, rehab"
+    },
+    "type": {
+      "full-time": "Full Time",
+      "part-time": "Part Time",
+      "remote": "Remote",
+      "contract": "Contract",
+      "internship": "Internship"
+    }
+  },
   "workshops": {
     "title": "Workshops",
     "description": "Rich, interactive learning content with text, images, and more",
@@ -150,6 +201,7 @@
       "courses": "Courses",
       "workshops": "Workshops",
       "news": "News",
+      "jobs": "Jobs",
       "knowledgeBase": "Knowledge Base",
       "features": "Features",
       "sampleQuestions": "Sample Questions",
@@ -475,6 +527,7 @@
       "courses": "Courses",
       "workshops": "Workshops",
       "news": "News",
+      "jobs": "Jobs",
       "questions": "Questions",
       "articles": "Articles",
       "reviewQueue": "Review Queue",
@@ -554,6 +607,7 @@
       "articles": "Articles",
       "review": "Review Queue",
       "news": "News",
+      "jobs": "Jobs",
       "courses": "Courses",
       "workshops": "Workshops",
       "prompts": "Prompts"

@@ -13,6 +13,7 @@ import '../models/Course';
 import '../models/Progress';
 import '../models/Purchase';
 import '../models/News';
+import '../models/Job';
 import '../models/Workshop';
 import '../models/WorkshopProgress';
 

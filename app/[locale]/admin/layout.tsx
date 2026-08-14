@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { LayoutDashboard, HelpCircle, BookOpen, ChevronLeft, GraduationCap, Rss, ScrollText, FileText } from 'lucide-react';
+import { LayoutDashboard, HelpCircle, BookOpen, ChevronLeft, GraduationCap, Rss, ScrollText, FileText, Briefcase } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 export default async function AdminLayout({
@@ -24,6 +24,7 @@ export default async function AdminLayout({
     { href: '/admin/articles', label: t('nav.articles'), icon: FileText },
     { href: '/admin/review', label: t('nav.review'), icon: BookOpen },
     { href: '/admin/news', label: t('nav.news'), icon: Rss },
+    { href: '/admin/jobs', label: t('nav.jobs'), icon: Briefcase },
     { href: '/admin/courses', label: t('nav.courses'), icon: GraduationCap },
     { href: '/admin/workshops', label: t('nav.workshops'), icon: BookOpen },
     { href: '/admin/prompts', label: t('nav.prompts'), icon: ScrollText },

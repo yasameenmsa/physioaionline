@@ -14,6 +14,7 @@ const footerLinks: Record<string, { labelKey: string; href: string }[]> = {
     { labelKey: 'footer.courses', href: '/courses' },
     { labelKey: 'footer.features', href: '#features' },
     { labelKey: 'footer.news', href: '/news' },
+    { labelKey: 'footer.jobs', href: '/jobs' },
   ],
 };
 

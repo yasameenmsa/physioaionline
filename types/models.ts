@@ -247,7 +247,28 @@ export interface INews extends Document {
   updatedAt: Date;
 }
 
+export interface IJob extends Document {
+  title: string;
+  slug: string;
+  company: string;
+  location: string;
+  type: 'full-time' | 'part-time' | 'remote' | 'contract' | 'internship';
+  description: string;
+  excerpt: string;
+  imageUrl?: string;
+  applyUrl?: string;
+  contactEmail?: string;
+  author: Types.ObjectId;
+  published: boolean;
+  tags: string[];
+  viewCount: number;
+  publishedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export type CourseModel = Model<ICourse>;
 export type ProgressModel = Model<IProgress>;
 export type PurchaseModel = Model<IPurchase>;
 export type NewsModel = Model<INews>;
+export type JobModel = Model<IJob>;
