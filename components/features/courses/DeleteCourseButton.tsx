@@ -5,7 +5,13 @@ import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-export function DeleteCourseButton({ slug }: { slug: string }) {
+export function DeleteCourseButton({
+  slug,
+  redirectTo,
+}: {
+  slug: string;
+  redirectTo?: string;
+}) {
   const router = useRouter();
   const t = useTranslations('courses.delete');
   const [deleting, setDeleting] = useState(false);
@@ -19,8 +25,12 @@ export function DeleteCourseButton({ slug }: { slug: string }) {
       const res = await fetch(`/api/courses/${slug}`, { method: 'DELETE' });
       const json = await res.json();
       if (!json.success) throw new Error(json.error);
-      router.push('/admin/courses');
-      router.refresh();
+      if (redirectTo) {
+        router.push(redirectTo);
+        router.refresh();
+      } else {
+        router.refresh();
+      }
     } catch (err: any) {
       alert(t('failed'));
     } finally {

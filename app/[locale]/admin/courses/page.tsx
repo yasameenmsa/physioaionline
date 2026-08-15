@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Course from '@/models/Course';
 import { GraduationCap, Eye, DollarSign, Pencil } from 'lucide-react';
+import { DeleteCourseButton } from '@/components/features/courses/DeleteCourseButton';
 
 interface PageProps {
   searchParams: Promise<{ page?: string }>;
@@ -89,6 +90,7 @@ export default async function AdminCoursesPage({ searchParams, params }: PagePro
                       <Pencil className="h-3 w-3" />
                       {t('edit')}
                     </Link>
+                    <DeleteCourseButton slug={c.slug} />
                   </div>
                 </div>
               );
