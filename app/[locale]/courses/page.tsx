@@ -7,6 +7,7 @@ import Course from '@/models/Course';
 import { Plus, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CourseCard } from '@/components/features/courses/CourseCard';
+import { DeleteCourseButton } from '@/components/features/courses/DeleteCourseButton';
 
 const catKey: Record<string, string> = {
   'Assessment & Examination': 'assessment',
@@ -35,6 +36,7 @@ export default async function CoursesPage({
 }) {
   const params = await searchParams;
   const session = await auth();
+  const isAdmin = session?.user?.role === 'admin';
   const t = await getTranslations('courses.list');
   const tc = await getTranslations('courses.categories');
   await connectDB();
@@ -49,6 +51,7 @@ export default async function CoursesPage({
   if (category) filter.category = category;
   if (level) filter.level = level;
   if (search) filter.title = { $regex: escapeRegex(search), $options: 'i' };
+  filter.published = true;
 
   const skip = (page - 1) * limit;
   const [courses, total] = await Promise.all([
@@ -154,7 +157,14 @@ export default async function CoursesPage({
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {mapped.map((c: any) => (
-                <CourseCard key={c._id} course={c} />
+                <div key={c._id} className="relative">
+                  <CourseCard course={c} />
+                  {isAdmin && (
+                    <div className="absolute bottom-2 ltr:right-2 rtl:left-2 z-10 bg-background/90 rounded-md border shadow-sm">
+                      <DeleteCourseButton slug={c.slug} />
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 

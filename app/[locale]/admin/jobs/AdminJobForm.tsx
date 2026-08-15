@@ -32,6 +32,7 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
   const router = useRouter();
   const t = useTranslations('admin.jobs');
   const [loading, setLoading] = useState(false);
+  const [uploadingField, setUploadingField] = useState<string | null>(null);
   const [form, setForm] = useState({
     title: initialData?.title || '',
     company: initialData?.company || '',
@@ -46,6 +47,31 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
     tags: initialData?.tags?.join(', ') || '',
     published: initialData?.published || false,
   });
+
+  async function handleImageUpload(
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: 'logoUrl' | 'imageUrl'
+  ) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!/^image\/(jpeg|png|gif|webp)$/.test(file.type)) {
+      alert(t('uploadFailed'));
+      return;
+    }
+    setUploadingField(field);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error);
+      setForm((f) => ({ ...f, [field]: json.data.url }));
+    } catch (err: any) {
+      alert(t('uploadFailed'));
+    } finally {
+      setUploadingField(null);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -172,12 +198,27 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="logoUrl">{t('logoUrlLabel')}</Label>
-            <Input
-              id="logoUrl"
-              value={form.logoUrl}
-              onChange={(e) => setForm((f) => ({ ...f, logoUrl: e.target.value }))}
-              placeholder="https://.../logo.png"
-            />
+            <div className="flex gap-2">
+              <Input
+                id="logoUrl"
+                value={form.logoUrl}
+                onChange={(e) => setForm((f) => ({ ...f, logoUrl: e.target.value }))}
+                placeholder="https://.../logo.png"
+                className="flex-1"
+              />
+              <label
+                className="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer disabled:opacity-50 shrink-0"
+              >
+                {uploadingField === 'logoUrl' ? t('uploading') : t('uploadImage')}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                  className="hidden"
+                  disabled={uploadingField !== null}
+                  onChange={(e) => handleImageUpload(e, 'logoUrl')}
+                />
+              </label>
+            </div>
             {form.logoUrl && (
               <img
                 src={form.logoUrl}
@@ -188,12 +229,27 @@ export function AdminJobForm({ initialData }: AdminJobFormProps) {
           </div>
           <div className="space-y-2">
             <Label htmlFor="imageUrl">{t('imageUrlLabel')}</Label>
-            <Input
-              id="imageUrl"
-              value={form.imageUrl}
-              onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
-              placeholder="https://.../poster.png"
-            />
+            <div className="flex gap-2">
+              <Input
+                id="imageUrl"
+                value={form.imageUrl}
+                onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
+                placeholder="https://.../poster.png"
+                className="flex-1"
+              />
+              <label
+                className="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer disabled:opacity-50 shrink-0"
+              >
+                {uploadingField === 'imageUrl' ? t('uploading') : t('uploadImage')}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                  className="hidden"
+                  disabled={uploadingField !== null}
+                  onChange={(e) => handleImageUpload(e, 'imageUrl')}
+                />
+              </label>
+            </div>
             {form.imageUrl && (
               <img
                 src={form.imageUrl}

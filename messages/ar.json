@@ -808,7 +808,10 @@
       "createBtn": "إنشاء",
       "publishImmediately": "نشر فوراً",
       "logoUrlLabel": "صورة اللوغو (شعار المركز)",
-      "imageUrlLabel": "صورة التفاصيل (الإعلان)"
+      "imageUrlLabel": "صورة التفاصيل (الإعلان)",
+      "uploadImage": "رفع صورة",
+      "uploading": "جارٍ الرفع...",
+      "uploadFailed": "فشل رفع الصورة"
     },
     "courses": {
       "title": "الكورسات",
@@ -1040,6 +1043,11 @@
       "lessons": "دروس",
       "sections": "أقسام",
       "free": "مجاني"
+    },
+    "delete": {
+      "label": "حذف",
+      "confirm": "هل أنت متأكد من حذف هذا الكورس؟",
+      "failed": "فشل حذف الكورس"
     }
   }
 }

@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
 import Course from '@/models/Course';
-import Purchase from '@/models/Purchase';
 import Progress from '@/models/Progress';
 import { CourseViewClient } from './CourseViewClient';
 
@@ -30,17 +29,7 @@ export default async function CourseViewPage({ params }: PageProps) {
     if (!isInstructor && !isAdmin) notFound();
   }
 
-  let hasAccess = false;
-  if (c.price === 0) {
-    hasAccess = true;
-  } else if (session?.user) {
-    const purchase = await Purchase.findOne({
-      userId: session.user.id,
-      courseId: c._id,
-      status: 'completed',
-    });
-    hasAccess = !!purchase;
-  }
+  let hasAccess = true;
 
   let progressData = null;
   if (session?.user) {

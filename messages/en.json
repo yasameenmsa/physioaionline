@@ -808,7 +808,10 @@
       "createBtn": "Create",
       "publishImmediately": "Publish immediately",
       "logoUrlLabel": "Logo image (center logo)",
-      "imageUrlLabel": "Details image (poster)"
+      "imageUrlLabel": "Details image (poster)",
+      "uploadImage": "Upload image",
+      "uploading": "Uploading...",
+      "uploadFailed": "Failed to upload image"
     },
     "courses": {
       "title": "Courses",
@@ -1040,6 +1043,11 @@
       "lessons": "lessons",
       "sections": "sections",
       "free": "Free"
+    },
+    "delete": {
+      "label": "Delete",
+      "confirm": "Are you sure you want to delete this course?",
+      "failed": "Failed to delete course"
     }
   }
 }
