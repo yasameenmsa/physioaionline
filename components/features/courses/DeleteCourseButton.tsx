@@ -19,6 +19,7 @@ export function DeleteCourseButton({ slug }: { slug: string }) {
       const res = await fetch(`/api/courses/${slug}`, { method: 'DELETE' });
       const json = await res.json();
       if (!json.success) throw new Error(json.error);
+      router.push('/admin/courses');
       router.refresh();
     } catch (err: any) {
       alert(t('failed'));

@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Course from '@/models/Course';
 import { CourseForm } from '@/components/features/courses/CourseForm';
+import { DeleteCourseButton } from '@/components/features/courses/DeleteCourseButton';
 
 interface PageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -26,7 +27,10 @@ export default async function AdminEditCoursePage({ params }: PageProps) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-6">{t('editTitle') || 'Edit Course'}</h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-semibold">{t('editTitle') || 'Edit Course'}</h2>
+        <DeleteCourseButton slug={c.slug} />
+      </div>
       <CourseForm
         initialData={{
           slug: c.slug,
