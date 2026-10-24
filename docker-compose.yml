@@ -1,0 +1,78 @@
+networks:
+  proxy:
+    name: proxy
+    external: true
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+  physioai-internal:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+    ipam:
+      config:
+      - subnet: 10.58.0.0/24
+volumes:
+  physioai-storage:
+secrets:
+  env_production:
+    file: .env.production
+services:
+  physioai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      secrets:
+      - source: env_production
+        target: env_production
+    image: local/node-security/physioai:22.23.4-20261024
+    container_name: physioai
+    restart: unless-stopped
+    env_file:
+    - .env.production
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      AUTH_TRUST_HOST: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+    healthcheck:
+      test:
+      - CMD
+      - node
+      - -e
+      - fetch('http://127.0.0.1:3000/api/health').then((res)=>process.exit(res.ok?0:1)).catch(()=>process.exit(1))
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    volumes:
+    - physioai-storage:/app/storage
+    networks:
+    - proxy
+    - physioai-internal
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: proxy
+      traefik.http.middlewares.physioai-www-redirect.redirectregex.regex: ^https?://www\.physioai\.online/?(.*)
+      traefik.http.middlewares.physioai-www-redirect.redirectregex.replacement: https://physioai.online/$$1
+      traefik.http.middlewares.physioai-www-redirect.redirectregex.permanent: 'true'
+      traefik.http.routers.physioai-http.entrypoints: http
+      traefik.http.routers.physioai-http.rule: Host(`physioai.online`)
+      traefik.http.routers.physioai-http.middlewares: https-redirectscheme@file
+      traefik.http.routers.physioai-http.service: physioai
+      traefik.http.routers.physioai-https.entrypoints: https
+      traefik.http.routers.physioai-https.rule: Host(`physioai.online`)
+      traefik.http.routers.physioai-https.tls: 'true'
+      traefik.http.routers.physioai-https.tls.certresolver: le
+      traefik.http.routers.physioai-https.service: physioai
+      traefik.http.routers.physioai-www-http.entrypoints: http
+      traefik.http.routers.physioai-www-http.rule: Host(`www.physioai.online`)
+      traefik.http.routers.physioai-www-http.middlewares: physioai-www-redirect
+      traefik.http.routers.physioai-www-http.service: physioai
+      traefik.http.routers.physioai-www-https.entrypoints: https
+      traefik.http.routers.physioai-www-https.rule: Host(`www.physioai.online`)
+      traefik.http.routers.physioai-www-https.middlewares: physioai-www-redirect
+      traefik.http.routers.physioai-www-https.tls: 'true'
+      traefik.http.routers.physioai-www-https.tls.certresolver: le
+      traefik.http.routers.physioai-www-https.service: physioai
+      traefik.http.services.physioai.loadbalancer.server.port: '3000'
